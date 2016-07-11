@@ -493,9 +493,10 @@ public class Engine {
             this.classLoader = createClassLoader();
             this.userClassLoader = null;
 
+            // TODO remove usage of jul
             String loggerFacadeClass = System.getProperty(
                     "org.restlet.engine.loggerFacadeClass",
-                    "org.restlet.engine.log.LoggerFacade");
+                    "org.restlet.engine.log.Slf4jLoggerFacade");
             try {
                 this.loggerFacade = (LoggerFacade) getClassLoader().loadClass(
                         loggerFacadeClass).newInstance();
