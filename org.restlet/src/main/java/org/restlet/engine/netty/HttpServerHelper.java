@@ -24,9 +24,6 @@
 
 package org.restlet.engine.netty;
 
-import java.io.IOException;
-
-import org.reactivestreams.Processor;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import org.restlet.Request;
@@ -37,12 +34,8 @@ import org.restlet.data.MediaType;
 import org.restlet.data.Protocol;
 import org.restlet.engine.Engine;
 
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.http.HttpContent;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponse;
-import io.netty.handler.codec.http.HttpUtil;
-import io.netty.handler.codec.http.LastHttpContent;
 
 /**
  * Netty HTTP server connector.
@@ -51,82 +44,6 @@ import io.netty.handler.codec.http.LastHttpContent;
  * @author Jerome Louvel
  */
 public class HttpServerHelper extends NettyServerHelper {
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param server
-	 *            The server to help.
-	 */
-	public HttpServerHelper(Server server) {
-		super(server);
-		getProtocols().add(Protocol.HTTP);
-
-		setProcessor(new Processor<HttpRequest, HttpResponse>() {
-
-			@Override
-			public void subscribe(Subscriber<? super HttpResponse> s) {
-				System.out.println("subscribe: " + s);
-			}
-
-			@Override
-			public void onSubscribe(Subscription s) {
-				System.out.println("onSubscribe: " + s);
-				s.request(Long.MAX_VALUE);
-			}
-
-			@Override
-			public void onNext(HttpRequest request) {
-				System.out.println("onNext: " + request);
-
-				try {
-					if (HttpUtil.is100ContinueExpected(request)) {
-						HttpUtil.set100ContinueExpected(request, true);
-					}
-
-					call = new NettyServerCall(getHelped(), null, request);
-					handle(call);
-					// appendDecoderResult(t);
-
-					// } else if (msg instanceof HttpContent) {
-					// HttpContent httpContent = (HttpContent) msg;
-					// ctx.channel().config().setAutoRead(false);
-					//
-					// if (call != null) {
-					// call.onContent(httpContent);
-					// } else {
-					// throw new IOException(
-					// "Unexpected error, content arrived before call created");
-					// }
-					//
-					// if (msg instanceof LastHttpContent) {
-					// LastHttpContent trailer = (LastHttpContent) msg;
-					//
-					// if (!trailer.trailingHeaders().isEmpty()) {
-					// // TODO
-					// }
-					// }
-					// }
-				} catch (Throwable e) {
-					// TODO
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onError(Throwable t) {
-				System.out.println("onError: ");
-			}
-
-			@Override
-			public void onComplete() {
-				System.out.println("onComplete");
-			}
-		});
-
-	}
-
-	private volatile NettyServerCall call;
 
 	public static void main(String[] args) throws Exception {
 		Engine.getInstance().getRegisteredServers().add(0, new HttpServerHelper(null));
@@ -140,6 +57,90 @@ public class HttpServerHelper extends NettyServerHelper {
 		});
 
 		server.start();
+	}
+
+	private Subscriber<? super HttpResponse> subscriber;
+
+	private volatile NettyServerCall call;
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param server
+	 *            The server to help.
+	 */
+	public HttpServerHelper(Server server) {
+		super(server);
+		getProtocols().add(Protocol.HTTP);
+	}
+
+	public Subscriber<? super HttpResponse> getSubscriber() {
+		return subscriber;
+	}
+
+	@Override
+	public void onComplete() {
+		System.out.println("onComplete");
+	}
+
+	@Override
+	public void onError(Throwable t) {
+		System.out.println("onError: ");
+		t.printStackTrace();
+	}
+
+	@Override
+	public void onNext(HttpRequest request) {
+		System.out.println("onNext: " + request);
+
+		try {
+			call = new NettyServerCall(getHelped(), getChannel(), request);
+			handle(call);
+
+			// if (HttpUtil.is100ContinueExpected(request)) {
+			// HttpUtil.set100ContinueExpected(request, true);
+			// }
+			//
+			// appendDecoderResult(t);
+			//
+			// } else if (msg instanceof HttpContent) {
+			// HttpContent httpContent = (HttpContent) msg;
+			// ctx.channel().config().setAutoRead(false);
+			//
+			// if (call != null) {
+			// call.onContent(httpContent);
+			// } else {
+			// throw new IOException(
+			// "Unexpected error, content arrived before call created");
+			// }
+			//
+			// if (msg instanceof LastHttpContent) {
+			// LastHttpContent trailer = (LastHttpContent) msg;
+			//
+			// if (!trailer.trailingHeaders().isEmpty()) {
+			// // TODO
+			// }
+			// }
+			// }
+		} catch (Throwable t) {
+			onError(t);
+		}
+	}
+
+	@Override
+	public void onSubscribe(Subscription s) {
+		System.out.println("onSubscribe: " + s);
+		s.request(Long.MAX_VALUE);
+	}
+
+	public void setSubscriber(Subscriber<? super HttpResponse> subscriber) {
+		this.subscriber = subscriber;
+	}
+
+	@Override
+	public void subscribe(Subscriber<? super HttpResponse> s) {
+		System.out.println("subscribe: " + s);
+		this.subscriber = s;
 	}
 
 }

@@ -51,7 +51,8 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
  * 
  * @author Jerome Louvel
  */
-public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpServerHelper {
+public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpServerHelper
+		implements Processor<HttpRequest, HttpResponse> {
 
 	private ServerBootstrap serverBootstrap;
 
@@ -137,8 +138,8 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 						pipeline.addLast("serverSubscriber", subscriber);
 						pipeline.addLast("serverPublisher", publisher);
 
-						getProcessor().subscribe(subscriber);
-						publisher.subscribe(getProcessor());
+						subscribe(subscriber);
+						publisher.subscribe(NettyServerHelper.this);
 					}
 				});
 
