@@ -69,6 +69,8 @@
         <reactive-streams.version>1.0.7-SNAPSHOT</reactive-streams.version>
         <osgi.version>4.0.0</osgi.version>
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+		<!-- log -->
+		<slf4j.version>1.7.21</slf4j.version>
         <!-- test dependencies -->
         <junit.version>4.12</junit.version>
         <!-- config -->
