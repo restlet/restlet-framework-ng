@@ -66,7 +66,7 @@
 		<jaxb.version>2.1</jaxb.version>
         <jodatime.version>2.9.4</jodatime.version>
         <netty.version>4.1.2.Final</netty.version>
-        <reactive-streams.version>1.0.6</reactive-streams.version>
+        <reactive-streams.version>1.0.7-SNAPSHOT</reactive-streams.version>
         <osgi.version>4.0.0</osgi.version>
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
         <!-- test dependencies -->
@@ -87,7 +87,6 @@
 		<module>org.restlet.ext.html</module>
 		<module>org.restlet.ext.jackson</module>
 		<module>org.restlet.ext.jaxb</module>
-        <module>org.restlet.ext.netty</module>
 		<module>org.restlet.ext.odata</module>
 		<module>org.restlet.ext.thymeleaf</module>
 		<module>org.restlet.ext.xml</module>

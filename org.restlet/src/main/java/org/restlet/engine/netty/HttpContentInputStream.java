@@ -22,10 +22,11 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.netty.internal;
+package org.restlet.engine.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import org.restlet.engine.io.IoUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,8 +34,6 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import org.restlet.engine.io.IoUtils;
 
 /**
  * 

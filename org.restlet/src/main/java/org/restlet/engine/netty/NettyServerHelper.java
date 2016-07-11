@@ -22,9 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.netty;
-
-import java.net.InetSocketAddress;
+package org.restlet.engine.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -33,9 +31,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
 import org.restlet.Server;
-import org.restlet.ext.netty.internal.HttpServerInitializer;
+
+import java.net.InetSocketAddress;
 
 /**
  * 

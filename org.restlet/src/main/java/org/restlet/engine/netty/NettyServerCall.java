@@ -22,23 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.netty.internal;
-
-import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.util.Map;
-import java.util.logging.Level;
-
-import org.restlet.Response;
-import org.restlet.Server;
-import org.restlet.data.Header;
-import org.restlet.engine.adapter.ServerCall;
-import org.restlet.representation.Representation;
-import org.restlet.util.Series;
+package org.restlet.engine.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -55,6 +39,21 @@ import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.handler.stream.ChunkedStream;
+import org.restlet.Response;
+import org.restlet.Server;
+import org.restlet.data.Header;
+import org.restlet.engine.adapter.ServerCall;
+import org.restlet.representation.Representation;
+import org.restlet.util.Series;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.Map;
+import java.util.logging.Level;
+
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
  * 
@@ -225,7 +224,7 @@ public class NettyServerCall extends ServerCall {
     }
 
     @Override
-    public void writeResponseHead(org.restlet.Response restletResponse)
+    public void writeResponseHead(Response restletResponse)
             throws IOException {
         setNettyResponse(new DefaultHttpResponse(HTTP_1_1,
                 new HttpResponseStatus(getStatusCode(), getReasonPhrase())));
