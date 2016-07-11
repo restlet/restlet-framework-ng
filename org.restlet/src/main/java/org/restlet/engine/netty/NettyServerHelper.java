@@ -24,102 +24,128 @@
 
 package org.restlet.engine.netty;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
+import java.net.InetSocketAddress;
+
+import org.reactivestreams.Processor;
 import org.restlet.Server;
 
-import java.net.InetSocketAddress;
+import com.typesafe.netty.HandlerPublisher;
+import com.typesafe.netty.HandlerSubscriber;
+import com.typesafe.netty.http.HttpStreamsServerHandler;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 
 /**
  * 
  * @author Jerome Louvel
  */
-public abstract class NettyServerHelper extends
-        org.restlet.engine.adapter.HttpServerHelper {
+public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpServerHelper {
 
-    /**
-     * Constructor.
-     * 
-     * @param server
-     *            The server to help.
-     */
-    public NettyServerHelper(Server server) {
-        super(server);
-    }
+	private ServerBootstrap serverBootstrap;
 
-    private ServerBootstrap serverBootstrap;
+	private Channel channel;
 
-    private Channel channel;
+	private EventLoopGroup bossGroup;
 
-    protected Channel getChannel() {
-        return channel;
-    }
+	private EventLoopGroup workerGroup;
 
-    protected void setChannel(Channel channel) {
-        this.channel = channel;
-    }
+	/**
+	 * Constructor.
+	 * 
+	 * @param server
+	 *            The server to help.
+	 */
+	public NettyServerHelper(Server server) {
+		super(server);
+	}
 
-    protected void setServerBootstrap(ServerBootstrap serverBootstrap) {
-        this.serverBootstrap = serverBootstrap;
-    }
+	protected EventLoopGroup getBossGroup() {
+		return bossGroup;
+	}
 
-    protected ServerBootstrap getServerBootstrap() {
-        return serverBootstrap;
-    }
+	protected Channel getChannel() {
+		return channel;
+	}
 
-    private NioEventLoopGroup bossGroup;
+	protected ServerBootstrap getServerBootstrap() {
+		return serverBootstrap;
+	}
 
-    protected NioEventLoopGroup getBossGroup() {
-        return bossGroup;
-    }
+	protected EventLoopGroup getWorkerGroup() {
+		return workerGroup;
+	}
 
-    protected void setBossGroup(NioEventLoopGroup bossGroup) {
-        this.bossGroup = bossGroup;
-    }
+	protected void setBossGroup(EventLoopGroup eventGroup) {
+		this.bossGroup = eventGroup;
+	}
 
-    protected NioEventLoopGroup getWorkerGroup() {
-        return workerGroup;
-    }
+	protected void setChannel(Channel channel) {
+		this.channel = channel;
+	}
 
-    protected void setWorkerGroup(NioEventLoopGroup workerGroup) {
-        this.workerGroup = workerGroup;
-    }
+	protected void setServerBootstrap(ServerBootstrap serverBootstrap) {
+		this.serverBootstrap = serverBootstrap;
+	}
 
-    private NioEventLoopGroup workerGroup;
+	protected void setWorkerGroup(EventLoopGroup workerGroup) {
+		this.workerGroup = workerGroup;
+	}
 
-    @Override
-    public void start() throws Exception {
-        super.start();
-        setBossGroup(new NioEventLoopGroup(1));
-        setWorkerGroup(new NioEventLoopGroup());
-        setServerBootstrap(new ServerBootstrap());
-        getServerBootstrap().option(ChannelOption.SO_BACKLOG, 1024);
-        getServerBootstrap().group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .handler(new LoggingHandler(LogLevel.INFO))
-                .childHandler(new HttpServerInitializer(this, null));
-        setChannel(serverBootstrap.bind(getHelped().getPort()).sync().channel());
-        setEphemeralPort(((InetSocketAddress) getChannel().localAddress())
-                .getPort());
-        getLogger().info(
-                "Starting the Netty " + getProtocols() + " server on port "
-                        + getHelped().getPort());
-    }
+	@Override
+	public void start() throws Exception {
+		super.start();
 
-    @Override
-    public void stop() throws Exception {
-        getLogger().info(
-                "Stopping the Netty " + getProtocols() + " server on port "
-                        + getHelped().getPort());
-        getChannel().close().sync();
-        getBossGroup().shutdownGracefully();
-        getWorkerGroup().shutdownGracefully();
-        super.stop();
-    }
+		setBossGroup(new NioEventLoopGroup());
+		setWorkerGroup(new NioEventLoopGroup());
+		setServerBootstrap(new ServerBootstrap());
+		getServerBootstrap().option(ChannelOption.SO_BACKLOG, 1024);
+		getServerBootstrap().group(getBossGroup(), getWorkerGroup()).channel(NioServerSocketChannel.class)
+				.childOption(ChannelOption.AUTO_READ, false).localAddress(getHelped().getPort())
+				.childHandler(new ChannelInitializer<SocketChannel>() {
+					@Override
+					protected void initChannel(SocketChannel ch) throws Exception {
+						ChannelPipeline pipeline = ch.pipeline();
+
+						pipeline.addLast(new HttpRequestDecoder(), new HttpResponseEncoder())
+								.addLast("serverStreamsHandler", new HttpStreamsServerHandler());
+
+						HandlerSubscriber<HttpResponse> subscriber = new HandlerSubscriber<>(ch.eventLoop(), 2, 4);
+						HandlerPublisher<HttpRequest> publisher = new HandlerPublisher<>(ch.eventLoop(),
+								HttpRequest.class);
+
+						pipeline.addLast("serverSubscriber", subscriber);
+						pipeline.addLast("serverPublisher", publisher);
+
+//						Processor<HttpRequest, HttpResponse> processor = handler.call();
+//						processor.subscribe(subscriber);
+//						publisher.subscribe(processor);
+					}
+				});
+
+		setChannel(getServerBootstrap().bind().sync().channel());
+		setEphemeralPort(((InetSocketAddress) getChannel().localAddress()).getPort());
+		getLogger().info("Starting the Netty " + getProtocols() + " server on port " + getHelped().getPort());
+	}
+
+	@Override
+	public void stop() throws Exception {
+		getLogger().info("Stopping the Netty " + getProtocols() + " server on port " + getHelped().getPort());
+		getChannel().close().sync();
+		getBossGroup().shutdownGracefully();
+		getWorkerGroup().shutdownGracefully();
+		super.stop();
+	}
 
 }
