@@ -61,6 +61,8 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 
 	private EventLoopGroup workerGroup;
 
+	private Processor<HttpRequest, HttpResponse> processor;
+
 	/**
 	 * Constructor.
 	 * 
@@ -79,6 +81,10 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 		return channel;
 	}
 
+	public Processor<HttpRequest, HttpResponse> getProcessor() {
+		return processor;
+	}
+
 	protected ServerBootstrap getServerBootstrap() {
 		return serverBootstrap;
 	}
@@ -95,6 +101,10 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 		this.channel = channel;
 	}
 
+	public void setProcessor(Processor<HttpRequest, HttpResponse> processor) {
+		this.processor = processor;
+	}
+
 	protected void setServerBootstrap(ServerBootstrap serverBootstrap) {
 		this.serverBootstrap = serverBootstrap;
 	}
@@ -106,7 +116,6 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 	@Override
 	public void start() throws Exception {
 		super.start();
-
 		setBossGroup(new NioEventLoopGroup());
 		setWorkerGroup(new NioEventLoopGroup());
 		setServerBootstrap(new ServerBootstrap());
@@ -128,9 +137,8 @@ public abstract class NettyServerHelper extends org.restlet.engine.adapter.HttpS
 						pipeline.addLast("serverSubscriber", subscriber);
 						pipeline.addLast("serverPublisher", publisher);
 
-//						Processor<HttpRequest, HttpResponse> processor = handler.call();
-//						processor.subscribe(subscriber);
-//						publisher.subscribe(processor);
+						getProcessor().subscribe(subscriber);
+						publisher.subscribe(getProcessor());
 					}
 				});
 
