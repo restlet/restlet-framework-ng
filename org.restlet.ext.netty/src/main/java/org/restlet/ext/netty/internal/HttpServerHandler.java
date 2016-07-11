@@ -29,18 +29,18 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 import java.io.IOException;
 
+import org.restlet.ext.netty.NettyServerHelper;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.DecoderResult;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpContent;
-import io.netty.handler.codec.http.HttpHeaderUtil;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpUtil;
 import io.netty.handler.codec.http.LastHttpContent;
-
-import org.restlet.ext.netty.NettyServerHelper;
 
 /**
  * 
@@ -80,7 +80,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
             if (msg instanceof HttpRequest) {
                 HttpRequest request = (HttpRequest) msg;
 
-                if (HttpHeaderUtil.is100ContinueExpected(request)) {
+                if (HttpUtil.is100ContinueExpected(request)) {
                     send100Continue(ctx);
                 }
 
