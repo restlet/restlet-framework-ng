@@ -24,10 +24,26 @@
 
 package org.restlet.engine.netty;
 
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.Map;
+import java.util.logging.Level;
+
+import org.restlet.Response;
+import org.restlet.Server;
+import org.restlet.data.Header;
+import org.restlet.engine.adapter.ServerCall;
+import org.restlet.representation.Representation;
+import org.restlet.util.Series;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultHttpResponse;
 import io.netty.handler.codec.http.HttpChunkedInput;
 import io.netty.handler.codec.http.HttpContent;
@@ -39,20 +55,6 @@ import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.handler.stream.ChunkedStream;
-import org.restlet.Response;
-import org.restlet.Server;
-import org.restlet.data.Header;
-import org.restlet.engine.adapter.ServerCall;
-import org.restlet.representation.Representation;
-import org.restlet.util.Series;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.util.Map;
-
-import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
  * 
@@ -60,195 +62,182 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  */
 public class NettyServerCall extends ServerCall {
 
-    private final ChannelHandlerContext nettyContext;
+	private final Channel nettyChannel;
 
-    private volatile HttpContentInputStream nettyEntityStream;
+	private volatile HttpContentInputStream nettyEntityStream;
 
-    private final HttpRequest nettyRequest;
+	private final HttpRequest nettyRequest;
 
-    private volatile HttpResponse nettyResponse;
+	private volatile HttpResponse nettyResponse;
 
-    /** Indicates if the request headers were parsed and added. */
-    private volatile boolean requestHeadersAdded;
+	/** Indicates if the request headers were parsed and added. */
+	private volatile boolean requestHeadersAdded;
 
-    public NettyServerCall(Server server, ChannelHandlerContext nettyContext,
-            HttpRequest httpRequest) {
-        super(server);
-        this.nettyContext = nettyContext;
-        this.nettyRequest = httpRequest;
-        this.nettyResponse = null;
-        this.requestHeadersAdded = false;
-    }
+	public NettyServerCall(Server server, Channel channel, HttpRequest httpRequest) {
+		super(server);
+		this.nettyChannel = channel;
+		this.nettyRequest = httpRequest;
+		this.nettyResponse = null;
+		this.requestHeadersAdded = false;
+	}
 
-    @Override
-    public boolean abort() {
-        try {
-            getNettyContext().close().sync();
-            return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+	@Override
+	public boolean abort() {
+		try {
+			getNettyChannel().close().sync();
+			return true;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-    @Override
-    public void complete() {
-        getNettyContext().flush();
-    }
+	@Override
+	public void complete() {
+		getNettyChannel().flush();
+	}
 
-    @Override
-    public void flushBuffers() throws IOException {
-        getNettyContext().flush();
-    }
+	@Override
+	public void flushBuffers() throws IOException {
+		getNettyChannel().flush();
+	}
 
-    @Override
-    public String getClientAddress() {
-        InetSocketAddress isa = (InetSocketAddress) getNettyContext().channel()
-                .remoteAddress();
-        return isa.getHostString();
-    }
+	@Override
+	public String getClientAddress() {
+		InetSocketAddress isa = (InetSocketAddress) getNettyChannel().remoteAddress();
+		return isa.getHostString();
+	}
 
-    @Override
-    public int getClientPort() {
-        InetSocketAddress isa = (InetSocketAddress) getNettyContext().channel()
-                .remoteAddress();
-        return isa.getPort();
-    }
+	@Override
+	public int getClientPort() {
+		InetSocketAddress isa = (InetSocketAddress) getNettyChannel().remoteAddress();
+		return isa.getPort();
+	}
 
-    @Override
-    public String getMethod() {
-        return getNettyRequest().method().name();
-    }
+	@Override
+	public String getMethod() {
+		return getNettyRequest().method().name();
+	}
 
-    protected ChannelHandlerContext getNettyContext() {
-        return nettyContext;
-    }
+	protected Channel getNettyChannel() {
+		return nettyChannel;
+	}
 
-    protected HttpContentInputStream getNettyEntityStream() {
-        if (this.nettyEntityStream == null) {
-            this.nettyEntityStream = new HttpContentInputStream(
-                    getNettyContext());
-        }
+	protected HttpContentInputStream getNettyEntityStream() {
+		if (this.nettyEntityStream == null) {
+			// this.nettyEntityStream = new
+			// HttpContentInputStream(getNettyChannel());
+		}
 
-        return this.nettyEntityStream;
-    }
+		return this.nettyEntityStream;
+	}
 
-    protected HttpRequest getNettyRequest() {
-        return nettyRequest;
-    }
+	protected HttpRequest getNettyRequest() {
+		return nettyRequest;
+	}
 
-    protected HttpResponse getNettyResponse() {
-        return nettyResponse;
-    }
+	protected HttpResponse getNettyResponse() {
+		return nettyResponse;
+	}
 
-    @Override
-    public InputStream getRequestEntityStream(long size) {
-        return getNettyEntityStream();
-    }
+	@Override
+	public InputStream getRequestEntityStream(long size) {
+		return getNettyEntityStream();
+	}
 
-    @Override
-    public Series<Header> getRequestHeaders() {
-        final Series<Header> result = super.getRequestHeaders();
+	@Override
+	public Series<Header> getRequestHeaders() {
+		final Series<Header> result = super.getRequestHeaders();
 
-        if (!this.requestHeadersAdded) {
-            final Iterable<Map.Entry<String, String>> headers = getNettyRequest()
-                    .headers();
+		if (!this.requestHeadersAdded) {
+			final Iterable<Map.Entry<String, String>> headers = getNettyRequest().headers();
 
-            for (Map.Entry<String, String> header : headers) {
-                result.add(header.getKey(), header.getValue());
-            }
+			for (Map.Entry<String, String> header : headers) {
+				result.add(header.getKey(), header.getValue());
+			}
 
-            this.requestHeadersAdded = true;
-        }
+			this.requestHeadersAdded = true;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public InputStream getRequestHeadStream() {
-        return null;
-    }
+	@Override
+	public InputStream getRequestHeadStream() {
+		return null;
+	}
 
-    @Override
-    public String getRequestUri() {
-        return getNettyRequest().uri();
-    }
+	@Override
+	public String getRequestUri() {
+		return getNettyRequest().uri();
+	}
 
-    @Override
-    public OutputStream getResponseEntityStream() {
-        return null;
-    }
+	@Override
+	public OutputStream getResponseEntityStream() {
+		return null;
+	}
 
-    @Override
-    public String getVersion() {
-        String result = null;
-        final int index = getNettyRequest().protocolVersion().text()
-                .indexOf('/');
+	@Override
+	public String getVersion() {
+		String result = null;
+		final int index = getNettyRequest().protocolVersion().text().indexOf('/');
 
-        if (index != -1) {
-            result = getNettyRequest().protocolVersion().text()
-                    .substring(index + 1);
-        }
+		if (index != -1) {
+			result = getNettyRequest().protocolVersion().text().substring(index + 1);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public void onContent(HttpContent httpContent) throws IOException {
-        ByteBuf content = httpContent.content();
+	public void onContent(HttpContent httpContent) throws IOException {
+		ByteBuf content = httpContent.content();
 
-        if (content.isReadable()) {
-            getNettyEntityStream().onContent(content,
-                    httpContent instanceof LastHttpContent);
-        }
-    }
+		if (content.isReadable()) {
+			getNettyEntityStream().onContent(content, httpContent instanceof LastHttpContent);
+		}
+	}
 
-    protected void setNettyResponse(HttpResponse nettyResponse) {
-        this.nettyResponse = nettyResponse;
-    }
+	protected void setNettyResponse(HttpResponse nettyResponse) {
+		this.nettyResponse = nettyResponse;
+	}
 
-    protected void writeResponseBody(Representation responseEntity)
-            throws IOException {
-        try {
-            // Send the entity to the client
-            InputStream is = responseEntity.getStream();
-            getNettyContext()
-                    .write(new HttpChunkedInput(new ChunkedStream(is)));
-            getNettyContext().writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
-        } catch (IOException ioe) {
-            // The stream was probably already closed by the
-            // connector. Probably OK, low message priority.
-            getLogger().debug("Exception while writing the entity stream.", ioe);
-        }
-    }
+	protected void writeResponseBody(Representation responseEntity) throws IOException {
+		try {
+			// Send the entity to the client
+			InputStream is = responseEntity.getStream();
+			getNettyChannel().write(new HttpChunkedInput(new ChunkedStream(is)));
+			getNettyChannel().writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+		} catch (IOException ioe) {
+			// The stream was probably already closed by the
+			// connector. Probably OK, low message priority.
+			getLogger().debug("Exception while writing the entity stream.", ioe);
+		}
+	}
 
-    @Override
-    public void writeResponseHead(Response restletResponse)
-            throws IOException {
-        setNettyResponse(new DefaultHttpResponse(HTTP_1_1,
-                new HttpResponseStatus(getStatusCode(), getReasonPhrase())));
-        HttpHeaders headers = getNettyResponse().headers();
+	@Override
+	public void writeResponseHead(Response restletResponse) throws IOException {
+		setNettyResponse(new DefaultHttpResponse(HTTP_1_1, new HttpResponseStatus(getStatusCode(), getReasonPhrase())));
+		HttpHeaders headers = getNettyResponse().headers();
 
-        // this.response.clear();
-        for (Header header : getResponseHeaders()) {
-            headers.add(header.getName(), header.getValue());
-        }
+		// this.response.clear();
+		for (Header header : getResponseHeaders()) {
+			headers.add(header.getName(), header.getValue());
+		}
 
-        // Decide whether to close the connection or not.
-        if (isKeepAlive()) {
-            headers.set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
-            getNettyContext().write(getNettyResponse());
-        } else {
-            getNettyContext().writeAndFlush(getNettyResponse()).addListener(
-                    ChannelFutureListener.CLOSE);
-        }
-    }
+		// Decide whether to close the connection or not.
+		if (isKeepAlive()) {
+			headers.set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+			getNettyChannel().write(getNettyResponse());
+		} else {
+			getNettyChannel().writeAndFlush(getNettyResponse()).addListener(ChannelFutureListener.CLOSE);
+		}
+	}
 
-    protected void writeResponseTail(Response response) {
-        if (!isKeepAlive()) {
-            // Close the connection once the content is fully written.
-            getNettyContext().writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(
-                    ChannelFutureListener.CLOSE);
-        }
-    }
+	protected void writeResponseTail(Response response) {
+		if (!isKeepAlive()) {
+			// Close the connection once the content is fully written.
+			getNettyChannel().writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+		}
+	}
 
 }
