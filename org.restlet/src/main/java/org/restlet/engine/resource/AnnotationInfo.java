@@ -34,7 +34,6 @@ import java.util.Objects;
 import org.restlet.Context;
 import org.restlet.engine.util.SystemUtils;
 
-// [excludes gwt]
 /**
  * Descriptor for Restlet annotations.
  * 

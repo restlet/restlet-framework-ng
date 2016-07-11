@@ -169,10 +169,7 @@ public class Application extends Restlet {
         this.services.add(connegService);
         this.services.add(converterService);
         this.services.add(metadataService);
-
-        // [ifndef gae]
         this.services.add(new org.restlet.service.TaskService(false));
-        // [enddef]
     }
 
     /**
@@ -363,7 +360,6 @@ public class Application extends Restlet {
      * @return A task service.
      * @deprecated
      */
-    // [ifndef gae] method
     @Deprecated
     public org.restlet.service.TaskService getTaskService() {
         return getServices().get(org.restlet.service.TaskService.class);
@@ -568,7 +564,6 @@ public class Application extends Restlet {
      * @param taskService
      *            The task service.
      */
-    // [ifndef gae] method
     public void setTaskService(org.restlet.service.TaskService taskService) {
         getServices().set(taskService);
     }

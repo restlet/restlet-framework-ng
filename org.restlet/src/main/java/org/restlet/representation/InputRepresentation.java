@@ -26,7 +26,6 @@ package org.restlet.representation;
 
 import org.restlet.Context;
 import org.restlet.data.MediaType;
-import org.restlet.engine.Edition;
 import org.restlet.engine.io.IoUtils;
 
 import java.io.IOException;
@@ -85,13 +84,9 @@ public class InputRepresentation extends StreamRepresentation {
 
     @Override
     public InputStream getStream() throws IOException {
-        if (Edition.CURRENT != Edition.GWT) {
-            final InputStream result = this.stream;
-            setStream(null);
-            return result;
-        }
-
-        return this.stream;
+        final InputStream result = this.stream;
+        setStream(null);
+        return result;
     }
 
     /**
@@ -132,7 +127,6 @@ public class InputRepresentation extends StreamRepresentation {
         setAvailable(stream != null);
     }
 
-    // [ifndef gwt] method
     @Override
     public void write(OutputStream outputStream) throws IOException {
         IoUtils.copy(getStream(), outputStream);

@@ -29,7 +29,7 @@ import java.nio.channels.Selector;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-// [excludes gwt,android]
+// [excludes android]
 /**
  * Factory used to dispatch/share <code>Selector</code>.
  * 
@@ -48,7 +48,6 @@ public class SelectorFactory {
     /** The timeout before we exit. */
     public static final long TIMEOUT = 5000;
 
-    // [ifndef gae]
     /** Creates the <code>Selector</code>. */
     static {
         try {
@@ -59,8 +58,6 @@ public class SelectorFactory {
             // do nothing.
         }
     }
-
-    // [enddef]
 
     /**
      * Get an exclusive <code>Selector</code>.

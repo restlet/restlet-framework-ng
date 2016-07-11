@@ -158,7 +158,6 @@ public class LogService extends Service {
 
         // Append the user name (via IDENT protocol)
         if (isIdentityCheck()) {
-            // [ifndef gae]
             org.restlet.engine.log.IdentClient ic = new org.restlet.engine.log.IdentClient(
                     request.getClientInfo().getUpstreamAddress(), request
                             .getClientInfo().getPort(), response
@@ -169,7 +168,6 @@ public class LogService extends Service {
                 && (request.getChallengeResponse().getIdentifier() != null)) {
             sb.append(request.getChallengeResponse().getIdentifier());
         } else {
-            // [enddef]
             sb.append('-');
         }
 
@@ -460,7 +458,6 @@ public class LogService extends Service {
 
         this.responseLogTemplate = (getResponseLogFormat() == null) ? null
                 : new Template(getResponseLogFormat());
-        // [ifndef gae]
         if (getLogPropertiesRef() != null) {
             Representation logProperties = new ClientResource(getContext(),
                     getLogPropertiesRef()).get();
@@ -470,6 +467,5 @@ public class LogService extends Service {
                         logProperties.getStream());
             }
         }
-        // [enddef]
     }
 }

@@ -118,8 +118,6 @@ public class Engine {
         instance = null;
     }
 
-    // [ifndef gwt] method
-
     /**
      * Creates a new standalone thread with local Restlet thread variable
      * properly set.
@@ -154,14 +152,8 @@ public class Engine {
             }
         };
 
-        // [ifndef gae] instruction
         return new Thread(r, name);
-        // [ifdef gae] instruction uncomment
-        // return
-        // com.google.appengine.api.ThreadManager.createThreadForCurrentRequest(r);
     }
-
-    // [ifndef gwt] method
 
     /**
      * Clears the thread local variables set by the Restlet API and engine.
@@ -224,8 +216,6 @@ public class Engine {
         return LoggerFactory.getLogger(loggerName);
     }
 
-    // [ifndef gwt] method
-
     /**
      * Returns the classloader resource for a given name/path.
      *
@@ -235,8 +225,6 @@ public class Engine {
     public static java.net.URL getResource(String name) {
         return getInstance().getClassLoader().getResource(name);
     }
-
-    // [ifndef gwt] method
 
     /**
      * Returns the class object for the given name using the engine classloader.
@@ -266,19 +254,16 @@ public class Engine {
      * @return The registered engine.
      */
     public static synchronized Engine register(boolean discoverPlugins) {
-        // [enddef]
         Engine result = new Engine(discoverPlugins);
         instance = result;
         return result;
     }
 
-    // [ifndef gwt] member
     /**
      * Class loader to use for dynamic class loading.
      */
     private volatile ClassLoader classLoader;
 
-    // [ifndef gwt] member
     /**
      * List of available authenticator helpers.
      */
@@ -289,7 +274,6 @@ public class Engine {
      */
     private final List<org.restlet.engine.connector.ConnectorHelper<Client>> registeredClients;
 
-    // [ifndef gwt] member
     /**
      * List of available converter helpers.
      */
@@ -300,13 +284,11 @@ public class Engine {
      */
     private final List<org.restlet.engine.connector.ProtocolHelper> registeredProtocols;
 
-    // [ifndef gwt] member
     /**
      * List of available server connectors.
      */
     private final List<org.restlet.engine.connector.ConnectorHelper<org.restlet.Server>> registeredServers;
 
-    // [ifndef gwt] member
     /**
      * User class loader to use for dynamic class loading.
      */
@@ -331,28 +313,22 @@ public class Engine {
         this.registeredClients = new CopyOnWriteArrayList<>();
         this.registeredProtocols = new CopyOnWriteArrayList<>();
 
-        // [ifndef gwt]
         this.registeredServers = new CopyOnWriteArrayList<>();
         this.registeredAuthenticators = new CopyOnWriteArrayList<>();
         this.registeredConverters = new CopyOnWriteArrayList<>();
-        // [enddef]
 
         if (discoverHelpers) {
             try {
                 discoverConnectors();
                 discoverProtocols();
 
-                // [ifndef gwt]
                 discoverAuthenticators();
                 discoverConverters();
-                // [enddef]
             } catch (IOException e) {
                 Context.getCurrentLogger().warn("An error occurred while discovering the engine helpers.", e);
             }
         }
     }
-
-    // [ifndef gwt] method
 
     /**
      * Creates a new class loader. By default, it returns an instance of
@@ -383,7 +359,6 @@ public class Engine {
                 connector = iter.next();
 
                 if (connector.getProtocols().containsAll(client.getProtocols())) {
-                    // [ifndef gwt]
                     if ((helperClass == null)
                             || connector.getClass().getCanonicalName()
                             .equals(helperClass)) {
@@ -395,10 +370,6 @@ public class Engine {
                             Context.getCurrentLogger().error("Exception during the instantiation of the client connector.", e);
                         }
                     }
-                    // [enddef]
-                    // [ifdef gwt] instruction uncomment
-                    // result = new
-                    // org.restlet.engine.adapter.GwtHttpClientHelper(client);
                 }
             }
 
@@ -423,8 +394,6 @@ public class Engine {
 
         return result;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Creates a new helper for a given server connector.
@@ -482,8 +451,6 @@ public class Engine {
         return result;
     }
 
-    // [ifndef gwt] method
-
     /**
      * Discovers the authenticator helpers and register the default helpers.
      *
@@ -502,14 +469,10 @@ public class Engine {
      * @throws IOException
      */
     private void discoverConnectors() throws IOException {
-        // [ifndef gwt]
         registerHelpers(DESCRIPTOR_CLIENT_PATH, getRegisteredClients(), Client.class);
         registerHelpers(DESCRIPTOR_SERVER_PATH, getRegisteredServers(), org.restlet.Server.class);
-        // [enddef]
         registerDefaultConnectors();
     }
-
-    // [ifndef gwt] method
 
     /**
      * Discovers the converter helpers and register the default helpers.
@@ -527,12 +490,9 @@ public class Engine {
      * @throws IOException
      */
     private void discoverProtocols() throws IOException {
-        // [ifndef gwt] instruction
         registerHelpers(DESCRIPTOR_PROTOCOL_PATH, getRegisteredProtocols(), null);
         registerDefaultProtocols();
     }
-
-    // [ifndef gwt] method
 
     /**
      * Finds the converter helper supporting the given conversion.
@@ -543,8 +503,6 @@ public class Engine {
 
         return null;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Finds the authenticator helper supporting the given scheme.
@@ -574,8 +532,6 @@ public class Engine {
         return result;
     }
 
-    // [ifndef gwt] method
-
     /**
      * Returns the class loader. It uses the delegation model with the Engine
      * class's class loader as a parent. If this parent doesn't find a class or
@@ -588,8 +544,6 @@ public class Engine {
     public ClassLoader getClassLoader() {
         return classLoader;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Parses a line to extract the provider class name.
@@ -604,8 +558,6 @@ public class Engine {
         }
         return line.trim();
     }
-
-    // [ifndef gwt] method
 
     /**
      * Returns the list of available authentication helpers.
@@ -625,8 +577,6 @@ public class Engine {
         return this.registeredClients;
     }
 
-    // [ifndef gwt] method
-
     /**
      * Returns the list of available converters.
      *
@@ -645,8 +595,6 @@ public class Engine {
         return this.registeredProtocols;
     }
 
-    // [ifndef gwt] method
-
     /**
      * Returns the list of available server connectors.
      *
@@ -655,8 +603,6 @@ public class Engine {
     public List<org.restlet.engine.connector.ConnectorHelper<org.restlet.Server>> getRegisteredServers() {
         return this.registeredServers;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Returns the class loader specified by the user and that should be used in
@@ -667,8 +613,6 @@ public class Engine {
     public ClassLoader getUserClassLoader() {
         return userClassLoader;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Registers the default authentication helpers.
@@ -684,11 +628,8 @@ public class Engine {
      * Registers the default client and server connectors.
      */
     public void registerDefaultConnectors() {
-        // [ifndef gae, gwt]
         getRegisteredClients().add(
                 new org.restlet.engine.connector.FtpClientHelper(null));
-        // [enddef]
-        // [ifndef gwt]
         getRegisteredClients().add(
                 new org.restlet.engine.connector.HttpClientHelper(null));
         getRegisteredClients().add(
@@ -697,29 +638,19 @@ public class Engine {
                 new org.restlet.engine.local.RiapClientHelper(null));
         getRegisteredServers().add(
                 new org.restlet.engine.local.RiapServerHelper(null));
-        // [enddef]
 
-        // [ifndef android, gae, gwt]
+        // [ifndef android]
         getRegisteredServers().add(
                 new org.restlet.engine.connector.HttpServerHelper(null));
         getRegisteredServers().add(
                 new org.restlet.engine.connector.HttpsServerHelper(null));
         // [enddef]
 
-        // [ifndef gae, gwt]
         getRegisteredClients().add(
                 new org.restlet.engine.local.FileClientHelper(null));
         getRegisteredClients().add(
                 new org.restlet.engine.local.ZipClientHelper(null));
-        // [enddef]
-
-        // [ifdef gwt] uncomment
-        // getRegisteredClients().add(
-        // new org.restlet.engine.adapter.GwtHttpClientHelper(null));
-        // [enddef]
     }
-
-    // [ifndef gwt] method
 
     /**
      * Registers the default converters.
@@ -740,8 +671,6 @@ public class Engine {
         getRegisteredProtocols().add(
                 new org.restlet.engine.connector.WebDavProtocolHelper());
     }
-
-    // [ifndef gwt] method
 
     /**
      * Registers a helper.
@@ -770,8 +699,6 @@ public class Engine {
             }
         }
     }
-
-    // [ifndef gwt] method
 
     /**
      * Registers a helper.
@@ -807,8 +734,6 @@ public class Engine {
         }
     }
 
-    // [ifndef gwt] method
-
     /**
      * Registers a list of helpers.
      *
@@ -831,8 +756,6 @@ public class Engine {
             }
         }
     }
-
-    // [ifndef gae,gwt] method
 
     /**
      * Registers a factory that is used by the URL class to create the {@link java.net.URLConnection} instances when the
@@ -895,8 +818,6 @@ public class Engine {
                 });
     }
 
-    // [ifndef gwt] method
-
     /**
      * Sets the engine class loader.
      *
@@ -905,8 +826,6 @@ public class Engine {
     public void setClassLoader(ClassLoader newClassLoader) {
         this.classLoader = newClassLoader;
     }
-
-    // [ifndef gwt] method
 
     /**
      * Sets the list of available authentication helpers.
@@ -945,8 +864,6 @@ public class Engine {
         }
     }
 
-    // [ifndef gwt] method
-
     /**
      * Sets the list of available converter helpers.
      *
@@ -983,8 +900,6 @@ public class Engine {
         }
     }
 
-    // [ifndef gwt] method
-
     /**
      * Sets the list of available server helpers.
      *
@@ -1002,8 +917,6 @@ public class Engine {
             }
         }
     }
-
-    // [ifndef gwt] method
 
     /**
      * Sets the user class loader that should used in priority.

@@ -37,7 +37,6 @@ import org.restlet.engine.header.HeaderUtils;
 import org.restlet.representation.Representation;
 import org.restlet.util.Series;
 
-// [excludes gwt]
 /**
  * Converter of low-level HTTP server calls into high-level uniform calls.
  * 
@@ -184,13 +183,10 @@ public class ServerAdapter extends Adapter {
             // Send the response to the client
             response.getHttpCall().sendResponse(response);
         } catch (Throwable t) {
-            // [ifndef gae]
             if (response.getHttpCall().isConnectionBroken(t)) {
                 // output a single log line for this common case to avoid filling servers logs
                 getLogger().info("The connection was broken. It was probably closed by the client. Reason: " + t.getMessage());
-            } else
-            // [enddef]
-            {
+            } else {
                 getLogger().error("An exception occurred writing the response entity", t);
                 response.getHttpCall().setStatusCode(
                         Status.SERVER_ERROR_INTERNAL.getCode());

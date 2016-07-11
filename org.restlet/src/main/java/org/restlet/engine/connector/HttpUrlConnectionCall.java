@@ -24,6 +24,16 @@
 
 package org.restlet.engine.connector;
 
+import org.restlet.Request;
+import org.restlet.Response;
+import org.restlet.Uniform;
+import org.restlet.data.Header;
+import org.restlet.data.Status;
+import org.restlet.engine.adapter.ClientCall;
+import org.restlet.engine.util.SystemUtils;
+import org.restlet.representation.Representation;
+import org.restlet.util.Series;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,24 +45,9 @@ import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.Uniform;
-import org.restlet.data.Header;
-import org.restlet.data.Protocol;
-import org.restlet.data.Status;
-import org.restlet.engine.Edition;
-import org.restlet.engine.adapter.ClientCall;
-import org.restlet.engine.header.HeaderConstants;
-import org.restlet.engine.util.SystemUtils;
-import org.restlet.representation.Representation;
-import org.restlet.util.Series;
-
 /**
  * HTTP client connector call based on JDK's java.net.HttpURLConnection class.
- * On the GAE edition, it also supports the SDC protocol by setting
- * automatically the special "use_intranet" header.
- * 
+ *
  * @author Jerome Louvel
  */
 public class HttpUrlConnectionCall extends ClientCall {
@@ -96,7 +91,6 @@ public class HttpUrlConnectionCall extends ClientCall {
                 this.connection.setReadTimeout(getHelper().getReadTimeout());
             }
 
-            // [ifndef gae] instruction
             this.connection.setAllowUserInteraction(getHelper()
                     .isAllowUserInteraction());
             this.connection.setDoOutput(hasEntity);
@@ -105,7 +99,6 @@ public class HttpUrlConnectionCall extends ClientCall {
             this.connection.setUseCaches(getHelper().isUseCaches());
             this.responseHeadersAdded = false;
 
-            // [ifndef gae]
             if (this.connection instanceof javax.net.ssl.HttpsURLConnection) {
                 setConfidential(true);
                 javax.net.ssl.HttpsURLConnection https = (javax.net.ssl.HttpsURLConnection) this.connection;
@@ -130,7 +123,6 @@ public class HttpUrlConnectionCall extends ClientCall {
                     https.setHostnameVerifier(verifier);
                 }
             }
-            // [enddef]
         } else {
             throw new IllegalArgumentException(
                     "Only HTTP or HTTPS resource URIs are allowed here");
@@ -348,16 +340,6 @@ public class HttpUrlConnectionCall extends ClientCall {
                 }
             }
 
-            if ((Edition.CURRENT == Edition.GAE)
-                    && (request.getProtocol() == Protocol.SDC)) {
-                // This is to ensure portable code with other Restlet editions.
-                // that uses the proxy authorization header to transmit SDC
-                // security parameters (not required on GAE).
-                getConnection().getRequestProperties().remove(
-                        HeaderConstants.HEADER_PROXY_AUTHORIZATION);
-                getConnection().setRequestProperty("use_intranet", "true");
-            }
-
             // Ensure that the connection is active
             getConnection().connect();
 
@@ -366,32 +348,27 @@ public class HttpUrlConnectionCall extends ClientCall {
         } catch (ConnectException ce) {
             getHelper()
                     .getLogger()
-                    .debug("An error occurred during the connection to the remote HTTP server.",
-                            ce);
+                    .debug("An error occurred during the connection to the remote HTTP server.", ce);
             result = new Status(Status.CONNECTOR_ERROR_CONNECTION, ce);
         } catch (SocketTimeoutException ste) {
             getHelper()
                     .getLogger()
-                    .debug("An timeout error occurred during the communication with the remote HTTP server.",
-                            ste);
+                    .debug("A timeout error occurred during the communication with the remote HTTP server.", ste);
             result = new Status(Status.CONNECTOR_ERROR_COMMUNICATION, ste);
         } catch (FileNotFoundException fnfe) {
             getHelper()
                     .getLogger()
-                    .debug("An unexpected error occurred during the sending of the HTTP request.",
-                            fnfe);
+                    .debug("An unexpected error occurred during the sending of the HTTP request.", fnfe);
             result = new Status(Status.CONNECTOR_ERROR_INTERNAL, fnfe);
         } catch (IOException ioe) {
             getHelper()
                     .getLogger()
-                    .debug("An error occurred during the communication with the remote HTTP server.",
-                            ioe);
+                    .debug("An error occurred during the communication with the remote HTTP server.", ioe);
             result = new Status(Status.CONNECTOR_ERROR_COMMUNICATION, ioe);
         } catch (Exception e) {
             getHelper()
                     .getLogger()
-                    .debug("An unexpected error occurred during the sending of the HTTP request.",
-                            e);
+                    .debug("An unexpected error occurred during the sending of the HTTP request.", e);
             result = new Status(Status.CONNECTOR_ERROR_INTERNAL, e);
         }
 

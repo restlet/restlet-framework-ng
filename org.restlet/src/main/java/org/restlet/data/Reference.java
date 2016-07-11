@@ -25,7 +25,6 @@
 package org.restlet.data;
 
 import org.restlet.Context;
-import org.restlet.engine.Edition;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -142,34 +141,13 @@ public class Reference {
      *         supported.
      */
     public static String decode(String toDecode, CharacterSet characterSet) {
-        if (Edition.CURRENT == Edition.GWT) {
-            if (!CharacterSet.UTF_8.equals(characterSet)) {
-                throw new IllegalArgumentException(
-                        "Only UTF-8 URL encoding is supported under GWT");
-            }
-        }
         String result = null;
-        // [ifndef gwt]
         try {
-            result = (characterSet == null) ? toDecode : java.net.URLDecoder
-                    .decode(toDecode, characterSet.getName());
+            result = (characterSet == null) ? toDecode : java.net.URLDecoder.decode(toDecode, characterSet.getName());
         } catch (UnsupportedEncodingException uee) {
             Context.getCurrentLogger()
-                    .warn("Unable to decode the string with the UTF-8 character set.",
-                            uee);
+                    .warn("Unable to decode the string with the UTF-8 character set.", uee);
         }
-        // [enddef]
-
-        // [ifdef gwt] uncomment
-        // try {
-        // result = (characterSet == null) ? toDecode :
-        // com.google.gwt.http.client.URL.decodeComponent(toDecode);
-        // } catch (NullPointerException npe) {
-        // System.err
-        // .println("Unable to decode the string with the UTF-8 character set.");
-        // }
-
-        // [enddef]
 
         return result;
     }
@@ -218,41 +196,18 @@ public class Reference {
      *            The supported character encoding.
      * @return The encoded string.
      */
-    public static String encode(String toEncode, boolean queryString,
-            CharacterSet characterSet) {
-        if (Edition.CURRENT == Edition.GWT) {
-            if (!CharacterSet.UTF_8.equals(characterSet)) {
-                throw new IllegalArgumentException(
-                        "Only UTF-8 URL encoding is supported under GWT");
-            }
-        }
-
+    public static String encode(String toEncode, boolean queryString, CharacterSet characterSet) {
         String result = null;
 
-        // [ifndef gwt]
         try {
-            result = (characterSet == null) ? toEncode : java.net.URLEncoder
-                    .encode(toEncode, characterSet.getName());
+            result = (characterSet == null) ? toEncode : java.net.URLEncoder.encode(toEncode, characterSet.getName());
+
+            if (result != null && queryString) {
+                result = result.replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
+            }
         } catch (UnsupportedEncodingException uee) {
             Context.getCurrentLogger()
-                    .warn("Unable to encode the string with the UTF-8 character set.",
-                            uee);
-        }
-        // [enddef]
-
-        // [ifdef gwt] uncomment
-        // try {
-        // result = (characterSet == null) ? toEncode :
-        // com.google.gwt.http.client.URL.encodeComponent(toEncode);
-        // } catch (NullPointerException npe) {
-        // System.err
-        // .println("Unable to encode the string with the UTF-8 character set.");
-        // }
-        // [enddef]
-
-        if (result != null && queryString) {
-            result = result.replace("+", "%20").replace("*", "%2A")
-                    .replace("%7E", "~");
+                    .warn("Unable to encode the string with the UTF-8 character set.", uee);
         }
 
         return result;
@@ -520,7 +475,6 @@ public class Reference {
         this((Reference) null, (String) null);
     }
 
-    // [ifndef gwt] method
     /**
      * Constructor from an {@link java.net.URI} instance.
      * 
@@ -531,7 +485,6 @@ public class Reference {
         this(uri.toString());
     }
 
-    // [ifndef gwt] method
     /**
      * Constructor from an {@link java.net.URI} instance.
      * 
@@ -544,7 +497,6 @@ public class Reference {
         this(baseUri.toString(), uri.toString());
     }
 
-    // [ifndef gwt] method
     /**
      * Constructor from an {@link java.net.URL} instance.
      * 
@@ -763,7 +715,6 @@ public class Reference {
         return this;
     }
 
-    // [ifndef gwt] method
     @Override
     public Reference clone() {
         final Reference newRef = new Reference();
@@ -2243,10 +2194,7 @@ public class Reference {
                     input.delete(0, max);
                 } else {
                     // End of input buffer reached
-                    // [ifndef gwt] instruction
                     output.append(input);
-                    // [ifdef gwt] instruction uncomment
-                    // output.append(input.toString());
                     input.delete(0, input.length());
                 }
             }
@@ -2983,7 +2931,6 @@ public class Reference {
         return this.internalRef;
     }
 
-    // [ifndef gwt] method
     /**
      * Converts to a {@link java.net.URI} instance. Note that relative
      * references are resolved before conversion using the {@link #getTargetRef()} method.
@@ -2994,7 +2941,6 @@ public class Reference {
         return java.net.URI.create(getTargetRef().toString());
     }
 
-    // [ifndef gwt] method
     /**
      * Converts to a {@link java.net.URL} instance. Note that relative
      * references are resolved before conversion using the {@link #getTargetRef()} method.

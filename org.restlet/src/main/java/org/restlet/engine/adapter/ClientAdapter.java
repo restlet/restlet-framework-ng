@@ -24,8 +24,6 @@
 
 package org.restlet.engine.adapter;
 
-import java.io.IOException;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -33,10 +31,11 @@ import org.restlet.Uniform;
 import org.restlet.data.Header;
 import org.restlet.data.Method;
 import org.restlet.data.Status;
-import org.restlet.engine.Edition;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.header.HeaderUtils;
 import org.restlet.util.Series;
+
+import java.io.IOException;
 
 /**
  * Converter of high-level uniform calls into low-level HTTP client calls.
@@ -96,15 +95,7 @@ public class ClientAdapter extends Adapter {
                     }
                 });
             } else {
-                if (Edition.CURRENT == Edition.GWT) {
-                    System.err
-                            .println("HTTP client calls must have a callback in the GWT edition");
-                } else {
-                    // [ifndef gwt]
-                    updateResponse(response, httpCall.sendRequest(request),
-                            httpCall);
-                    // [enddef]
-                }
+                updateResponse(response, httpCall.sendRequest(request), httpCall);
             }
         }
     }
@@ -123,8 +114,7 @@ public class ClientAdapter extends Adapter {
             Series<Header> responseHeaders = httpCall.getResponseHeaders();
 
             // Put the response headers in the call's attributes map
-            response.getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS,
-                    responseHeaders);
+            response.getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS, responseHeaders);
 
             HeaderUtils.copyResponseTransportHeaders(responseHeaders, response);
         } catch (Exception e) {

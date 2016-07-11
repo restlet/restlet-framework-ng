@@ -35,8 +35,7 @@ import java.util.List;
 public class ListUtils {
     /**
      * Unlike List.subList(), which returns a live view of a set of List
-     * elements, this method returns a new copy of the list. List.subList() is
-     * not available in GWT 1.5 and was removed on purpose.
+     * elements, this method returns a new copy of the list.
      * 
      * @param list
      *            The source List
