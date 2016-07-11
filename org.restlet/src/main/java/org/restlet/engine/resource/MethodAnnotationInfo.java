@@ -327,7 +327,7 @@ public class MethodAnnotationInfo extends AnnotationInfo {
                                     characterSet = (CharacterSet) metadata;
                                 } else {
                                     Context.getCurrentLogger()
-                                            .warning(
+                                            .warn(
                                                     "A representation variant can have only one character set. Please check your annotation value.");
                                 }
                             }

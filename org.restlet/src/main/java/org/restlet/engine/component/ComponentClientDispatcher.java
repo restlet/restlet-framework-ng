@@ -110,19 +110,16 @@ public class ComponentClientDispatcher extends TemplateDispatcher {
                         host.handle(request, response);
                     } else {
                         getLogger()
-                                .warning(
-                                        "No virtual host is available to route the RIAP Host request.");
+                                .warn("No virtual host is available to route the RIAP Host request.");
                         result = STOP;
                     }
                 } else {
                     getLogger()
-                            .warning(
-                                    "Unknown RIAP authority. Only \"component\" is supported.");
+                            .warn("Unknown RIAP authority. Only \"component\" is supported.");
                     result = STOP;
                 }
             } else {
-                getLogger().warning(
-                        "No component is available to route the RIAP request.");
+                getLogger().warn("No component is available to route the RIAP request.");
                 result = STOP;
             }
         } else {

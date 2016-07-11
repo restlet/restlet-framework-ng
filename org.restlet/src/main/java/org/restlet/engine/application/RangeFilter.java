@@ -66,7 +66,7 @@ public class RangeFilter extends Filter {
                     if (Status.SUCCESS_PARTIAL_CONTENT.equals(response.getStatus())) {
                         if (!rangedEntity) {
                             getLogger()
-                                    .warning(
+                                    .warn(
                                             "When returning a \"206 Partial content\" status, your response entity must be properly ranged.");
                         } else {
                             // We assume that the response entity has been
@@ -87,7 +87,7 @@ public class RangeFilter extends Filter {
                                 // The end index cannot be properly computed
                                 response.setStatus(Status.SERVER_ERROR_INTERNAL);
                                 getLogger()
-                                        .warning(
+                                        .warn(
                                                 "Unable to serve this range since at least the end index of the range cannot be computed.");
                                 response.setEntity(null);
                             } else if (!requestedRange.equals(responseRange)) {
@@ -108,8 +108,7 @@ public class RangeFilter extends Filter {
                             // Return a server error as this feature isn't supported yet
                             response.setStatus(Status.SERVER_ERROR_NOT_IMPLEMENTED);
                             getLogger()
-                                    .warning(
-                                            "Multiple ranges are not supported at this time.");
+                                    .warn("Multiple ranges are not supported at this time.");
                             response.setEntity(null);
                         }
                     }

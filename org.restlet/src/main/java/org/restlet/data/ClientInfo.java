@@ -203,7 +203,7 @@ public final class ClientInfo {
                             if (Context.getCurrent() != null) {
                                 Context.getCurrent()
                                         .getLogger()
-                                        .warning(
+                                        .warn(
                                                 "Cannot read '"
                                                         + userAgentPropertiesUrl
                                                                 .toString()

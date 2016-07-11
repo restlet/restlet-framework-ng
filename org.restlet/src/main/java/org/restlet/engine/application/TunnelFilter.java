@@ -293,7 +293,7 @@ public class TunnelFilter extends Filter {
                     reader.close();
                 }
             } catch (IOException e) {
-                getContext().getLogger().warning(
+                getContext().getLogger().warn(
                         "Cannot read '" + userAgentPropertiesUrl.toString()
                                 + "' due to: " + e.getMessage());
             }

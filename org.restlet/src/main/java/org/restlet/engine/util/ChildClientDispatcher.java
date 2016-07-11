@@ -90,7 +90,7 @@ public class ChildClientDispatcher extends TemplateDispatcher {
                 parentHandle(request, response);
             } else {
                 getLogger()
-                        .warning(
+                        .warn(
                                 "Unknown RIAP authority. Only \"component\", \"host\" and \"application\" are supported.");
                 result = STOP;
             }
@@ -103,7 +103,7 @@ public class ChildClientDispatcher extends TemplateDispatcher {
                 if (!application.getConnectorService().getClientProtocols()
                         .contains(protocol)) {
                     getLogger()
-                            .fine("The protocol used by this request is not declared in the application's connector service ("
+                            .debug("The protocol used by this request is not declared in the application's connector service ("
                                     + protocol
                                     + "). Please update the list of client connectors used by your application and restart it.");
                 }
@@ -140,16 +140,16 @@ public class ChildClientDispatcher extends TemplateDispatcher {
                             .handle(request, response);
                 } else {
                     getLogger()
-                            .warning(
+                            .warn(
                                     "The parent context doesn't have a client dispatcher available. Unable to handle call.");
                 }
             } else {
                 getLogger()
-                        .warning(
+                        .warn(
                                 "Your Restlet doesn't have a parent context available.");
             }
         } else {
-            getLogger().warning(
+            getLogger().warn(
                     "Your Restlet doesn't have a context available.");
         }
     }

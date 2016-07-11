@@ -470,21 +470,18 @@ public class Service {
             ClientResource resource = createResource("$metadata");
 
             try {
-                getLogger().log(
-                        Level.INFO,
+                getLogger().info(
                         "Get the metadata for " + getServiceRef() + " at "
                                 + resource.getReference());
                 Representation rep = resource.get(MediaType.APPLICATION_XML);
                 this.metadata = new Metadata(rep, resource.getReference());
             } catch (ResourceException e) {
-                getLogger().log(
-                        Level.SEVERE,
+                getLogger().error(
                         "Can't get the metadata for " + getServiceRef()
                                 + " (response's status: "
                                 + resource.getStatus() + ")");
             } catch (Exception e) {
-                getLogger().log(Level.SEVERE,
-                        "Can't get the metadata for " + getServiceRef(), e);
+                getLogger().error("Can't get the metadata for " + getServiceRef(), e);
             } finally {
                 this.latestRequest = resource.getRequest();
                 this.latestResponse = resource.getResponse();
@@ -661,7 +658,7 @@ public class Service {
                             sb.append(value);
                         }
                     } catch (Exception e) {
-                        getLogger().warning(
+                        getLogger().warn(
                                 "Cannot get the value of the property "
                                         + property.getName() + " on " + entity);
                     }
@@ -757,14 +754,13 @@ public class Service {
                     return (Reference) ReflectUtils.invokeGetter(entity, type
                             .getBlobValueEditRefProperty().getName());
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot get the value of the property "
                                     + type.getBlobValueEditRefProperty()
                                             .getName() + " on " + entity);
                 }
             } else {
-                getLogger().warning(
-                        "This entity is not a media resource " + entity);
+                getLogger().warn("This entity is not a media resource " + entity);
             }
         }
 
@@ -790,14 +786,13 @@ public class Service {
                     return (Reference) ReflectUtils.invokeGetter(entity, type
                             .getBlobValueRefProperty().getName());
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot get the value of the property "
                                     + type.getBlobValueRefProperty().getName()
                                     + " on " + entity);
                 }
             } else {
-                getLogger().warning(
-                        "This entity is not a media resource " + entity);
+                getLogger().warn("This entity is not a media resource " + entity);
             }
         }
 
@@ -921,8 +916,7 @@ public class Service {
                 ReflectUtils.setProperty(entity, propertyName,
                         association.isToMany(), iterator, propertyClass);
             } catch (Exception e) {
-                getLogger().log(
-                        Level.WARNING,
+                getLogger().warn(
                         "Can't set the property " + propertyName + " of "
                                 + entity.getClass() + " for the service"
                                 + getServiceRef(), e);
@@ -939,15 +933,13 @@ public class Service {
                             propertyName);
                     ReflectUtils.setProperty(entity, property, value);
                 } catch (Exception e) {
-                    getLogger().log(
-                            Level.WARNING,
+                    getLogger().warn(
                             "Can't set the property " + propertyName + " of "
                                     + entity.getClass() + " for the service"
                                     + getServiceRef(), e);
                 }
             } catch (ResourceException e) {
-                getLogger().log(
-                        Level.WARNING,
+                getLogger().warn(
                         "Can't get the following resource "
                                 + resource.getReference() + " for the service"
                                 + getServiceRef(), e);
@@ -1174,7 +1166,7 @@ public class Service {
                                                 prop.getName(), prop.getName(),
                                                 nullAttrs);
                                     } else {
-                                        getLogger().warning(
+                                        getLogger().warn(
                                                 "The following property has a null value but is not marked as nullable: "
                                                         + prop.getName());
                                         writer.emptyElement(

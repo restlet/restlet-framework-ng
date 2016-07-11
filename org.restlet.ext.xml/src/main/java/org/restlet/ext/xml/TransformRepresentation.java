@@ -556,7 +556,7 @@ public class TransformRepresentation extends WriterRepresentation {
     public void transform(Source source, Result result) throws IOException {
         if (getTransformer() == null) {
             Context.getCurrentLogger()
-                    .warning(
+                    .warn(
                             "Unable to apply the transformation. No transformer found!");
         } else {
             try {

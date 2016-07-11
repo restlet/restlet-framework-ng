@@ -101,7 +101,7 @@ public class ComponentHelper extends CompositeHelper<Component> {
 
                                 if (!clientFound) {
                                     getLogger()
-                                            .severe("Unable to start the application \""
+                                            .error("Unable to start the application \""
                                                     + application.getName()
                                                     + "\". Client connector for protocol "
                                                     + clientProtocol.getName()
@@ -130,7 +130,7 @@ public class ComponentHelper extends CompositeHelper<Component> {
 
                                 if (!serverFound) {
                                     getLogger()
-                                            .severe("Unable to start the application \""
+                                            .error("Unable to start the application \""
                                                     + application.getName()
                                                     + "\". Server connector for protocol "
                                                     + serverProtocol.getName()

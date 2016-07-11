@@ -132,7 +132,7 @@ public abstract class NetServerHelper extends HttpServerHelper {
         result.setRejectedExecutionHandler(new RejectedExecutionHandler() {
             public void rejectedExecution(Runnable r,
                     ThreadPoolExecutor executor) {
-                getLogger().warning(
+                getLogger().warn(
                         "Unable to run the following server-side task: " + r);
             }
         });

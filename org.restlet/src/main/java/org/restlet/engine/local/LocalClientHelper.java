@@ -121,7 +121,7 @@ public abstract class LocalClientHelper extends ClientHelper {
             // Continue the local handling
             handleLocal(request, response, decodedPath);
         } else {
-            getLogger().warning(
+            getLogger().warn(
                     "Unable to get the path of this local URI: "
                             + request.getResourceRef());
         }

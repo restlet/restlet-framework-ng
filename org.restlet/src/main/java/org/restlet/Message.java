@@ -245,8 +245,7 @@ public abstract class Message {
                 this.entityText = (getEntity() == null) ? null : getEntity()
                         .getText();
             } catch (java.io.IOException e) {
-                Context.getCurrentLogger().log(java.util.logging.Level.FINE,
-                        "Unable to get the entity text.", e);
+                Context.getCurrentLogger().debug("Unable to get the entity text.", e);
             }
         }
 

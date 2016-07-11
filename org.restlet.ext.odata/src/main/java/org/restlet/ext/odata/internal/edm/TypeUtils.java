@@ -112,7 +112,7 @@ public class TypeUtils {
                 result = value;
             }
         } catch (Exception e) {
-            Context.getCurrentLogger().warning(
+            Context.getCurrentLogger().warn(
                     "Cannot convert " + value + " from this EDM type "
                             + adoNetType);
         }
@@ -159,7 +159,7 @@ public class TypeUtils {
         try {
             result = Class.forName(fullClassName);
         } catch (ClassNotFoundException e) {
-            Context.getCurrentLogger().warning(
+            Context.getCurrentLogger().warn(
                     "Can't find the following class in the class loader: "
                             + fullClassName);
         }
@@ -199,7 +199,7 @@ public class TypeUtils {
                 result = "'" + value + "'";
             }
         } catch (Exception e) {
-            Context.getCurrentLogger().warning(
+            Context.getCurrentLogger().warn(
                     "Cannot convert " + value + " from this EDM type "
                             + adoNetType);
         }

@@ -217,7 +217,7 @@ public class CookieSettingReader extends HeaderReader<CookieSetting> {
                 } else {
                     // Ignore the expires header
                     Context.getCurrentLogger()
-                            .warning(
+                            .warn(
                                     "Ignoring cookie setting expiration date. Unable to parse the date: "
                                             + pair.getValue());
                 }

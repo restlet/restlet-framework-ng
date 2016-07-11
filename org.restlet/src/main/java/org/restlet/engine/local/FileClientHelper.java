@@ -273,7 +273,7 @@ public class FileClientHelper extends EntityClientHelper {
             if (file.mkdirs()) {
                 return SUCCESS_NO_CONTENT;
             } else {
-                getLogger().warning("Unable to create the new directory");
+                getLogger().warn("Unable to create the new directory");
                 return new Status(SERVER_ERROR_INTERNAL, "Unable to create the new directory");
             }
         }
@@ -383,7 +383,7 @@ public class FileClientHelper extends EntityClientHelper {
                 // Create the parent directories then the new file
                 if (!parent.mkdirs()) {
                     String message = "Unable to create the parent directory";
-                    getLogger().warning(message);
+                    getLogger().warn(message);
                     return new Status(SERVER_ERROR_INTERNAL, message);
                 }
             }
@@ -428,14 +428,14 @@ public class FileClientHelper extends EntityClientHelper {
                     IoUtils.copy(request.getEntity().getStream(), raf);
                 }
             } catch (IOException ioe) {
-                getLogger().log(WARNING, "Unable to close the temporary file", ioe);
+                getLogger().warn("Unable to close the temporary file", ioe);
                 cleanTemporaryFileIfUploadNotResumed(tmp);
                 return new Status(SERVER_ERROR_INTERNAL, ioe);
             }
 
             return replaceFileByTemporaryFile(request, file, tmp);
         } catch (IOException ioe) {
-            getLogger().log(WARNING, "Unable to create the temporary file", ioe);
+            getLogger().warn("Unable to create the temporary file", ioe);
             cleanTemporaryFileIfUploadNotResumed(tmp);
             return new Status(SERVER_ERROR_INTERNAL, "Unable to create a temporary file");
         }
@@ -449,7 +449,7 @@ public class FileClientHelper extends EntityClientHelper {
                 Files.copy(request.getEntity().getStream(), tmp.toPath(), REPLACE_EXISTING);
             }
         } catch (IOException ioe) {
-            getLogger().log(WARNING, "Unable to create the temporary file", ioe);
+            getLogger().warn("Unable to create the temporary file", ioe);
             cleanTemporaryFileIfUploadNotResumed(tmp);
             return new Status(SERVER_ERROR_INTERNAL, "Unable to create a temporary file");
         }
@@ -509,10 +509,10 @@ public class FileClientHelper extends EntityClientHelper {
             }
             return SUCCESS_NO_CONTENT;
         } catch (FileNotFoundException fnfe) {
-            getLogger().log(WARNING, "Unable to create the new file", fnfe);
+            getLogger().warn("Unable to create the new file", fnfe);
             return new Status(SERVER_ERROR_INTERNAL, fnfe);
         } catch (IOException ioe) {
-            getLogger().log(WARNING, "Unable to create the new file", ioe);
+            getLogger().warn("Unable to create the new file", ioe);
             return new Status(SERVER_ERROR_INTERNAL, ioe);
         }
     }
@@ -528,12 +528,12 @@ public class FileClientHelper extends EntityClientHelper {
                 return SUCCESS_NO_CONTENT;
             }
         } catch (IOException ioe) {
-            getLogger().log(WARNING, "Unable to create the new file", ioe);
+            getLogger().warn("Unable to create the new file", ioe);
             return new Status(SERVER_ERROR_INTERNAL, ioe);
         }
 
         String message = "Unable to create the new file";
-        getLogger().warning(message);
+        getLogger().warn(message);
         return new Status(SERVER_ERROR_INTERNAL, message);
     }
     

@@ -126,7 +126,7 @@ public class ApplicationHelper extends CompositeHelper<Application> {
         if (getOutboundNext() == null) {
             // Warn about chaining problem
             getLogger()
-                    .fine("By default, an application should be attached to a parent component in order to let application's outbound root handle calls properly.");
+                    .debug("By default, an application should be attached to a parent component in order to let application's outbound root handle calls properly.");
             setOutboundNext(new Restlet() {
                 Map<Protocol, Client> clients = new ConcurrentHashMap<Protocol, Client>();
 
@@ -144,7 +144,7 @@ public class ApplicationHelper extends CompositeHelper<Application> {
                         if (c == null) {
                             c = new Client(protocol);
                             clients.put(protocol, c);
-                            getLogger().fine(
+                            getLogger().debug(
                                     "Added runtime client for protocol: "
                                             + protocol.getName());
                         }
@@ -153,7 +153,7 @@ public class ApplicationHelper extends CompositeHelper<Application> {
                     } else {
                         response.setStatus(Status.SERVER_ERROR_INTERNAL,
                                 "The server isn't properly configured to handle client calls.");
-                        getLogger().warning(
+                        getLogger().warn(
                                 "There is no protocol detected for this request: "
                                         + request.getResourceRef());
                     }
