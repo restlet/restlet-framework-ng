@@ -24,8 +24,6 @@
 
 package org.restlet.security;
 
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -145,8 +143,7 @@ public class ChallengeAuthenticator extends Authenticator {
     @Override
     protected boolean authenticate(Request request, Response response) {
         boolean result = false;
-        boolean loggable = request.isLoggable()
-                && getLogger().isLoggable(Level.FINE);
+        boolean loggable = request.isLoggable() && getLogger().isDebugEnabled();
 
         if (getVerifier() != null) {
             switch (getVerifier().verify(request, response)) {
@@ -159,20 +156,20 @@ public class ChallengeAuthenticator extends Authenticator {
                             .getChallengeResponse();
 
                     if (challengeResponse != null) {
-                        getLogger().fine(
+                        getLogger().debug(
                                 "Authentication succeeded. Valid credentials provided for identifier: "
                                         + request.getChallengeResponse()
                                                 .getIdentifier() + ".");
                     } else {
                         getLogger()
-                                .fine("Authentication succeeded. Valid credentials provided.");
+                                .debug("Authentication succeeded. Valid credentials provided.");
                     }
                 }
                 break;
             case Verifier.RESULT_MISSING:
                 // No credentials provided
                 if (loggable) {
-                    getLogger().fine(
+                    getLogger().debug(
                             "Authentication failed. No credentials provided.");
                 }
 
@@ -184,7 +181,7 @@ public class ChallengeAuthenticator extends Authenticator {
                 // Invalid credentials provided
                 if (loggable) {
                     getLogger()
-                            .fine("Authentication failed. Invalid credentials provided.");
+                            .debug("Authentication failed. Invalid credentials provided.");
                 }
 
                 if (!isOptional()) {
@@ -198,7 +195,7 @@ public class ChallengeAuthenticator extends Authenticator {
             case Verifier.RESULT_STALE:
                 if (loggable) {
                     getLogger()
-                            .fine("Authentication failed. Stale credentials provided.");
+                            .debug("Authentication failed. Stale credentials provided.");
                 }
 
                 if (!isOptional()) {
@@ -207,7 +204,7 @@ public class ChallengeAuthenticator extends Authenticator {
                 break;
             case Verifier.RESULT_UNKNOWN:
                 if (loggable) {
-                    getLogger().fine(
+                    getLogger().debug(
                             "Authentication failed. Identifier is unknown.");
                 }
 
@@ -221,7 +218,7 @@ public class ChallengeAuthenticator extends Authenticator {
                 break;
             }
         } else {
-            getLogger().warning("Authentication failed. No verifier provided.");
+            getLogger().warn("Authentication failed. No verifier provided.");
             response.setStatus(Status.SERVER_ERROR_INTERNAL,
                     "Authentication failed. No verifier provided.");
         }
@@ -240,11 +237,10 @@ public class ChallengeAuthenticator extends Authenticator {
      */
     public void challenge(Response response, boolean stale) {
         boolean loggable = response.getRequest().isLoggable()
-                && getLogger().isLoggable(Level.FINE);
+                && getLogger().isDebugEnabled();
 
         if (loggable) {
-            getLogger().log(Level.FINE,
-                    "An authentication challenge was requested.");
+            getLogger().debug("An authentication challenge was requested.");
         }
 
         response.setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
@@ -274,11 +270,10 @@ public class ChallengeAuthenticator extends Authenticator {
      */
     public void forbid(Response response) {
         boolean loggable = response.getRequest().isLoggable()
-                && getLogger().isLoggable(Level.FINE);
+                && getLogger().isDebugEnabled();
 
         if (loggable) {
-            getLogger().log(
-                    Level.FINE,
+            getLogger().debug(
                     "Authentication or authorization failed for this URI: "
                             + response.getRequest().getResourceRef());
         }

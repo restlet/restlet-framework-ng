@@ -35,7 +35,6 @@ import java.security.DigestInputStream;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.data.Digest;
@@ -183,11 +182,9 @@ public class DigesterRepresentation extends WrapperRepresentation {
                 org.restlet.engine.io.IoUtils.exhaust(dis);
                 result = new org.restlet.data.Digest(algorithm, md.digest());
             } catch (java.security.NoSuchAlgorithmException e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to check the digest of the representation.", e);
+                Context.getCurrentLogger().warn("Unable to check the digest of the representation.", e);
             } catch (IOException e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to check the digest of the representation.", e);
+                Context.getCurrentLogger().warn("Unable to check the digest of the representation.", e);
             }
         }
 

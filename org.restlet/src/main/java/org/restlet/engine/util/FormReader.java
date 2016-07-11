@@ -24,6 +24,13 @@
 
 package org.restlet.engine.util;
 
+import org.restlet.Context;
+import org.restlet.data.CharacterSet;
+import org.restlet.data.Form;
+import org.restlet.data.Parameter;
+import org.restlet.representation.Representation;
+import org.restlet.util.Series;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,14 +38,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-
-import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Form;
-import org.restlet.data.Parameter;
-import org.restlet.representation.Representation;
-import org.restlet.util.Series;
 
 /**
  * Form reader.
@@ -179,16 +178,13 @@ public class FormReader {
                 }
             } catch (IOException ioe) {
                 Context.getCurrentLogger()
-                        .log(Level.WARNING,
-                                "Unable to parse a form parameter. Skipping the remaining parameters.",
-                                ioe);
+                        .warn("Unable to parse a form parameter. Skipping the remaining parameters.", ioe);
             }
 
             try {
                 this.stream.close();
             } catch (IOException ioe) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to close the form input stream", ioe);
+                Context.getCurrentLogger().warn("Unable to close the form input stream", ioe);
             }
         }
     }
@@ -279,7 +275,7 @@ public class FormReader {
                                 // Do nothing return null preference
                             } else {
                                 Context.getCurrentLogger()
-                                        .fine("Empty parameter name detected. Please check your form data");
+                                        .debug("Empty parameter name detected. Please check your form data");
                             }
                         } else {
                             nameBuffer.append((char) nextChar);

@@ -24,13 +24,6 @@
 
 package org.restlet.ext.thymeleaf;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Form;
@@ -45,6 +38,12 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import org.thymeleaf.util.Validate;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Thymeleaf template representation. Useful for dynamic string-based
@@ -195,8 +194,7 @@ public class TemplateRepresentation extends WriterRepresentation {
      */
     public TemplateRepresentation(String templateName, Locale locale,
             MediaType mediaType) {
-        this(templateName, locale, new ConcurrentHashMap<String, Object>(),
-                mediaType);
+        this(templateName, locale, new ConcurrentHashMap<>(), mediaType);
     }
 
     /**
@@ -377,18 +375,12 @@ public class TemplateRepresentation extends WriterRepresentation {
             engine.process(templateName, context, writer);
 
         } catch (Exception e) {
-            final org.restlet.Context context = org.restlet.Context
-                    .getCurrent();
+            final org.restlet.Context context = org.restlet.Context.getCurrent();
 
             if (context != null) {
-                context.getLogger().log(Level.WARNING,
-                        "Unable to process the template", e);
+                context.getLogger().warn("Unable to process the template", e);
             }
-
-            e.printStackTrace();
-
-            throw new IOException("Template processing error. "
-                    + e.getMessage());
+            throw new IOException("Template processing error. " + e.getMessage());
         }
     }
 }

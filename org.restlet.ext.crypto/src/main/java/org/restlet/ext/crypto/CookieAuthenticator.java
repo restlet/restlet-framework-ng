@@ -25,7 +25,6 @@
 package org.restlet.ext.crypto;
 
 import java.security.GeneralSecurityException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -209,8 +208,7 @@ public class CookieAuthenticator extends ChallengeAuthenticator {
                     .getChallengeResponse()));
             credentialsCookie.setMaxAge(getMaxCookieAge());
         } catch (GeneralSecurityException e) {
-            getLogger().log(Level.SEVERE,
-                    "Could not format credentials cookie", e);
+            getLogger().error("Could not format credentials cookie", e);
         }
 
         return super.authenticated(request, response);
@@ -547,8 +545,7 @@ public class CookieAuthenticator extends ChallengeAuthenticator {
             byte[] encrypted = Base64.decode(cookieValue);
             
             if (encrypted == null) {
-                getLogger().warning(
-                        "Cannot decode cookie credentials : " + cookieValue);
+                getLogger().warn("Cannot decode cookie credentials : " + cookieValue);
             }
             
             // 2) Decrypt the credentials
@@ -571,8 +568,7 @@ public class CookieAuthenticator extends ChallengeAuthenticator {
             cr.setSecret(decrypted.substring(secretIndex + 1, lastSlash));
             return cr;
         } catch (Exception e) {
-            getLogger().log(Level.INFO, "Unable to decrypt cookie credentials",
-                    e);
+            getLogger().info("Unable to decrypt cookie credentials", e);
             return null;
         }
     }

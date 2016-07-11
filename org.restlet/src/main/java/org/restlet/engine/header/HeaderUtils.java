@@ -33,7 +33,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Message;
@@ -239,14 +238,14 @@ public class HeaderUtils {
                 if (STANDARD_HEADERS.contains(param.getName())) {
                     // Standard headers that can't be overridden
                     Context.getCurrentLogger()
-                            .warning(
+                            .warn(
                                     "Addition of the standard header \""
                                             + param.getName()
                                             + "\" is not allowed. Please use the equivalent property in the Restlet API.");
                 } else if (UNSUPPORTED_STANDARD_HEADERS.contains(param
                         .getName())) {
                     Context.getCurrentLogger()
-                            .warning(
+                            .warn(
                                     "Addition of the standard header \""
                                             + param.getName()
                                             + "\" is discouraged as a future version of the Restlet API will directly support it.");
@@ -302,8 +301,7 @@ public class HeaderUtils {
             try {
                 headers.add(headerName, headerValue);
             } catch (Throwable t) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to format the " + headerName + " header", t);
+                Context.getCurrentLogger().warn("Unable to format the " + headerName + " header", t);
             }
         }
     }
@@ -423,8 +421,7 @@ public class HeaderUtils {
         if (conditions.getRangeTag() != null
                 && conditions.getRangeDate() != null) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "Unable to format the HTTP If-Range header due to the presence of both entity tag and modification date.");
+                    .warn("Unable to format the HTTP If-Range header due to the presence of both entity tag and modification date.");
         } else if (conditions.getRangeTag() != null) {
             addHeader(HeaderConstants.HEADER_IF_RANGE,
                     TagWriter.write(conditions.getRangeTag()), headers);
@@ -681,10 +678,8 @@ public class HeaderUtils {
     /**
      * Copies extension headers into a request.
      * 
-     * @param headers
+     * @param message
      *            The headers to copy.
-     * @param request
-     *            The request to update.
      */
     public static void keepExtensionHeadersOnly(Message message) {
         Series<Header> headers = message.getHeaders();
@@ -706,8 +701,8 @@ public class HeaderUtils {
      * 
      * @param headers
      *            The headers to copy.
-     * @param request
-     *            The request to update.
+     * @param message
+     *            The request or response to update.
      */
     public static void copyExtensionHeaders(Series<Header> headers,
             Message message) {
@@ -741,9 +736,7 @@ public class HeaderUtils {
                     try {
                         response.setAge(Integer.parseInt(header.getValue()));
                     } catch (NumberFormatException nfe) {
-                        Context.getCurrentLogger().log(
-                                Level.WARNING,
-                                "Error during Age header parsing. Header: "
+                        Context.getCurrentLogger().warn("Error during Age header parsing. Header: "
                                         + header.getValue(), nfe);
                     }
                 } else if (header.getName().equalsIgnoreCase(
@@ -771,8 +764,7 @@ public class HeaderUtils {
                                     retryAfterSecs);
                             retryAfter = calendar.getTime();
                         } catch (NumberFormatException nfe) {
-                            Context.getCurrentLogger().log(
-                                    Level.WARNING,
+                            Context.getCurrentLogger().warn(
                                     "Error during Retry-After header parsing. Header: "
                                             + header.getValue(), nfe);
                         }
@@ -789,8 +781,7 @@ public class HeaderUtils {
                                 header.getValue());
                         response.getCookieSettings().add(cr.readValue());
                     } catch (Exception e) {
-                        Context.getCurrentLogger().log(
-                                Level.WARNING,
+                        Context.getCurrentLogger().warn(
                                 "Error during cookie setting parsing. Header: "
                                         + header.getValue(), e);
                     }
@@ -931,8 +922,7 @@ public class HeaderUtils {
                                 .getValue()).readValue());
                         entityHeaderFound = true;
                     } catch (IOException ioe) {
-                        Context.getCurrentLogger().log(
-                                Level.WARNING,
+                        Context.getCurrentLogger().warn(
                                 "Error during Content-Disposition header parsing. Header: "
                                         + header.getValue(), ioe);
                     }

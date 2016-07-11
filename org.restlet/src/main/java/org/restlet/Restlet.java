@@ -24,11 +24,9 @@
 
 package org.restlet;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
+import org.slf4j.Logger;
 
 /**
  * Uniform class that provides a context and life cycle support. It has many
@@ -66,7 +64,7 @@ public abstract class Restlet implements Uniform {
             } else if (!(restlet instanceof Component)
                     && (context instanceof org.restlet.engine.component.ComponentContext)) {
                 context.getLogger()
-                        .severe("For security reasons, don't pass the component context to child Restlets anymore. Use the Context#createChildContext() method instead. "
+                        .error("For security reasons, don't pass the component context to child Restlets anymore. Use the Context#createChildContext() method instead. "
                                 + restlet.getClass());
             }
         }
@@ -126,10 +124,9 @@ public abstract class Restlet implements Uniform {
         // [ifndef gwt]
         this.finderClass = null;
         if (Engine.getInstance() == null) {
-            Context.getCurrentLogger()
-                    .severe("Unable to fully initialize the Restlet. No Restlet engine available.");
-            throw new RuntimeException(
-                    "Unable to fully initialize the Restlet. No Restlet engine available.");
+            String message = "Unable to fully initialize the Restlet. No Restlet engine available.";
+            Context.getCurrentLogger().error(message);
+            throw new RuntimeException(message);
         }
 
         fireContextChanged(this, context);
@@ -321,20 +318,17 @@ public abstract class Restlet implements Uniform {
             } catch (Exception e) {
                 // Occurred while starting the Restlet
                 if (getContext() != null) {
-                    getContext().getLogger().log(Level.WARNING,
-                            UNABLE_TO_START, e);
+                    getContext().getLogger().warn(UNABLE_TO_START, e);
                 } else {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            UNABLE_TO_START, e);
+                    Context.getCurrentLogger().warn(UNABLE_TO_START, e);
                 }
 
                 response.setStatus(Status.SERVER_ERROR_INTERNAL);
             }
 
             if (!isStarted()) {
-                // No exception raised but the Restlet somehow couldn't be
-                // started
-                getContext().getLogger().log(Level.WARNING, UNABLE_TO_START);
+                // No exception raised but the Restlet somehow couldn't be started
+                getContext().getLogger().warn(UNABLE_TO_START);
                 response.setStatus(Status.SERVER_ERROR_INTERNAL);
             }
         }
@@ -428,8 +422,7 @@ public abstract class Restlet implements Uniform {
      * @param finderClass
      *            The finder class to instantiate.
      */
-    public void setFinderClass(
-            Class<? extends org.restlet.resource.Finder> finderClass) {
+    public void setFinderClass(Class<? extends org.restlet.resource.Finder> finderClass) {
         this.finderClass = finderClass;
     }
 

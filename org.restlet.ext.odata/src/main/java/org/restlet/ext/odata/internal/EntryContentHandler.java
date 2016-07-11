@@ -27,7 +27,6 @@ package org.restlet.ext.odata.internal;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.data.Language;
@@ -47,6 +46,7 @@ import org.restlet.ext.odata.internal.edm.Mapping;
 import org.restlet.ext.odata.internal.edm.Metadata;
 import org.restlet.ext.odata.internal.edm.Property;
 import org.restlet.ext.odata.internal.reflect.ReflectUtils;
+import org.slf4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -214,9 +214,8 @@ public class EntryContentHandler<T> extends EntryReader {
                             .iterator(), ReflectUtils.getSimpleClass(entity,
                             propertyName));
                 } catch (Exception e) {
-                    getLogger().warning(
-                            "Cannot set " + propertyName + " property on "
-                                    + entity + " from link");
+                    getLogger().warn(
+                            "Cannot set " + propertyName + " property on " + entity + " from link", e);
                 }
                 inlineFeedHandler = null;
             } else {
@@ -228,9 +227,8 @@ public class EntryContentHandler<T> extends EntryReader {
                     ReflectUtils.invokeSetter(entity, propertyName,
                             inlineEntryHandler.getEntity());
                 } catch (Exception e) {
-                    getLogger().warning(
-                            "Cannot set " + propertyName + " property on "
-                                    + entity + " from link");
+                    getLogger().warn(
+                            "Cannot set " + propertyName + " property on " + entity + " from link", e);
                 }
                 inlineEntryHandler = null;
             }
@@ -349,9 +347,8 @@ public class EntryContentHandler<T> extends EntryReader {
                     try {
                         ReflectUtils.setProperty(obj, property, sb.toString());
                     } catch (Exception e) {
-                        getLogger().warning(
-                                "Cannot set " + localName + " property on "
-                                        + obj + " with value " + sb.toString());
+                        getLogger().warn(
+                                "Cannot set " + localName + " property on " + obj + " with value " + sb.toString(), e);
                     }
                 }
                 if (!propertyPath.isEmpty()) {
@@ -373,7 +370,7 @@ public class EntryContentHandler<T> extends EntryReader {
                     ReflectUtils.invokeSetter(entity,
                             mapping.getPropertyPath(), sb.toString());
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot set the mapped property "
                                     + mapping.getPropertyPath() + " on "
                                     + entity + " with value " + sb.toString());
@@ -440,7 +437,7 @@ public class EntryContentHandler<T> extends EntryReader {
                                 value);
                     }
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot set " + m.getPropertyPath()
                                     + " property on " + entity + " with value "
                                     + value);
@@ -458,7 +455,7 @@ public class EntryContentHandler<T> extends EntryReader {
                 try {
                     ReflectUtils.invokeSetter(entity, pty, link.getHref());
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot set the property " + pty + " on " + entity
                                     + " with value " + link.getHref());
                 }
@@ -482,7 +479,7 @@ public class EntryContentHandler<T> extends EntryReader {
                             .iterator(), ReflectUtils.getSimpleClass(entity,
                             propertyName));
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot set " + propertyName + " property on "
                                     + entity + " from link");
                 }
@@ -494,7 +491,7 @@ public class EntryContentHandler<T> extends EntryReader {
                     ReflectUtils.invokeSetter(entity, propertyName,
                             inlineEntryHandler.getEntity());
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot set " + propertyName + " property on "
                                     + entity + " from link");
                 }
@@ -606,7 +603,7 @@ public class EntryContentHandler<T> extends EntryReader {
                         ReflectUtils.invokeSetter(entity, entityType
                                 .getBlobValueRefProperty().getName(), ref);
                     } catch (Exception e) {
-                        getLogger().warning(
+                        getLogger().warn(
                                 "Cannot set "
                                         + entityType.getBlobValueRefProperty()
                                                 .getName() + " property on "
@@ -739,7 +736,7 @@ public class EntryContentHandler<T> extends EntryReader {
                                     ReflectUtils.invokeSetter(entity,
                                             m.getPropertyPath(), value);
                                 } catch (Exception e) {
-                                    getLogger().warning(
+                                    getLogger().warn(
                                             "Cannot set " + m.getPropertyPath()
                                                     + " property on " + entity
                                                     + " with value " + value);
@@ -787,8 +784,8 @@ public class EntryContentHandler<T> extends EntryReader {
             try {
                 entity = (T) entityClass.newInstance();
             } catch (Exception e) {
-                getLogger().warning(
-                        "Error when instantiating  class " + entityClass);
+                getLogger().warn(
+                        "Error when instantiating  class " + entityClass, e);
             }
 
         }

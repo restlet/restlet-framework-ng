@@ -34,7 +34,6 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import java.util.logging.Level;
 
 import org.restlet.Request;
 import org.restlet.Response;
@@ -367,36 +366,31 @@ public class HttpUrlConnectionCall extends ClientCall {
         } catch (ConnectException ce) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An error occurred during the connection to the remote HTTP server.",
+                    .debug("An error occurred during the connection to the remote HTTP server.",
                             ce);
             result = new Status(Status.CONNECTOR_ERROR_CONNECTION, ce);
         } catch (SocketTimeoutException ste) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An timeout error occurred during the communication with the remote HTTP server.",
+                    .debug("An timeout error occurred during the communication with the remote HTTP server.",
                             ste);
             result = new Status(Status.CONNECTOR_ERROR_COMMUNICATION, ste);
         } catch (FileNotFoundException fnfe) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An unexpected error occurred during the sending of the HTTP request.",
+                    .debug("An unexpected error occurred during the sending of the HTTP request.",
                             fnfe);
             result = new Status(Status.CONNECTOR_ERROR_INTERNAL, fnfe);
         } catch (IOException ioe) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An error occurred during the communication with the remote HTTP server.",
+                    .debug("An error occurred during the communication with the remote HTTP server.",
                             ioe);
             result = new Status(Status.CONNECTOR_ERROR_COMMUNICATION, ioe);
         } catch (Exception e) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An unexpected error occurred during the sending of the HTTP request.",
+                    .debug("An unexpected error occurred during the sending of the HTTP request.",
                             e);
             result = new Status(Status.CONNECTOR_ERROR_INTERNAL, e);
         }

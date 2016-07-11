@@ -24,11 +24,6 @@
 
 package org.restlet.engine.application;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.data.CharacterSet;
@@ -43,6 +38,10 @@ import org.restlet.engine.resource.MethodAnnotationInfo;
 import org.restlet.engine.resource.VariantInfo;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Content negotiation algorithm that strictly interprets the content
@@ -116,9 +115,9 @@ public class StrictConneg extends Conneg {
         
         float score = doScoreAnnotation(annotation);
         
-        if (Context.getCurrentLogger().isLoggable(Level.FINE)) {
+        if (Context.getCurrentLogger().isDebugEnabled()) {
             Context.getCurrentLogger()
-                    .fine("Score of annotation \"" + annotation + "\"= " + score);
+                    .debug("Score of annotation \"" + annotation + "\"= " + score);
         }
         return score;
     }
@@ -361,9 +360,8 @@ public class StrictConneg extends Conneg {
             }
         }
 
-        if (Context.getCurrentLogger().isLoggable(Level.FINE)) {
-            Context.getCurrentLogger().fine(
-                    "Total score of variant \"" + variant + "\"= " + result);
+        if (Context.getCurrentLogger().isDebugEnabled()) {
+            Context.getCurrentLogger().debug("Total score of variant \"" + variant + "\"= " + result);
         }
 
         return result;

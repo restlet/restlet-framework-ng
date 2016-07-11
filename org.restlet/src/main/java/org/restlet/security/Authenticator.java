@@ -24,8 +24,6 @@
 
 package org.restlet.security;
 
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -148,11 +146,10 @@ public abstract class Authenticator extends Filter {
      */
     protected int authenticated(Request request, Response response) {
         boolean loggable = request.isLoggable()
-                && getLogger().isLoggable(Level.FINE);
+                && getLogger().isDebugEnabled();
 
         if (loggable && request.getChallengeResponse() != null) {
-            getLogger().log(
-                    Level.FINE,
+            getLogger().debug(
                     "The authentication succeeded for the identifer \""
                             + request.getChallengeResponse().getIdentifier()
                             + "\" using the "
@@ -291,11 +288,10 @@ public abstract class Authenticator extends Filter {
      */
     protected int unauthenticated(Request request, Response response) {
         boolean loggable = request.isLoggable()
-                && getLogger().isLoggable(Level.FINE);
+                && getLogger().isDebugEnabled();
 
         if (request.getChallengeResponse() != null && loggable) {
-            getLogger().log(
-                    Level.FINE,
+            getLogger().debug(
                     "The authentication failed for the identifer \""
                             + request.getChallengeResponse().getIdentifier()
                             + "\" using the "

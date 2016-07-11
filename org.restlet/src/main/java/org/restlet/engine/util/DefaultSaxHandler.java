@@ -24,15 +24,14 @@
 
 package org.restlet.engine.util;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.restlet.Context;
+import org.slf4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.io.IOException;
 
 /**
  * A Utility class which extends the provided {@link DefaultHandler} and
@@ -70,7 +69,7 @@ public class DefaultSaxHandler extends DefaultHandler
      */
     private volatile boolean loggable;
 
-    /** The current context JDK {@link Logger} to use for message output. */
+    /** The current context {@link org.slf4j.Logger} to use for message output. */
     private volatile Logger logger;
 
     /**
@@ -79,7 +78,7 @@ public class DefaultSaxHandler extends DefaultHandler
     public DefaultSaxHandler() {
         super();
         logger = Context.getCurrentLogger();
-        loggable = logger.isLoggable(Level.CONFIG);
+        loggable = logger.isDebugEnabled();
     }
 
     @Override
@@ -90,9 +89,9 @@ public class DefaultSaxHandler extends DefaultHandler
                     + "], SYSTEM [" + x.getSystemId() + "] - line #"
                     + x.getLineNumber() + ", column #" + x.getColumnNumber();
             if (debug) {
-                Context.getCurrentLogger().log(Level.CONFIG, msg, x);
+                Context.getCurrentLogger().debug(msg, x);
             } else {
-                logger.config(msg + ": " + x.getLocalizedMessage());
+                logger.debug(msg + ": " + x.getLocalizedMessage());
             }
         }
     }
@@ -105,9 +104,9 @@ public class DefaultSaxHandler extends DefaultHandler
                     + "], SYSTEM [" + x.getSystemId() + "] - line #"
                     + x.getLineNumber() + ", column #" + x.getColumnNumber();
             if (debug) {
-                Context.getCurrentLogger().log(Level.CONFIG, msg, x);
+                Context.getCurrentLogger().debug(msg, x);
             } else {
-                logger.config(msg + ": " + x.getLocalizedMessage());
+                logger.debug(msg + ": " + x.getLocalizedMessage());
             }
         }
     }
@@ -116,7 +115,7 @@ public class DefaultSaxHandler extends DefaultHandler
     public InputSource resolveEntity(String publicId, String systemId)
             throws IOException, SAXException {
         if (loggable) {
-            logger.config("Resolve entity with PUBLIC [" + publicId
+            logger.debug("Resolve entity with PUBLIC [" + publicId
                     + "], and SYSTEM [" + systemId + "]");
         }
         return super.resolveEntity(publicId, systemId);
@@ -144,7 +143,7 @@ public class DefaultSaxHandler extends DefaultHandler
             String namespaceUri, String publicId, String systemId,
             String baseUri) {
         if (loggable) {
-            logger.config("Resolve resource with type [" + type
+            logger.debug("Resolve resource with type [" + type
                     + "], namespace URI [" + namespaceUri + "], PUBLIC ["
                     + publicId + "], SYSTEM [" + systemId + "], and base URI ["
                     + baseUri + "]");
@@ -156,7 +155,7 @@ public class DefaultSaxHandler extends DefaultHandler
     public void skippedEntity(String name) throws SAXException {
         super.skippedEntity(name);
         if (loggable) {
-            logger.config("Skipped entity named [" + name + "]");
+            logger.debug("Skipped entity named [" + name + "]");
         }
     }
 
@@ -168,9 +167,9 @@ public class DefaultSaxHandler extends DefaultHandler
                     + "], SYSTEM [" + x.getSystemId() + "] - line #"
                     + x.getLineNumber() + ", column #" + x.getColumnNumber();
             if (debug) {
-                Context.getCurrentLogger().log(Level.CONFIG, msg, x);
+                Context.getCurrentLogger().debug(msg, x);
             } else {
-                logger.config(msg + ": " + x.getLocalizedMessage());
+                logger.debug(msg + ": " + x.getLocalizedMessage());
             }
         }
     }

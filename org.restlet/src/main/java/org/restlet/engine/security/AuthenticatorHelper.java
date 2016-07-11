@@ -25,7 +25,6 @@
 package org.restlet.engine.security;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -39,6 +38,7 @@ import org.restlet.engine.Helper;
 import org.restlet.engine.header.ChallengeWriter;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.util.Series;
+import org.slf4j.Logger;
 
 /**
  * Base class for authentication helpers.

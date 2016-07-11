@@ -31,7 +31,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.logging.Level;
 
 import org.restlet.Request;
 import org.restlet.Response;
@@ -180,7 +179,7 @@ public class DirectoryServerResource extends ServerResource {
                 getDirectory().getContext().getClientDispatcher() :
                 null;
         if (getClientDispatcher() == null) {
-            getLogger().warning("No client dispatcher is available. Can't get the target URI: " + this.targetUri);
+            getLogger().warn("No client dispatcher is available. Can't get the target URI: " + this.targetUri);
 
             throw new ResourceException(Status.SERVER_ERROR_INTERNAL, "No client dispatcher is available.");
         }
@@ -352,8 +351,8 @@ public class DirectoryServerResource extends ServerResource {
         }
 
         // Log results
-        getLogger().fine("Converted target URI: " + this.targetUri);
-        getLogger().fine("Converted base name : " + this.baseName);
+        getLogger().debug("Converted target URI: " + this.targetUri);
+        getLogger().debug("Converted base name : " + this.baseName);
 
     }
 
@@ -399,7 +398,7 @@ public class DirectoryServerResource extends ServerResource {
                 variantRefs.add(variant.getLocationRef());
             } else {
                 getLogger()
-                        .warning(
+                        .warn(
                                 "A resource with multiple variants should provide a location for each variant when content negotiation is turned off");
             }
         }
@@ -553,7 +552,7 @@ public class DirectoryServerResource extends ServerResource {
             return variantsGet;
         }
 
-        getLogger().fine("Getting variants for: " + getTargetUri());
+        getLogger().debug("Getting variants for: " + getTargetUri());
 
         if (this.fileTarget && (this.fileContent != null)) {
             // found a target file, set its content location
@@ -683,7 +682,7 @@ public class DirectoryServerResource extends ServerResource {
             // Test if the given response is the list of all variants for this resource
             listVariants = new ReferenceList(contextResponse.getEntity());
         } catch (IOException ioe) {
-            getLogger().log(Level.WARNING, "Unable to get resource variants", ioe);
+            getLogger().warn("Unable to get resource variants", ioe);
             return new ReferenceList(0);
         }
 

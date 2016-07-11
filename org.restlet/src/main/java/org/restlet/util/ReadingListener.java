@@ -27,7 +27,6 @@ package org.restlet.util;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.engine.io.IoUtils;
@@ -118,13 +117,13 @@ public abstract class ReadingListener implements SelectionListener {
 
     /**
      * Callback invoked when an IO exception occurs. By default, it logs the
-     * exception at the {@link Level#WARNING} level.
+     * exception at the warning level.
      * 
      * @param ioe
      *            The exception caught.
      */
     protected void onError(IOException ioe) {
-        Context.getCurrentLogger().log(Level.WARNING, "", ioe);
+        Context.getCurrentLogger().warn("", ioe);
     }
 
     /**
@@ -146,8 +145,7 @@ public abstract class ReadingListener implements SelectionListener {
                 } else if (result == -1) {
                     onEnd();
                 } else {
-                    Context.getCurrentLogger().fine(
-                            "NIO selection detected with no content available");
+                    Context.getCurrentLogger().debug("NIO selection detected with no content available");
                 }
             }
         } catch (IOException ioe) {

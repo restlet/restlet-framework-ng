@@ -24,14 +24,13 @@
 
 package org.restlet.engine.component;
 
-import java.util.logging.Level;
-import java.util.regex.Pattern;
-
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.routing.Route;
 import org.restlet.routing.Router;
 import org.restlet.routing.VirtualHost;
+
+import java.util.regex.Pattern;
 
 /**
  * Route based on a target VirtualHost.
@@ -74,8 +73,8 @@ public class HostRoute extends Route {
             request.getResourceRef().setBaseRef(request.getHostRef());
         }
 
-        if (request.isLoggable() && getLogger().isLoggable(Level.FINE)) {
-            getLogger().fine(
+        if (request.isLoggable() && getLogger().isDebugEnabled()) {
+            getLogger().debug(
                     "Base URI: \"" + request.getResourceRef().getBaseRef()
                             + "\". Remaining part: \""
                             + request.getResourceRef().getRemainingPart()
@@ -203,8 +202,8 @@ public class HostRoute extends Route {
         }
 
         // Log the result of the matching
-        if (getLogger().isLoggable(Level.FINER)) {
-            getLogger().finer(
+        if (getLogger().isDebugEnabled()) {
+            getLogger().debug(
                     "Call score for the \"" + getVirtualHost().getName()
                             + "\" host: " + result);
         }

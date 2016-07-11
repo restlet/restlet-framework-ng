@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +37,7 @@ import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Reference;
 import org.restlet.util.Resolver;
+import org.slf4j.Logger;
 
 /**
  * String template with a pluggable model. Supports both formatting and parsing.
@@ -384,7 +384,7 @@ public class Template {
                 } else if (next == '}') {
                     // End of variable detected
                     if (varBuffer.length() == 0) {
-                        getLogger().warning(
+                        getLogger().warn(
                                 "Empty pattern variables are not allowed : "
                                         + this.regexPattern);
                     } else {
@@ -427,7 +427,7 @@ public class Template {
                     }
                     inVariable = false;
                 } else {
-                    getLogger().warning(
+                    getLogger().warn(
                             "An invalid character was detected inside a pattern variable : "
                                     + this.regexPattern);
                 }
@@ -436,7 +436,7 @@ public class Template {
                     inVariable = true;
                     varBuffer = new StringBuilder();
                 } else if (next == '}') {
-                    getLogger().warning(
+                    getLogger().warn(
                             "An invalid character was detected inside a pattern variable : "
                                     + this.regexPattern);
                 } else {
@@ -507,7 +507,7 @@ public class Template {
                             } else if (next == '}') {
                                 // End of variable detected
                                 if (varBuffer.length() == 0) {
-                                    getLogger().warning(
+                                    getLogger().warn(
                                             "Empty pattern variables are not allowed : "
                                                     + this.regexPattern);
                                 } else {
@@ -540,7 +540,7 @@ public class Template {
                                 inVariable = false;
 
                             } else {
-                                getLogger().warning(
+                                getLogger().warn(
                                         "An invalid character was detected inside a pattern variable : "
                                                 + this.regexPattern);
                             }
@@ -549,7 +549,7 @@ public class Template {
                                 inVariable = true;
                                 varBuffer = new StringBuilder();
                             } else if (next == '}') {
-                                getLogger().warning(
+                                getLogger().warn(
                                         "An invalid character was detected inside a pattern variable : "
                                                 + this.regexPattern);
                             } else {
@@ -610,7 +610,7 @@ public class Template {
                 } else if (next == '}') {
                     // End of variable detected
                     if (varBuffer.length() == 0) {
-                        getLogger().warning(
+                        getLogger().warn(
                                 "Empty pattern variables are not allowed : "
                                         + this.pattern);
                     } else {
@@ -622,7 +622,7 @@ public class Template {
 
                     inVariable = false;
                 } else {
-                    getLogger().warning(
+                    getLogger().warn(
                             "An invalid character was detected inside a pattern variable : "
                                     + this.pattern);
                 }
@@ -631,7 +631,7 @@ public class Template {
                     inVariable = true;
                     varBuffer = new StringBuilder();
                 } else if (next == '}') {
-                    getLogger().warning(
+                    getLogger().warn(
                             "An invalid character was detected inside a pattern variable : "
                                     + this.pattern);
                 }
@@ -686,7 +686,7 @@ public class Template {
                 }
             }
         } catch (StackOverflowError soe) {
-            getLogger().warning(
+            getLogger().warn(
                     "StackOverflowError exception encountered while matching this string : "
                             + formattedString);
         }
@@ -758,7 +758,7 @@ public class Template {
                         }
 
                         if (loggable) {
-                            getLogger().fine(
+                            getLogger().debug(
                                     "Template variable \"" + attributeName
                                             + "\" matched with value \""
                                             + attributeValue + "\"");
@@ -768,7 +768,7 @@ public class Template {
                     }
                 }
             } catch (StackOverflowError soe) {
-                getLogger().warning(
+                getLogger().warn(
                         "StackOverflowError exception encountered while matching this string : "
                                 + formattedString);
             }

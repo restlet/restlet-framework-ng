@@ -30,7 +30,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Objects;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.engine.util.SystemUtils;
@@ -243,7 +242,7 @@ public abstract class AnnotationInfo {
                 result = getJavaActualType(getJavaClass(), genericTypeName);
             }
         } catch (Throwable t) {
-            Context.getCurrentLogger().log(Level.WARNING, "Cannot get actual type of generic type: " + genericType, t);
+            Context.getCurrentLogger().warn("Cannot get actual type of generic type: " + genericType, t);
         }
 
         return result;

@@ -31,7 +31,6 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.util.SelectionListener;
@@ -144,9 +143,8 @@ public class NbChannelInputStream extends InputStream {
         result = this.channel.read(this.byteBuffer);
 
         if (result > 0) {
-            if (Context.getCurrentLogger().isLoggable(Level.FINE)) {
-                Context.getCurrentLogger().log(
-                        Level.FINE,
+            if (Context.getCurrentLogger().isDebugEnabled()) {
+                Context.getCurrentLogger().debug(
                         "NbChannelInputStream#readChannel : " + result
                                 + " bytes read");
             }
@@ -183,11 +181,9 @@ public class NbChannelInputStream extends InputStream {
                                         public void onSelected(
                                                 SelectionRegistration registration)
                                                 throws IOException {
-                                            if (Context.getCurrentLogger()
-                                                    .isLoggable(Level.FINER)) {
+                                            if (Context.getCurrentLogger().isDebugEnabled()) {
                                                 Context.getCurrentLogger()
-                                                        .log(Level.FINER,
-                                                                "NbChannelInputStream selected");
+                                                        .debug("NbChannelInputStream selected");
                                             }
 
                                             // Stop listening at this point
@@ -208,9 +204,7 @@ public class NbChannelInputStream extends InputStream {
                         bytesRead = readChannel();
                     } catch (Exception e) {
                         Context.getCurrentLogger()
-                                .log(Level.FINE,
-                                        "Exception while registering or waiting for new content",
-                                        e);
+                                .debug("Exception while registering or waiting for new content", e);
                     }
                 } else if (selectableChannel != null) {
                     Selector selector = null;

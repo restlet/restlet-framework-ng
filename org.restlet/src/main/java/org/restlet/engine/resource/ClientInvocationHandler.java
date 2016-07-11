@@ -29,7 +29,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -283,8 +282,7 @@ public class ClientInvocationHandler<T> implements InvocationHandler {
                                             .newInstance();
                                 } catch (Exception e) {
                                     Context.getCurrentLogger()
-                                            .log(Level.FINE,
-                                                    "Unable to instantiate the client-side exception using the default constructor.");
+                                            .debug("Unable to instantiate the client-side exception using the default constructor.");
                                 }
 
                                 if (response.isEntityAvailable()) {

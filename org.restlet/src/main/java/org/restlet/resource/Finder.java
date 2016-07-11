@@ -25,14 +25,13 @@
 package org.restlet.resource;
 
 import java.lang.reflect.Constructor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
 import org.restlet.data.Status;
+import org.slf4j.Logger;
 
 /**
  * Restlet that can find the target server resource that will effectively handle
@@ -81,8 +80,7 @@ public class Finder extends Restlet {
                 }
             } catch (Exception e) {
                 if (logger != null) {
-                    logger.log(Level.WARNING,
-                            "Exception while instantiating the finder.", e);
+                    logger.warn("Exception while instantiating the finder.", e);
                 }
             }
         } else {
@@ -138,8 +136,7 @@ public class Finder extends Restlet {
      *            The response to update.
      * @return The created resource or null.
      */
-    public ServerResource create(Class<? extends ServerResource> targetClass,
-            Request request, Response response) {
+    public ServerResource create(Class<? extends ServerResource> targetClass, Request request, Response response) {
         ServerResource result = null;
 
         if (targetClass != null) {
@@ -147,10 +144,7 @@ public class Finder extends Restlet {
                 // Invoke the default constructor
                 result = targetClass.newInstance();
             } catch (Exception e) {
-                getLogger()
-                        .log(Level.WARNING,
-                                "Exception while instantiating the target server resource.",
-                                e);
+                getLogger().warn("Exception while instantiating the target server resource.", e);
             }
         }
 
@@ -222,10 +216,8 @@ public class Finder extends Restlet {
                 // If the current status is a success but we couldn't
                 // find the target resource for the request's URI,
                 // then we set the response status to 404 (Not Found).
-                if (getLogger().isLoggable(Level.WARNING)) {
-                    getLogger().warning(
-                            "No target resource was defined for this finder: "
-                                    + toString());
+                if (getLogger().isWarnEnabled()) {
+                    getLogger().warn("No target resource was defined for this finder: " + toString());
                 }
 
                 response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);

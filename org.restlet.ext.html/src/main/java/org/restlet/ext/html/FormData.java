@@ -24,9 +24,6 @@
 
 package org.restlet.ext.html;
 
-import java.io.IOException;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.Disposition;
 import org.restlet.data.MediaType;
@@ -34,6 +31,8 @@ import org.restlet.data.Reference;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.util.NamedValue;
+
+import java.io.IOException;
 
 /**
  * HTML form data composed of a name and a value. The value is typically a
@@ -168,9 +167,7 @@ public class FormData implements NamedValue<String> {
             return getValueRepresentation().getText();
         } catch (IOException e) {
             Context.getCurrentLogger()
-                    .log(Level.INFO,
-                            "Unable to get the textual value of the form data value representation",
-                            e);
+                    .info("Unable to get the textual value of the form data value representation", e);
             return null;
         }
     }

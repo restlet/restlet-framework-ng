@@ -24,14 +24,13 @@
 
 package org.restlet.representation;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.engine.io.IoUtils;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 
 /**
  * Transient representation based on a BIO characters reader.
@@ -108,8 +107,7 @@ public class ReaderRepresentation extends CharacterRepresentation {
             try {
                 this.reader.close();
             } catch (IOException e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Error while releasing the representation.", e);
+                Context.getCurrentLogger().warn("Error while releasing the representation.", e);
             }
 
             this.reader = null;

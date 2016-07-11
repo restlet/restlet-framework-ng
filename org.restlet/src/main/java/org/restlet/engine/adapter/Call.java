@@ -26,7 +26,6 @@ package org.restlet.engine.adapter;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.data.Header;
@@ -35,6 +34,7 @@ import org.restlet.engine.header.HeaderUtils;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.util.Series;
+import org.slf4j.Logger;
 
 /**
  * Low-level call for the HTTP connectors.

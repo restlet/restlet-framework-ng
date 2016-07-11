@@ -24,19 +24,17 @@
 
 package org.restlet.ext.xml.internal;
 
-import java.io.IOException;
-import java.util.logging.Level;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.stream.StreamSource;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Method;
 import org.restlet.data.Reference;
+
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
 
 /**
  * URI resolver based on a Restlet Context instance.
@@ -89,8 +87,7 @@ public class ContextResolver implements URIResolver {
                     result.setSystemId(targetUri);
 
                 } catch (IOException e) {
-                    this.context.getLogger().log(Level.WARNING,
-                            "I/O error while getting the response stream", e);
+                    this.context.getLogger().warn("I/O error while getting the response stream", e);
                 }
             }
         }

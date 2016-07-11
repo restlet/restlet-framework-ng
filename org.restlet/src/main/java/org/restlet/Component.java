@@ -28,7 +28,6 @@ import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
 
 import org.restlet.data.Reference;
 import org.restlet.engine.Engine;
@@ -217,8 +216,7 @@ public class Component extends Restlet {
                 new org.restlet.engine.component.ComponentXmlParser(this,
                         xmlConfigRepresentation).parse();
             } else {
-                getLogger().log(
-                        Level.WARNING,
+                getLogger().warn(
                         "Unable to get the Component XML configuration located at this URI: "
                                 + xmlConfigRef);
             }
@@ -240,8 +238,7 @@ public class Component extends Restlet {
             new org.restlet.engine.component.ComponentXmlParser(this,
                     xmlConfigRepresentation).parse();
         } else {
-            getLogger().log(Level.WARNING,
-                    "Unable to parse the Component XML configuration.");
+            getLogger().warn("Unable to parse the Component XML configuration.");
         }
     }
 

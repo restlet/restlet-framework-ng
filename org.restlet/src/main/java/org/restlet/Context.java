@@ -29,11 +29,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.logging.Logger;
 
 import org.restlet.data.Parameter;
 import org.restlet.engine.Engine;
 import org.restlet.util.Series;
+import org.slf4j.Logger;
 
 /**
  * Contextual data and services provided to a set of Restlets. The context is
@@ -51,7 +51,7 @@ import org.restlet.util.Series;
 public class Context {
 
     // [ifndef gwt] member
-    private static final ThreadLocal<Context> CURRENT = new ThreadLocal<Context>();
+    private static final ThreadLocal<Context> CURRENT = new ThreadLocal<>();
 
     /**
      * Returns the context associated to the current {@link Restlet}. The
@@ -83,8 +83,7 @@ public class Context {
      */
     public static Logger getCurrentLogger() {
         // [ifndef gwt] instruction
-        return (Context.getCurrent() != null) ? Context.getCurrent()
-                .getLogger() : Engine.getLogger("org.restlet");
+        return (Context.getCurrent() != null) ? Context.getCurrent().getLogger() : Engine.getLogger("org.restlet");
 
         // [ifdef gwt] instruction uncomment
         // return Engine.getLogger("org.restlet");
@@ -149,11 +148,10 @@ public class Context {
      *            The logger instance of use.
      */
     public Context(Logger logger) {
-        this.attributes = new ConcurrentHashMap<String, Object>();
+        this.attributes = new ConcurrentHashMap<>();
         this.logger = logger;
         // [ifndef gwt] instruction
-        this.parameters = new Series<Parameter>(Parameter.class,
-                new CopyOnWriteArrayList<Parameter>());
+        this.parameters = new Series<>(Parameter.class, new CopyOnWriteArrayList<>());
         // [ifdef gwt] instruction uncomment
         // this.parameters = new org.restlet.engine.util.ParameterSeries(new
         // CopyOnWriteArrayList<Parameter>());

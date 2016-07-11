@@ -26,7 +26,6 @@ package org.restlet.engine.application;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -34,6 +33,7 @@ import org.restlet.Response;
 import org.restlet.data.Method;
 import org.restlet.data.Status;
 import org.restlet.engine.util.SetUtils;
+import org.slf4j.Logger;
 
 /**
  * Helps to generate response CORS headers.<br>
@@ -100,7 +100,7 @@ public class CorsResponseHelper {
 
         if (!allowedOrigins.contains("*") && !allowedOrigins.contains(origin)) {
             // Origin not allowed
-            LOGGER.fine("Origin " + origin + " not allowed for CORS request");
+            LOGGER.debug("Origin " + origin + " not allowed for CORS request");
             return;
         }
 
@@ -126,20 +126,20 @@ public class CorsResponseHelper {
                             .getStatus())) {
                 response.setStatus(Status.SUCCESS_OK);
             } else {
-                LOGGER.fine("The CORS preflight request failed in server resource.");
+                LOGGER.debug("The CORS preflight request failed in server resource.");
                 return;
             }
 
             Method requestedMethod = request.getAccessControlRequestMethod();
             if (requestedMethod == null) {
                 // Requested Method is required
-                LOGGER.fine("A CORS preflight request should specified header 'Access-Control-Request-Method'");
+                LOGGER.debug("A CORS preflight request should specified header 'Access-Control-Request-Method'");
                 return;
             }
 
             if (!allowedMethods.contains(requestedMethod)) {
                 // Method not allowed
-                LOGGER.fine("The CORS preflight request ask for methods not allowed in header 'Access-Control-Request-Method'");
+                LOGGER.debug("The CORS preflight request ask for methods not allowed in header 'Access-Control-Request-Method'");
                 return;
             }
 
@@ -153,7 +153,7 @@ public class CorsResponseHelper {
                     && (allowedHeaders == null || !isAllHeadersAllowed(
                             allowedHeaders, requestedHeaders))) {
                 // Headers not allowed
-                LOGGER.fine("The CORS preflight request ask for headers not allowed in header 'Access-Control-Request-Headers'");
+                LOGGER.debug("The CORS preflight request ask for headers not allowed in header 'Access-Control-Request-Headers'");
                 return;
             }
 

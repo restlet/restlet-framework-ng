@@ -24,22 +24,6 @@
 
 package org.restlet.ext.xml;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
-
 import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
@@ -50,6 +34,20 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Representation based on an XML document. It knows how to evaluate XPath
@@ -377,8 +375,7 @@ public abstract class XmlRepresentation extends WriterRepresentation
             try {
                 dbf.setXIncludeAware(isXIncludeAware());
             } catch (UnsupportedOperationException uoe) {
-                Context.getCurrentLogger().log(Level.FINE,
-                        "The JAXP parser doesn't support XInclude.", uoe);
+                Context.getCurrentLogger().debug("The JAXP parser doesn't support XInclude.", uoe);
             }
 
             // [ifndef android]
@@ -842,8 +839,7 @@ public abstract class XmlRepresentation extends WriterRepresentation
         try {
             this.schema = getSchema(schemaRepresentation);
         } catch (Exception e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to compile the schema representation", e);
+            Context.getCurrentLogger().warn("Unable to compile the schema representation", e);
         }
     }
 

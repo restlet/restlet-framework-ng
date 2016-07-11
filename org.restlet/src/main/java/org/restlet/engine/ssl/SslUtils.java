@@ -27,7 +27,6 @@ package org.restlet.engine.ssl;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.engine.RestletHelper;
@@ -138,27 +137,21 @@ public class SslUtils {
                             result = sslContextFactoryClass.newInstance();
                             result.init(helper.getHelpedParameters());
                         } catch (ClassNotFoundException e) {
-                            Context.getCurrentLogger().log(
-                                    Level.WARNING,
-                                    "Unable to find SslContextFactory class: "
+                            Context.getCurrentLogger().warn("Unable to find SslContextFactory class: "
                                             + sslContextFactoryName, e);
                         } catch (ClassCastException e) {
                             Context.getCurrentLogger()
-                                    .log(Level.WARNING,
-                                            "Class "
+                                    .warn("Class "
                                                     + sslContextFactoryName
                                                     + " does not implement SslContextFactory.",
                                             e);
                         } catch (InstantiationException e) {
-                            Context.getCurrentLogger().log(
-                                    Level.WARNING,
+                            Context.getCurrentLogger().warn(
                                     "Could not instantiate class "
                                             + sslContextFactoryName
                                             + " with default constructor.", e);
                         } catch (IllegalAccessException e) {
-                            Context.getCurrentLogger().log(
-                                    Level.WARNING,
-                                    "Illegal access when instantiating class "
+                            Context.getCurrentLogger().warn("Illegal access when instantiating class "
                                             + sslContextFactoryName + ".", e);
                         }
                     }

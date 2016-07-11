@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.data.Encoding;
@@ -93,8 +92,7 @@ public class HeaderReader<V> {
             return resultClass.getConstructor(String.class, String.class)
                     .newInstance(name, value);
         } catch (Exception e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to create named value", e);
+            Context.getCurrentLogger().warn("Unable to create named value", e);
             return null;
         }
         // [enddef]
@@ -323,8 +321,7 @@ public class HeaderReader<V> {
                 }
             } while (cont);
         } catch (IOException ioe) {
-            Context.getCurrentLogger().log(Level.INFO,
-                    "Unable to read a header", ioe);
+            Context.getCurrentLogger().info("Unable to read a header", ioe);
         }
     }
 

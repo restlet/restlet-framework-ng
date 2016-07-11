@@ -24,9 +24,8 @@
 
 package org.restlet.engine.adapter;
 
-import java.util.logging.Logger;
-
 import org.restlet.Context;
+import org.slf4j.Logger;
 
 /**
  * Converter between high-level and low-level HTTP calls.
@@ -63,8 +62,7 @@ public class Adapter {
      * @return The logger.
      */
     public Logger getLogger() {
-        Logger result = (getContext() != null) ? getContext().getLogger()
-                : null;
+        Logger result = (getContext() != null) ? getContext().getLogger() : null;
         return (result != null) ? result : Context.getCurrentLogger();
     }
 

@@ -27,8 +27,6 @@ package org.restlet.ext.odata;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.data.MediaType;
@@ -49,6 +47,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.routing.Template;
 import org.restlet.routing.Variable;
 import org.restlet.util.Series;
+import org.slf4j.Logger;
 
 /**
  * Specific query to a OData service, represents a particular HTTP request to a
@@ -67,7 +66,7 @@ public class Query<T> implements Iterable<T> {
      * 
      * @author Thierry Boileau
      * 
-     * @param <T>
+     * @param <E>
      */
     private class EntryIterator<E> implements Iterator<E> {
 
@@ -355,7 +354,7 @@ public class Query<T> implements Iterable<T> {
             try {
                 result = resource.get(MediaType.APPLICATION_ATOM);
             } catch (ResourceException e) {
-                getLogger().warning(
+                getLogger().warn(
                         "Can't execute the query for the following reference: "
                                 + targetUri + " due to " + e.getMessage());
                 throw e;
@@ -469,7 +468,7 @@ public class Query<T> implements Iterable<T> {
                 try {
                     execute();
                 } catch (Exception e) {
-                    getLogger().warning(
+                    getLogger().warn(
                             "Cannot retrieve inline count value due to: "
                                     + e.getMessage());
                 }
@@ -490,7 +489,7 @@ public class Query<T> implements Iterable<T> {
                 Representation result = resource.get();
                 count = Integer.parseInt(result.getText());
             } catch (Exception e) {
-                getLogger().warning(
+                getLogger().warn(
                         "Cannot parse count value due to: " + e.getMessage());
             }
         }
@@ -662,8 +661,7 @@ public class Query<T> implements Iterable<T> {
                         getNextPage(), entityClass);
             }
         } catch (Exception e) {
-            getLogger().log(Level.WARNING,
-                    "Can't parse the content of " + createTargetUri(), e);
+            getLogger().warn("Can't parse the content of " + createTargetUri(), e);
         }
 
         return result;

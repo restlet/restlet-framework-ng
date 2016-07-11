@@ -51,7 +51,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Map;
-import java.util.logging.Level;
 
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -218,8 +217,7 @@ public class NettyServerCall extends ServerCall {
         } catch (IOException ioe) {
             // The stream was probably already closed by the
             // connector. Probably OK, low message priority.
-            getLogger().log(Level.FINE,
-                    "Exception while writing the entity stream.", ioe);
+            getLogger().debug("Exception while writing the entity stream.", ioe);
         }
     }
 

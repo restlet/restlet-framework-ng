@@ -24,8 +24,6 @@
 
 package org.restlet.routing;
 
-import java.util.logging.Level;
-
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Context;
@@ -284,8 +282,7 @@ public class Redirector extends Restlet {
         switch (this.mode) {
         case MODE_CLIENT_PERMANENT:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Permanently redirecting client to: " + targetRef);
+                getLogger().debug("Permanently redirecting client to: " + targetRef);
             }
 
             response.redirectPermanent(targetRef);
@@ -293,8 +290,7 @@ public class Redirector extends Restlet {
 
         case MODE_CLIENT_FOUND:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Redirecting client to found location: " + targetRef);
+                getLogger().debug("Redirecting client to found location: " + targetRef);
             }
 
             response.setLocationRef(targetRef);
@@ -303,8 +299,7 @@ public class Redirector extends Restlet {
 
         case MODE_CLIENT_SEE_OTHER:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Redirecting client to another location: " + targetRef);
+                getLogger().debug("Redirecting client to another location: " + targetRef);
             }
 
             response.redirectSeeOther(targetRef);
@@ -312,8 +307,7 @@ public class Redirector extends Restlet {
 
         case MODE_CLIENT_TEMPORARY:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Temporarily redirecting client to: " + targetRef);
+                getLogger().debug("Temporarily redirecting client to: " + targetRef);
             }
 
             response.redirectTemporary(targetRef);
@@ -321,8 +315,7 @@ public class Redirector extends Restlet {
 
         case MODE_SERVER_OUTBOUND:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Redirecting via client dispatcher to: " + targetRef);
+                getLogger().debug("Redirecting via client dispatcher to: " + targetRef);
             }
 
             outboundServerRedirect(targetRef, request, response);
@@ -330,8 +323,7 @@ public class Redirector extends Restlet {
 
         case MODE_SERVER_INBOUND:
             if (request.isLoggable()) {
-                getLogger().log(Level.FINE,
-                        "Redirecting via server dispatcher to: " + targetRef);
+                getLogger().debug("Redirecting via server dispatcher to: " + targetRef);
             }
 
             inboundServerRedirect(targetRef, request, response);
@@ -422,7 +414,6 @@ public class Redirector extends Restlet {
      * 
      * @param initialRequest
      *            The initial request returned.
-     * @return The updated request.
      */
     protected void rewrite(Request initialRequest) {
         if (isHeadersCleaning()) {
@@ -440,9 +431,8 @@ public class Redirector extends Restlet {
      * to true, it removes all headers, otherwise it keeps only the extension
      * (or non HTTP standard) headers<br>
      * 
-     * @param initialRequest
-     *            The initial request returned.
-     * @return The updated request.
+     * @param initialResponse
+     *            The initial response returned.
      */
     protected void rewrite(Response initialResponse) {
         if (isHeadersCleaning()) {
@@ -501,7 +491,7 @@ public class Redirector extends Restlet {
     protected void serverRedirect(Restlet next, Reference targetRef,
             Request request, Response response) {
         if (next == null) {
-            getLogger().warning(
+            getLogger().warn(
                     "No next Restlet provided for server redirection to "
                             + targetRef);
         } else {

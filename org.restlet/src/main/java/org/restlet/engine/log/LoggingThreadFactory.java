@@ -24,9 +24,9 @@
 
 package org.restlet.engine.log;
 
+import org.slf4j.Logger;
+
 import java.util.concurrent.ThreadFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Thread factory that logs uncaught exceptions thrown by the created threads.
@@ -42,7 +42,7 @@ public class LoggingThreadFactory implements ThreadFactory {
             Thread.UncaughtExceptionHandler {
 
         public void uncaughtException(Thread t, Throwable ex) {
-            logger.log(Level.SEVERE, "Thread: " + t.getName()
+            logger.error("Thread: " + t.getName()
                     + " terminated with exception: " + ex.getMessage(), ex);
         }
     }

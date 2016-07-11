@@ -24,14 +24,6 @@
 
 package org.restlet.engine.adapter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PushbackInputStream;
-import java.security.cert.Certificate;
-import java.util.List;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Response;
 import org.restlet.Server;
@@ -53,6 +45,13 @@ import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.service.ConnectorService;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PushbackInputStream;
+import java.security.cert.Certificate;
+import java.util.List;
 
 /**
  * Abstract HTTP server connector call.
@@ -204,7 +203,7 @@ public abstract class ServerCall extends Call {
                         requestStream = null;
                     }
                 } catch (IOException e) {
-                    getLogger().fine("Unable to read request entity");
+                    getLogger().debug("Unable to read request entity");
                 }
             }
 
@@ -248,8 +247,7 @@ public abstract class ServerCall extends Call {
                     result.setDisposition(new DispositionReader(header
                             .getValue()).readValue());
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(
-                            Level.WARNING,
+                    Context.getCurrentLogger().warn(
                             "Error during Content-Disposition header parsing. Header: "
                                     + header.getValue(), ioe);
                 }
@@ -465,10 +463,7 @@ public abstract class ServerCall extends Call {
                     } catch (IOException ioe) {
                         // The stream was probably already closed by the
                         // connector. Probably OK, low message priority.
-                        getLogger()
-                                .log(Level.FINE,
-                                        "Exception while flushing and closing the entity stream.",
-                                        ioe);
+                        getLogger().debug("Exception while flushing and closing the entity stream.", ioe);
                     }
                 }
                 if (responseEntity != null) {

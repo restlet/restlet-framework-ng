@@ -1,28 +1,34 @@
 /**
  * Copyright 2005-2014 Restlet
- * 
+ * <p>
  * The contents of this file are subject to the terms of one of the following
  * open source licenses: Apache 2.0 or or EPL 1.0 (the "Licenses"). You can
  * select the license that you prefer but you may not use this file except in
  * compliance with one of these Licenses.
- * 
+ * <p>
  * You can obtain a copy of the Apache 2.0 license at
  * http://www.opensource.org/licenses/apache-2.0
- * 
+ * <p>
  * You can obtain a copy of the EPL 1.0 license at
  * http://www.opensource.org/licenses/eclipse-1.0
- * 
+ * <p>
  * See the Licenses for the specific language governing permissions and
  * limitations under the Licenses.
- * 
+ * <p>
  * Alternatively, you can obtain a royalty free commercial license with less
  * limitations, transferable or non-transferable, directly at
  * http://restlet.com/products/restlet-framework
- * 
+ * <p>
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
 package org.restlet.ext.html.internal;
+
+import org.restlet.Context;
+import org.restlet.data.CharacterSet;
+import org.restlet.ext.html.FormData;
+import org.restlet.representation.Representation;
+import org.restlet.util.Series;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,17 +37,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-
-import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.ext.html.FormData;
-import org.restlet.representation.Representation;
-import org.restlet.util.Series;
 
 /**
  * Form reader.
- * 
+ *
  * @author Jerome Louvel
  */
 public class FormReader {
@@ -62,7 +61,7 @@ public class FormReader {
      * Constructor.<br>
      * In case the representation does not define a character set, the UTF-8
      * character set is used.
-     * 
+     *
      * @param representation
      *            The web form content.
      * @throws IOException
@@ -82,7 +81,7 @@ public class FormReader {
 
     /**
      * Constructor. Will leave the parsed data encoded.
-     * 
+     *
      * @param queryString
      *            The query string.
      */
@@ -99,7 +98,7 @@ public class FormReader {
 
     /**
      * Constructor.
-     * 
+     *
      * @param queryString
      *            The query string.
      * @param characterSet
@@ -107,7 +106,7 @@ public class FormReader {
      *            data encoded.
      */
     public FormReader(String queryString, CharacterSet characterSet,
-            char separator) {
+                      char separator) {
         this.decoding = true;
         // [ifndef gwt] line
         this.stream = new ByteArrayInputStream(queryString.getBytes());
@@ -120,7 +119,7 @@ public class FormReader {
 
     /**
      * Adds the entries into a given series.
-     * 
+     *
      * @param entries
      *            The target series of entries.
      */
@@ -144,23 +143,20 @@ public class FormReader {
                 }
             } catch (IOException ioe) {
                 Context.getCurrentLogger()
-                        .log(Level.WARNING,
-                                "Unable to parse a form entry. Skipping the remaining entries.",
-                                ioe);
+                        .warn("Unable to parse a form entry. Skipping the remaining entries.", ioe);
             }
 
             try {
                 this.stream.close();
             } catch (IOException ioe) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to close the form input stream", ioe);
+                Context.getCurrentLogger().warn("Unable to close the form input stream", ioe);
             }
         }
     }
 
     /**
      * Reads all the entries.
-     * 
+     *
      * @return The form read.
      * @throws IOException
      *             If the entries could not be read.
@@ -182,7 +178,7 @@ public class FormReader {
      * Reads the entries whose name is a key in the given map. If a matching
      * entry is found, its value is put in the map. If multiple values are
      * found, a list is created and set in the map.
-     * 
+     *
      * @param entries
      *            The entries map controlling the reading.
      * @throws IOException
@@ -234,7 +230,7 @@ public class FormReader {
     /**
      * Reads the entries with the given name. If multiple values are found, a
      * list is returned created.
-     * 
+     *
      * @param name
      *            The entry name to match.
      * @return The entry value or list of values.
@@ -285,7 +281,7 @@ public class FormReader {
 
     /**
      * Reads the first entry with the given name.
-     * 
+     *
      * @param name
      *            The entry name to match.
      * @return The entry value.
@@ -309,7 +305,7 @@ public class FormReader {
 
     /**
      * Reads the next entry available or null.
-     * 
+     *
      * @return The next entry available or null.
      * @throws IOException
      *             If the next entry could not be read.
@@ -344,7 +340,7 @@ public class FormReader {
                             // Do nothing return null preference
                         } else {
                             Context.getCurrentLogger()
-                                    .fine("Empty entry name detected. Please check your form data");
+                                    .debug("Empty entry name detected. Please check your form data");
                         }
                     } else {
                         nameBuffer.append((char) nextChar);

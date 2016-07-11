@@ -25,7 +25,6 @@
 package org.restlet.engine.adapter;
 
 import java.io.IOException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -91,8 +90,7 @@ public class ClientAdapter extends Adapter {
                             }
                         } catch (Throwable t) {
                             getLogger()
-                                    .log(Level.WARNING,
-                                            "Unexpected error or exception inside the user call back",
+                                    .warn("Unexpected error or exception inside the user call back",
                                             t);
                         }
                     }
@@ -131,9 +129,7 @@ public class ClientAdapter extends Adapter {
             HeaderUtils.copyResponseTransportHeaders(responseHeaders, response);
         } catch (Exception e) {
             getLogger()
-                    .log(Level.FINE,
-                            "An error occurred during the processing of the HTTP response.",
-                            e);
+                    .debug("An error occurred during the processing of the HTTP response.", e);
             response.setStatus(Status.CONNECTOR_ERROR_INTERNAL, e);
         }
     }

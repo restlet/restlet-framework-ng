@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.util.Date;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -450,14 +449,9 @@ public abstract class Representation extends RepresentationInfo {
 
     // [ifndef gae,gwt] method
     /**
-     * Indicates if the representation content supports NIO selection. In this
-     * case, the
-     * {@link org.restlet.ext.nio.internal.ConnectionController#register(java.nio.channels.SelectableChannel, int, org.restlet.util.SelectionListener)}
-     * method can be called to be notified when new content is ready for
-     * reading.
+     * Indicates if the representation content supports NIO selection.
      * 
      * @return True if the representation content supports NIO selection.
-     * @see org.restlet.ext.nio.internal.ConnectionController
      */
     public boolean isSelectable() {
         try {
@@ -577,8 +571,7 @@ public abstract class Representation extends RepresentationInfo {
 
             sr.setSelectionListener(readingListener);
         } catch (IOException ioe) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to register the reading listener", ioe);
+            Context.getCurrentLogger().warn("Unable to register the reading listener", ioe);
         }
     }
 

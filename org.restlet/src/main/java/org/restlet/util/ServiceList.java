@@ -27,7 +27,6 @@ package org.restlet.util;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.service.Service;
@@ -150,8 +149,7 @@ public final class ServiceList extends WrapperList<Service> {
                     try {
                         service.stop();
                     } catch (Exception e) {
-                        Context.getCurrentLogger().log(Level.WARNING,
-                                "Unable to stop service replaced", e);
+                        Context.getCurrentLogger().warn("Unable to stop service replaced", e);
                     }
 
                     services.add(newService);

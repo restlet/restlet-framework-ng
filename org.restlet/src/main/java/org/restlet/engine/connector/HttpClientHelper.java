@@ -26,7 +26,6 @@ package org.restlet.engine.connector;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.logging.Level;
 
 import javax.net.ssl.HostnameVerifier;
 
@@ -153,8 +152,7 @@ public class HttpClientHelper extends
                     request.getResourceRef(), request).toString(),
                     request.isEntityAvailable());
         } catch (IOException ioe) {
-            getLogger().log(Level.WARNING,
-                    "Unable to create the HTTP client call", ioe);
+            getLogger().warn("Unable to create the HTTP client call", ioe);
         }
 
         return result;

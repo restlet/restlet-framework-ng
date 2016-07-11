@@ -24,8 +24,6 @@
 
 package org.restlet.engine.adapter;
 
-import java.util.logging.Level;
-
 import org.restlet.Client;
 import org.restlet.Context;
 import org.restlet.Request;
@@ -122,8 +120,7 @@ public abstract class HttpClientHelper extends ClientHelper {
             ClientCall clientCall = getAdapter().toSpecific(this, request);
             getAdapter().commit(clientCall, request, response);
         } catch (Exception e) {
-            getLogger().log(Level.INFO,
-                    "Error while handling an HTTP client call", e);
+            getLogger().info("Error while handling an HTTP client call", e);
             response.setStatus(Status.CONNECTOR_ERROR_INTERNAL, e);
         }
     }

@@ -24,8 +24,6 @@
 
 package org.restlet.engine.component;
 
-import java.util.logging.Level;
-
 import org.restlet.Component;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -74,14 +72,14 @@ public class ServerRouter extends Router {
 
     @Override
     protected void logRoute(org.restlet.routing.Route route) {
-        if (getLogger().isLoggable(Level.FINE)) {
+        if (getLogger().isDebugEnabled()) {
             if (route instanceof HostRoute) {
                 VirtualHost vhost = ((HostRoute) route).getVirtualHost();
 
                 if (getComponent().getDefaultHost() == vhost) {
-                    getLogger().fine("Default virtual host selected");
+                    getLogger().debug("Default virtual host selected");
                 } else {
-                    getLogger().fine(
+                    getLogger().debug(
                             "Virtual host selected: \"" + vhost.getHostScheme()
                                     + "\", \"" + vhost.getHostDomain()
                                     + "\", \"" + vhost.getHostPort() + "\"");
