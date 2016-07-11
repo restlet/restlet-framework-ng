@@ -30,7 +30,6 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.engine.io.IoUtils;
@@ -111,8 +110,7 @@ public class IdentClient {
                     }
                 }
             } catch (IOException ioe) {
-                Context.getCurrentLogger().log(Level.FINE,
-                        "Unable to complete the IDENT request", ioe);
+                Context.getCurrentLogger().debug("Unable to complete the IDENT request", ioe);
             } finally {
                 try {
                     // Always attempt to close the reader, therefore the socket
@@ -120,8 +118,7 @@ public class IdentClient {
                         in.close();
                     }
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(Level.FINE,
-                            "Unable to close the socket", ioe);
+                    Context.getCurrentLogger().debug("Unable to close the socket", ioe);
                 }
             }
         }

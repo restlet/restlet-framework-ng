@@ -27,7 +27,6 @@ package org.restlet.engine.connector;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
 
 import org.restlet.Client;
 import org.restlet.Request;
@@ -168,13 +167,11 @@ public class FtpClientHelper extends ClientHelper {
                     Entity.updateMetadata(request.getResourceRef().getPath(),
                             response.getEntity(), true, getMetadataService());
                 } else {
-                    getLogger()
-                            .log(Level.WARNING,
-                                    "Only GET method are supported by this FTP connector");
+                    getLogger().warn("Only GET method are supported by this FTP connector");
                 }
             }
         } catch (IOException e) {
-            getLogger().log(Level.WARNING, "FTP client error", e);
+            getLogger().warn("FTP client error", e);
             response.setStatus(Status.CONNECTOR_ERROR_INTERNAL, e.getMessage());
         }
     }

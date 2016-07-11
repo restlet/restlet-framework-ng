@@ -1,28 +1,32 @@
 /**
  * Copyright 2005-2014 Restlet
- * 
+ * <p>
  * The contents of this file are subject to the terms of one of the following
  * open source licenses: Apache 2.0 or or EPL 1.0 (the "Licenses"). You can
  * select the license that you prefer but you may not use this file except in
  * compliance with one of these Licenses.
- * 
+ * <p>
  * You can obtain a copy of the Apache 2.0 license at
  * http://www.opensource.org/licenses/apache-2.0
- * 
+ * <p>
  * You can obtain a copy of the EPL 1.0 license at
  * http://www.opensource.org/licenses/eclipse-1.0
- * 
+ * <p>
  * See the Licenses for the specific language governing permissions and
  * limitations under the Licenses.
- * 
+ * <p>
  * Alternatively, you can obtain a royalty free commercial license with less
  * limitations, transferable or non-transferable, directly at
  * http://restlet.com/products/restlet-framework
- * 
+ * <p>
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
 package org.restlet.representation;
+
+import org.restlet.Context;
+import org.restlet.engine.io.IoUtils;
+import org.restlet.util.WrapperRepresentation;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,11 +37,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
-import java.util.logging.Level;
-
-import org.restlet.Context;
-import org.restlet.engine.io.IoUtils;
-import org.restlet.util.WrapperRepresentation;
 
 /**
  * Representation capable of buffering the wrapped representation. This is
@@ -47,7 +46,7 @@ import org.restlet.util.WrapperRepresentation;
  * <br>
  * Be careful as this class could create potentially very large byte buffers in
  * memory that could impact your application performance.
- * 
+ *
  * @author Thierry Boileau
  */
 public class BufferingRepresentation extends WrapperRepresentation {
@@ -60,7 +59,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Constructor.
-     * 
+     *
      * @param bufferedRepresentation
      *            The representation to buffer.
      */
@@ -71,7 +70,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Buffers the content of the wrapped entity.
-     * 
+     *
      * @throws IOException
      */
     private void buffer() throws IOException {
@@ -93,7 +92,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Returns the buffered content as an array of bytes.
-     * 
+     *
      * @return The buffered content as an array of bytes.
      */
     protected byte[] getBuffer() {
@@ -117,8 +116,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
         try {
             buffer();
         } catch (IOException e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to buffer the wrapped representation", e);
+            Context.getCurrentLogger().warn("Unable to buffer the wrapped representation", e);
         }
 
         return (getBuffer() != null) ? getBuffer().length : -1l;
@@ -129,15 +127,15 @@ public class BufferingRepresentation extends WrapperRepresentation {
         buffer();
         return (getBuffer() != null) ? new ByteArrayInputStream(getBuffer())
                 : null;
-    };
+    }
 
     @Override
     public String getText() throws IOException {
         buffer();
 
         if (getBuffer() != null) {
-            return (getCharacterSet() != null) ? 
-                    new String(getBuffer(), getCharacterSet().toCharset().name()) : 
+            return (getCharacterSet() != null) ?
+                    new String(getBuffer(), getCharacterSet().toCharset().name()) :
                     new String(getBuffer());
         }
 
@@ -149,8 +147,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
         try {
             buffer();
         } catch (IOException e) {
-            Context.getCurrentLogger().log(Level.FINER,
-                    "Unable to buffer the wrapped representation", e);
+            Context.getCurrentLogger().debug("Unable to buffer the wrapped representation", e);
         }
 
         return isBuffered();
@@ -158,7 +155,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Indicates if the wrapped entity has been already buffered.
-     * 
+     *
      * @return True if the wrapped entity has been already buffered.
      */
     protected boolean isBuffered() {
@@ -167,7 +164,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Sets the buffered content as an array of bytes.
-     * 
+     *
      * @param buffer
      *            The buffered content as an array of bytes.
      */
@@ -177,7 +174,7 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
     /**
      * Indicates if the wrapped entity has been already buffered.
-     * 
+     *
      * @param buffered
      *            True if the wrapped entity has been already buffered.
      */

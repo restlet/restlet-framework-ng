@@ -24,16 +24,15 @@
 
 package org.restlet.engine.converter;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.engine.Engine;
 import org.restlet.engine.resource.VariantInfo;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Utilities for the converter service.
@@ -70,9 +69,7 @@ public class ConverterUtils {
                         result = ch;
                     }
                 } catch (Exception e) {
-                    Context.getCurrentLogger().log(
-                            Level.SEVERE,
-                            "Unable get the score of the " + ch
+                    Context.getCurrentLogger().error("Unable get the score of the " + ch
                                     + " converter helper.", e);
                 }
             }
@@ -135,10 +132,8 @@ public class ConverterUtils {
                 try {
                     result = ch.addVariants(sourceClass, targetVariant, result);
                 } catch (IOException e) {
-                    Context.getCurrentLogger().log(
-                            Level.FINE,
-                            "Unable get the variants of the " + ch
-                                    + " converter helper.", e);
+                    Context.getCurrentLogger().debug(
+                            "Unable get the variants of the " + ch + " converter helper.", e);
                 }
             }
         }

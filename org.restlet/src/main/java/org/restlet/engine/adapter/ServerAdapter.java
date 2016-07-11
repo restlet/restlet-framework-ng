@@ -27,7 +27,6 @@ package org.restlet.engine.adapter;
 import java.io.IOException;
 import java.security.cert.Certificate;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.data.Header;
@@ -91,8 +90,7 @@ public class ServerAdapter extends Adapter {
                         response.getStatus().getReasonPhrase());
             }
         } catch (Exception e) {
-            getLogger().log(Level.WARNING,
-                    "Exception intercepted while adding the response headers",
+            getLogger().warn("Exception intercepted while adding the response headers",
                     e);
             response.getHttpCall().setStatusCode(
                     Status.SERVER_ERROR_INTERNAL.getCode());
@@ -120,7 +118,7 @@ public class ServerAdapter extends Adapter {
                     && (!response.isEntityAvailable())) {
                 addEntityHeaders(response);
                 getLogger()
-                        .warning(
+                        .warn(
                                 "A response with a 200 (Ok) status should have an entity. Make sure that resource \""
                                         + response.getRequest()
                                                 .getResourceRef()
@@ -130,7 +128,7 @@ public class ServerAdapter extends Adapter {
 
                 if (response.isEntityAvailable()) {
                     getLogger()
-                            .fine("Responses with a 204 (No content) status generally don't have an entity. Only adding entity headers for resource \""
+                            .debug("Responses with a 204 (No content) status generally don't have an entity. Only adding entity headers for resource \""
                                     + response.getRequest().getResourceRef()
                                     + "\".");
                     response.setEntity(null);
@@ -139,7 +137,7 @@ public class ServerAdapter extends Adapter {
                     .equals(Status.SUCCESS_RESET_CONTENT)) {
                 if (response.isEntityAvailable()) {
                     getLogger()
-                            .warning(
+                            .warn(
                                     "Responses with a 205 (Reset content) status can't have an entity. Ignoring the entity for resource \""
                                             + response.getRequest()
                                                     .getResourceRef() + "\".");
@@ -156,7 +154,7 @@ public class ServerAdapter extends Adapter {
             } else if (response.getStatus().isInformational()) {
                 if (response.isEntityAvailable()) {
                     getLogger()
-                            .warning(
+                            .warn(
                                     "Responses with an informational (1xx) status can't have an entity. Ignoring the entity for resource \""
                                             + response.getRequest()
                                                     .getResourceRef() + "\".");
@@ -169,7 +167,7 @@ public class ServerAdapter extends Adapter {
                     if ((response.getEntity() != null)
                             && (response.getEntity().getSize() != 0)) {
                         getLogger()
-                                .warning(
+                                .warn(
                                         "A response with an unavailable and potentially non empty entity was returned. Ignoring the entity for resource \""
                                                 + response.getRequest()
                                                         .getResourceRef()
@@ -189,12 +187,11 @@ public class ServerAdapter extends Adapter {
             // [ifndef gae]
             if (response.getHttpCall().isConnectionBroken(t)) {
                 // output a single log line for this common case to avoid filling servers logs
-                getLogger().log(Level.INFO, "The connection was broken. It was probably closed by the client. Reason: " + t.getMessage());
+                getLogger().info("The connection was broken. It was probably closed by the client. Reason: " + t.getMessage());
             } else
             // [enddef]
             {
-                getLogger().log(Level.SEVERE,
-                        "An exception occurred writing the response entity", t);
+                getLogger().error("An exception occurred writing the response entity", t);
                 response.getHttpCall().setStatusCode(
                         Status.SERVER_ERROR_INTERNAL.getCode());
                 response.getHttpCall().setReasonPhrase(
@@ -204,8 +201,7 @@ public class ServerAdapter extends Adapter {
                 try {
                     response.getHttpCall().sendResponse(response);
                 } catch (IOException ioe) {
-                    getLogger().log(Level.WARNING,
-                            "Unable to send error response", ioe);
+                    getLogger().warn("Unable to send error response", ioe);
                 }
             }
         } finally {

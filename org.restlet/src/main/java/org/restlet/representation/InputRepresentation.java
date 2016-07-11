@@ -24,15 +24,14 @@
 
 package org.restlet.representation;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.engine.Edition;
 import org.restlet.engine.io.IoUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Transient representation based on a BIO input stream.
@@ -113,8 +112,7 @@ public class InputRepresentation extends StreamRepresentation {
             try {
                 this.stream.close();
             } catch (IOException e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Error while releasing the representation.", e);
+                Context.getCurrentLogger().warn("Error while releasing the representation.", e);
             }
 
             this.stream = null;

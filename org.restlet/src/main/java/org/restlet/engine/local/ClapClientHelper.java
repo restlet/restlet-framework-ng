@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
-import java.util.logging.Level;
 
 import org.restlet.Client;
 import org.restlet.Request;
@@ -100,8 +99,7 @@ public class ClapClientHelper extends LocalClientHelper {
             // percent-decoded.
             url = classLoader.getResource(Reference.decode(path));
         } else {
-            getLogger()
-                    .warning(
+            getLogger().warn(
                             "Unable to get the resource. The selected classloader is null.");
         }
 
@@ -160,7 +158,7 @@ public class ClapClientHelper extends LocalClientHelper {
             response.setEntity(output);
             response.setStatus(Status.SUCCESS_OK);
         } catch (IOException ioe) {
-            getLogger().log(Level.WARNING,
+            getLogger().warn(
                     "Unable to open the representation's input stream",
                     ioe);
             response.setStatus(Status.SERVER_ERROR_INTERNAL);

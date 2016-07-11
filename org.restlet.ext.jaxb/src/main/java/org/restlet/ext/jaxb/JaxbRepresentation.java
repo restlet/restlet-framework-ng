@@ -1,41 +1,30 @@
 /**
  * Copyright 2005-2014 Restlet
- * 
+ * <p>
  * The contents of this file are subject to the terms of one of the following
  * open source licenses: Apache 2.0 or or EPL 1.0 (the "Licenses"). You can
  * select the license that you prefer but you may not use this file except in
  * compliance with one of these Licenses.
- * 
+ * <p>
  * You can obtain a copy of the Apache 2.0 license at
  * http://www.opensource.org/licenses/apache-2.0
- * 
+ * <p>
  * You can obtain a copy of the EPL 1.0 license at
  * http://www.opensource.org/licenses/eclipse-1.0
- * 
+ * <p>
  * See the Licenses for the specific language governing permissions and
  * limitations under the Licenses.
- * 
+ * <p>
  * Alternatively, you can obtain a royalty free commercial license with less
  * limitations, transferable or non-transferable, directly at
  * http://restlet.com/products/restlet-framework
- * 
+ * <p>
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
 package org.restlet.ext.jaxb;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.util.JAXBSource;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.ext.jaxb.internal.Marshaller;
@@ -43,12 +32,20 @@ import org.restlet.ext.jaxb.internal.Unmarshaller;
 import org.restlet.representation.Representation;
 import org.restlet.representation.WriterRepresentation;
 
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.bind.util.JAXBSource;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An XML representation based on JAXB that provides easy translation between
  * XML and JAXB element class trees.
- * 
+ *
  * @author Overstock.com
  * @author Jerome Louvel
  * @param <T>
@@ -61,10 +58,10 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the JAXB context, if possible from the cached contexts.
-     * 
+     *
      * @param contextPath
      *            The JAXB context path.
-     * 
+     *
      * @return The JAXB context.
      * @throws JAXBException
      */
@@ -75,18 +72,18 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the JAXB context, if possible from the cached contexts.
-     * 
+     *
      * @param contextPath
      *            The JAXB context path.
-     * 
+     *
      * @param classLoader
      *            The JAXB classloader to use for annotated JAXB classes.
-     * 
+     *
      * @return The JAXB context.
      * @throws JAXBException
      */
     public static synchronized JAXBContext getContext(String contextPath,
-            ClassLoader classLoader) throws JAXBException {
+                                                      ClassLoader classLoader) throws JAXBException {
         // Contexts are thread-safe so reuse those.
         JAXBContext result = contexts.get(contextPath);
 
@@ -148,7 +145,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      * Indicates the desire for validating this type of XML representations
      * against a DTD. Note that for XML schema or Relax NG validation, use the
      * "schema" property instead.
-     * 
+     *
      * @see DocumentBuilderFactory#setValidating(boolean)
      */
     private volatile boolean validatingDtd;
@@ -160,7 +157,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      * Indicates the desire for processing <em>XInclude</em> if found in this
      * type of XML representations. By default the value of this is set to
      * false.
-     * 
+     *
      * @see DocumentBuilderFactory#setXIncludeAware(boolean)
      */
     private volatile boolean xIncludeAware;
@@ -170,7 +167,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Creates a JAXB representation from an existing JAXB content tree.
-     * 
+     *
      * @param mediaType
      *            The representation's media type.
      * @param object
@@ -183,7 +180,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Creates a JAXB representation from an existing JAXB content tree.
-     * 
+     *
      * @param mediaType
      *            The representation's media type.
      * @param object
@@ -192,7 +189,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      *            The classloader to use for JAXB annotated classes.
      */
     public JaxbRepresentation(MediaType mediaType, T object,
-            ClassLoader classloader) {
+                              ClassLoader classloader) {
         super(mediaType);
         this.classLoader = classloader;
         this.contextPath = (object != null) ? object.getClass().getPackage()
@@ -214,12 +211,12 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Creates a new JAXB representation, converting the input XML into a Java
      * content tree. The XML is validated.
-     * 
+     *
      * @param xmlRepresentation
      *            The XML wrapped in a representation.
      * @param type
      *            The type to convert to.
-     * 
+     *
      * @throws JAXBException
      *             If the incoming XML does not validate against the schema.
      * @throws IOException
@@ -233,21 +230,21 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Creates a new JAXB representation, converting the input XML into a Java
      * content tree. The XML is validated.
-     * 
+     *
      * @param xmlRepresentation
      *            The XML wrapped in a representation.
      * @param type
      *            The type to convert to.
      * @param validationHandler
      *            A handler for dealing with validation failures.
-     * 
+     *
      * @throws JAXBException
      *             If the incoming XML does not validate against the schema.
      * @throws IOException
      *             If unmarshalling XML fails.
      */
     public JaxbRepresentation(Representation xmlRepresentation, Class<T> type,
-            ValidationEventHandler validationHandler) {
+                              ValidationEventHandler validationHandler) {
         this(xmlRepresentation, type.getPackage().getName(), validationHandler,
                 type.getClassLoader());
     }
@@ -255,47 +252,47 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Creates a new JAXB representation, converting the input XML into a Java
      * content tree. The XML is validated.
-     * 
+     *
      * @param xmlRepresentation
      *            The XML wrapped in a representation.
      * @param contextPath
      *            The list of Java package names for JAXB.
-     * 
+     *
      * @throws JAXBException
      *             If the incoming XML does not validate against the schema.
      * @throws IOException
      *             If unmarshalling XML fails.
      */
     public JaxbRepresentation(Representation xmlRepresentation,
-            String contextPath) {
+                              String contextPath) {
         this(xmlRepresentation, contextPath, null, null);
     }
 
     /**
      * Creates a new JAXB representation, converting the input XML into a Java
      * content tree. The XML is validated.
-     * 
+     *
      * @param xmlRepresentation
      *            The XML wrapped in a representation.
      * @param contextPath
      *            The list of Java package names for JAXB.
      * @param validationHandler
      *            A handler for dealing with validation failures.
-     * 
+     *
      * @throws JAXBException
      *             If the incoming XML does not validate against the schema.
      * @throws IOException
      *             If unmarshalling XML fails.
      */
     public JaxbRepresentation(Representation xmlRepresentation,
-            String contextPath, ValidationEventHandler validationHandler) {
+                              String contextPath, ValidationEventHandler validationHandler) {
         this(xmlRepresentation, contextPath, validationHandler, null);
     }
 
     /**
      * Creates a new JAXB representation, converting the input XML into a Java
      * content tree. The XML is validated.
-     * 
+     *
      * @param xmlRepresentation
      *            The XML wrapped in a representation.
      * @param contextPath
@@ -310,8 +307,8 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      *             If unmarshalling XML fails.
      */
     public JaxbRepresentation(Representation xmlRepresentation,
-            String contextPath, ValidationEventHandler validationHandler,
-            ClassLoader classLoader) {
+                              String contextPath, ValidationEventHandler validationHandler,
+                              ClassLoader classLoader) {
         super((xmlRepresentation == null) ? null : xmlRepresentation
                 .getMediaType());
         this.classLoader = classLoader;
@@ -325,7 +322,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Creates a JAXB representation from an existing JAXB content tree with
      * {@link MediaType#APPLICATION_XML}.
-     * 
+     *
      * @param object
      *            The Java object.
      */
@@ -335,7 +332,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the classloader to use for JAXB annotated classes.
-     * 
+     *
      * @return The classloader to use for JAXB annotated classes.
      */
     public ClassLoader getClassLoader() {
@@ -344,7 +341,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the JAXB context.
-     * 
+     *
      * @return The JAXB context.
      * @throws JAXBException
      */
@@ -355,7 +352,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Returns the list of Java package names that contain schema derived class
      * and/or Java to schema (JAXB-annotated) mapped classes
-     * 
+     *
      * @return The list of Java package names.
      */
     public String getContextPath() {
@@ -364,7 +361,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns a JAXB SAX source.
-     * 
+     *
      * @return A JAXB SAX source.
      */
     public JAXBSource getJaxbSource() throws IOException {
@@ -379,7 +376,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the optional namespace prefix mapper for marshalling.
-     * 
+     *
      * @return The optional namespace prefix mapper for marshalling.
      */
     public NamespacePrefixMapper getNamespacePrefixMapper() {
@@ -389,7 +386,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Returns the "xsi:noNamespaceSchemaLocation" attribute in the generated
      * XML data.
-     * 
+     *
      * @return The "xsi:noNamespaceSchemaLocation" attribute in the generated
      *         XML data.
      */
@@ -399,7 +396,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the wrapped Java object.
-     * 
+     *
      * @return The wrapped Java object.
      * @throws IOException
      */
@@ -413,10 +410,8 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
                 try {
                     u.setEventHandler(getValidationEventHandler());
                 } catch (JAXBException e) {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            "Unable to set the event handler", e);
-                    throw new IOException("Unable to set the event handler."
-                            + e.getMessage());
+                    Context.getCurrentLogger().warn("Unable to set the event handler", e);
+                    throw new IOException("Unable to set the event handler." + e.getMessage());
                 }
             }
 
@@ -424,11 +419,8 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
                 this.object = (T) u.unmarshal(this,
                         this.xmlRepresentation.getReader());
             } catch (JAXBException e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to unmarshal the XML representation", e);
-                throw new IOException(
-                        "Unable to unmarshal the XML representation."
-                                + e.getMessage());
+                Context.getCurrentLogger().warn("Unable to unmarshal the XML representation", e);
+                throw new IOException("Unable to unmarshal the XML representation." + e.getMessage());
             }
         }
         return this.object;
@@ -436,7 +428,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the "xsi:schemaLocation" attribute in the generated XML data.
-     * 
+     *
      * @return The "xsi:schemaLocation" attribute in the generated XML data.
      */
     public String getSchemaLocation() {
@@ -445,7 +437,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Returns the optional validation event handler.
-     * 
+     *
      * @return The optional validation event handler.
      */
     public ValidationEventHandler getValidationEventHandler() {
@@ -455,7 +447,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates if the parser will expand entity reference nodes. By default
      * the value of this is set to true.
-     * 
+     *
      * @return True if the parser will expand entity reference nodes.
      */
     public boolean isExpandingEntityRefs() {
@@ -465,7 +457,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates if the resulting XML data should be formatted with line breaks
      * and indentation. Defaults to false.
-     * 
+     *
      * @return the formattedOutput
      */
     public boolean isFormattedOutput() {
@@ -475,7 +467,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates whether or not document level events will be generated by the
      * Marshaller.
-     * 
+     *
      * @return True if the document level events will be generated by the
      *         Marshaller.
      */
@@ -485,7 +477,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Indicates if it limits potential XML overflow attacks.
-     * 
+     *
      * @return True if it limits potential XML overflow attacks.
      */
     public boolean isSecureProcessing() {
@@ -495,7 +487,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates the desire for validating this type of XML representations
      * against an XML schema if one is referenced within the contents.
-     * 
+     *
      * @return True if the schema-based validation is enabled.
      */
     public boolean isValidatingDtd() {
@@ -506,7 +498,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      * Indicates the desire for processing <em>XInclude</em> if found in this
      * type of XML representations. By default the value of this is set to
      * false.
-     * 
+     *
      * @return The current value of the xIncludeAware flag.
      */
     public boolean isXIncludeAware() {
@@ -515,7 +507,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Sets the classloader to use for JAXB annotated classes.
-     * 
+     *
      * @param classLoader
      *            The classloader to use for JAXB annotated classes.
      */
@@ -526,7 +518,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Sets the list of Java package names that contain schema derived class
      * and/or Java to schema (JAXB-annotated) mapped classes.
-     * 
+     *
      * @param contextPath
      *            The JAXB context path.
      */
@@ -537,7 +529,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates if the parser will expand entity reference nodes. By default
      * the value of this is set to true.
-     * 
+     *
      * @param expandEntityRefs
      *            True if the parser will expand entity reference nodes.
      */
@@ -548,7 +540,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates if the resulting XML data should be formatted with line breaks
      * and indentation.
-     * 
+     *
      * @param formattedOutput
      *            True if the resulting XML data should be formatted.
      */
@@ -559,7 +551,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates whether or not document level events will be generated by the
      * Marshaller.
-     * 
+     *
      * @param fragment
      *            True if the document level events will be generated by the
      *            Marshaller.
@@ -570,7 +562,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Sets the optional namespace prefix mapper for marshalling.
-     * 
+     *
      * @param namespacePrefixMapper
      *            The optional namespace prefix mapper for marshalling.
      */
@@ -582,7 +574,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Sets the "xsi:noNamespaceSchemaLocation" attribute in the generated XML
      * data.
-     * 
+     *
      * @param noNamespaceSchemaLocation
      *            The "xsi:noNamespaceSchemaLocation" attribute in the generated
      *            XML data.
@@ -593,7 +585,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Sets the wrapped Java object.
-     * 
+     *
      * @param object
      *            The Java object to set.
      */
@@ -603,7 +595,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Sets the "xsi:schemaLocation" attribute in the generated XML data.
-     * 
+     *
      * @param schemaLocation
      *            The "xsi:noNamespaceSchemaLocation" attribute in the generated
      *            XML data.
@@ -614,7 +606,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Indicates if it limits potential XML overflow attacks.
-     * 
+     *
      * @param secureProcessing
      *            True if it limits potential XML overflow attacks.
      */
@@ -625,7 +617,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
     /**
      * Indicates the desire for validating this type of XML representations
      * against an XML schema if one is referenced within the contents.
-     * 
+     *
      * @param validating
      *            The new validation flag to set.
      */
@@ -635,7 +627,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Sets the validation event handler.
-     * 
+     *
      * @param validationEventHandler
      *            The optional validation event handler.
      */
@@ -648,7 +640,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
      * Indicates the desire for processing <em>XInclude</em> if found in this
      * type of XML representations. By default the value of this is set to
      * false.
-     * 
+     *
      * @param includeAware
      *            The new value of the xIncludeAware flag.
      */
@@ -658,10 +650,10 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
 
     /**
      * Writes the representation to a stream of characters.
-     * 
+     *
      * @param writer
      *            The writer to use when writing.
-     * 
+     *
      * @throws IOException
      *             If any error occurs attempting to write the stream.
      */
@@ -671,8 +663,7 @@ public class JaxbRepresentation<T> extends WriterRepresentation {
             new Marshaller<T>(this, this.contextPath, getClassLoader())
                     .marshal(getObject(), writer);
         } catch (JAXBException e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "JAXB marshalling error caught.", e);
+            Context.getCurrentLogger().warn("JAXB marshalling error caught.", e);
 
             // Maybe the tree represents a failure, try that.
             try {

@@ -24,13 +24,6 @@
 
 package org.restlet.engine.adapter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Message;
 import org.restlet.Request;
@@ -41,7 +34,6 @@ import org.restlet.data.Conditions;
 import org.restlet.data.Cookie;
 import org.restlet.data.Header;
 import org.restlet.data.Method;
-import org.restlet.data.Protocol;
 import org.restlet.data.Range;
 import org.restlet.data.RecipientInfo;
 import org.restlet.data.Reference;
@@ -62,6 +54,12 @@ import org.restlet.engine.util.DateUtils;
 import org.restlet.engine.util.ReferenceUtils;
 import org.restlet.representation.Representation;
 import org.restlet.util.Series;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Request wrapper for server HTTP calls.
@@ -311,37 +309,37 @@ public class HttpRequest extends Request {
             try {
                 PreferenceReader.addCharacterSets(acceptCharset, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             try {
                 PreferenceReader.addEncodings(acceptEncoding, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             try {
                 PreferenceReader.addLanguages(acceptLanguage, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             try {
                 PreferenceReader.addMediaTypes(acceptMediaType, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             try {
                 PreferenceReader.addPatches(acceptPatch, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             try {
                 ExpectationReader.addValues(expect, result);
             } catch (Exception e) {
-                this.context.getLogger().log(Level.INFO, e.getMessage());
+                this.context.getLogger().info(e.getMessage());
             }
 
             // Set other properties
@@ -451,10 +449,7 @@ public class HttpRequest extends Request {
                         value = hr.readRawValue();
                     }
                 } catch (Exception e) {
-                    this.context.getLogger().log(
-                            Level.INFO,
-                            "Unable to process the if-match header: "
-                                    + ifMatchHeader);
+                    this.context.getLogger().info("Unable to process the if-match header: " + ifMatchHeader, e);
                 }
             }
 
@@ -481,10 +476,7 @@ public class HttpRequest extends Request {
                         value = hr.readRawValue();
                     }
                 } catch (Exception e) {
-                    this.context.getLogger().log(
-                            Level.INFO,
-                            "Unable to process the if-none-match header: "
-                                    + ifNoneMatchHeader);
+                    this.context.getLogger().info("Unable to process the if-none-match header: " + ifNoneMatchHeader, e);
                 }
             }
 

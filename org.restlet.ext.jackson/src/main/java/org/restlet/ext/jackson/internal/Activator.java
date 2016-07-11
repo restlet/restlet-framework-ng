@@ -9,8 +9,6 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.restlet.Context;
 
-import java.util.logging.Level;
-
 /**
  * Register Stax2IntputFactoryProvider and Stax2OutputFactoryProvider in OSGI context.
  * In a no-OSGI context, these factories are retrieved with java service loader.
@@ -76,23 +74,23 @@ public class Activator implements BundleActivator {
     }
 
     private void registerInputFactory(Stax2InputFactoryProvider inputFactoryProvider) {
-        Context.getCurrentLogger().log(Level.INFO, "Register Stax2InputFactoryProvider");
+        Context.getCurrentLogger().info("Register Stax2InputFactoryProvider");
         XmlFactoryProvider.inputFactoryProvider = inputFactoryProvider;
     }
 
     private void unregisterInputFactory() {
-        Context.getCurrentLogger().log(Level.INFO, "Unregister Stax2InputFactoryProvider");
+        Context.getCurrentLogger().info("Unregister Stax2InputFactoryProvider");
         XmlFactoryProvider.inputFactoryProvider = null;
     }
 
     private void registerOutputFactory(Stax2OutputFactoryProvider outputFactoryProvider) {
-        Context.getCurrentLogger().log(Level.INFO, "Register Stax2OutputFactoryProvider");
+        Context.getCurrentLogger().info("Register Stax2OutputFactoryProvider");
         XmlFactoryProvider.outputFactoryProvider = outputFactoryProvider;
 
     }
 
     private void unregisterOutputFactory() {
-        Context.getCurrentLogger().log(Level.INFO, "Unregister Stax2OutputFactoryProvider");
+        Context.getCurrentLogger().info("Unregister Stax2OutputFactoryProvider");
         XmlFactoryProvider.outputFactoryProvider = null;
     }
 

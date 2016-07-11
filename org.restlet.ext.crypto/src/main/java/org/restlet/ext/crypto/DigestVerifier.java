@@ -24,8 +24,6 @@
 
 package org.restlet.ext.crypto;
 
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.Digest;
 import org.restlet.security.LocalVerifier;
@@ -130,8 +128,7 @@ public class DigestVerifier<T extends SecretVerifier> extends SecretVerifier {
             result = localVerifier.getLocalSecret(identifier);
         } else {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "The wrapped verifier must be a LocalVerifier to allow digesting of wrapped secrets.");
+                    .warn("The wrapped verifier must be a LocalVerifier to allow digesting of wrapped secrets.");
         }
 
         return result;
@@ -156,8 +153,7 @@ public class DigestVerifier<T extends SecretVerifier> extends SecretVerifier {
         } else if (getAlgorithm().equals(getWrappedAlgorithm())) {
             result = getWrappedSecret(identifier);
         } else {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "The digest algorithms can't be different.");
+            Context.getCurrentLogger().warn("The digest algorithms can't be different.");
         }
 
         return result;
@@ -230,8 +226,7 @@ public class DigestVerifier<T extends SecretVerifier> extends SecretVerifier {
                 result = getWrappedVerifier().verify(identifier, secretDigest);
             } else {
                 result = RESULT_UNSUPPORTED;
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "The input and output algorithms can't be different.");
+                Context.getCurrentLogger().warn("The input and output algorithms can't be different.");
             }
         }
 

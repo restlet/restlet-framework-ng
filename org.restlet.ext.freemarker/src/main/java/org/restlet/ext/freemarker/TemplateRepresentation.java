@@ -73,10 +73,8 @@ public class TemplateRepresentation extends WriterRepresentation {
             return new Template("template", templateRepresentation.getReader(),
                     config, CharacterSet.UTF_8.getName());
         } catch (IOException e) {
-            Context.getCurrentLogger().warning(
-                    "Unable to get the template from the representation "
-                            + templateRepresentation.getLocationRef()
-                            + ". Error message: " + e.getMessage());
+            Context.getCurrentLogger().warn(
+                    "Unable to get the template from the representation " + templateRepresentation.getLocationRef(), e);
             return null;
         }
     }
@@ -94,9 +92,7 @@ public class TemplateRepresentation extends WriterRepresentation {
         try {
             return config.getTemplate(templateName);
         } catch (IOException e) {
-            Context.getCurrentLogger().warning(
-                    "Unable to get the template " + templateName
-                            + ". Error message: " + e.getMessage());
+            Context.getCurrentLogger().warn("Unable to get the template " + templateName, e);
             return null;
         }
     }
@@ -314,13 +310,10 @@ public class TemplateRepresentation extends WriterRepresentation {
             try {
                 this.template.process(getDataModel(), writer);
             } catch (TemplateException te) {
-                throw new IOException("Template processing error "
-                        + te.getMessage());
+                throw new IOException("Template processing error " + te.getMessage());
             }
         } else {
-            Context.getCurrentLogger()
-                    .warning(
-                            "Unable to write the template representation. No template found.");
+            Context.getCurrentLogger().warn("Unable to write the template representation. No template found.");
         }
     }
 

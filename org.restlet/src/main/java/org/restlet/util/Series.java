@@ -24,6 +24,8 @@
 
 package org.restlet.util;
 
+import org.restlet.Context;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,9 +33,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-
-import org.restlet.Context;
 
 /**
  * Modifiable list of entries with many helper methods. Note that this class
@@ -187,8 +186,7 @@ public class Series<T extends NamedValue<String>> extends WrapperList<T> {
             return this.entryClass.getConstructor(String.class, String.class)
                     .newInstance(name, value);
         } catch (Exception e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to create a series entry", e);
+            Context.getCurrentLogger().warn("Unable to create a series entry", e);
             return null;
         }
     }

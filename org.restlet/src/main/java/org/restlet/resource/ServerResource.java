@@ -24,15 +24,6 @@
 
 package org.restlet.resource;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -59,6 +50,14 @@ import org.restlet.routing.Router;
 import org.restlet.security.Role;
 import org.restlet.service.ConverterService;
 import org.restlet.util.Series;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Base class for server-side resources. It acts as a wrapper to a given call,
@@ -251,19 +250,17 @@ public abstract class ServerResource extends Resource {
      *            The caught error or exception.
      */
     protected void doCatch(Throwable throwable) {
-        Level level = Level.INFO;
         Status status = getStatusService().toStatus(throwable, this);
 
         if (status.isServerError()) {
-            level = Level.SEVERE;
+            getLogger().error("Exception or error caught in server resource", throwable);
         } else if (status.isConnectorError()) {
-            level = Level.INFO;
+            getLogger().info("Exception or error caught in server resource", throwable);
         } else if (status.isClientError()) {
-            level = Level.FINE;
+            getLogger().debug("Exception or error caught in server resource", throwable);
+        } else {
+            getLogger().debug("Exception or error caught in server resource", throwable);
         }
-
-        getLogger().log(level, "Exception or error caught in server resource",
-                throwable);
 
         if (getResponse() != null) {
             getResponse().setStatus(status);
@@ -999,8 +996,7 @@ public abstract class ServerResource extends Resource {
                             }
                         }
                     } catch (IOException e) {
-                        getLogger().log(Level.FINE,
-                                "Unable to get variants from annotation", e);
+                        getLogger().debug("Unable to get variants from annotation", e);
 
                     }
                 }
@@ -1061,7 +1057,7 @@ public abstract class ServerResource extends Resource {
                         && (getResponseEntity() == null || !getResponseEntity()
                                 .isAvailable())) {
                     getLogger()
-                            .fine("A response with a 200 (Ok) status should have an entity. "
+                            .debug("A response with a 200 (Ok) status should have an entity. "
                                     + "Changing the status to 204 (No content).");
                     setStatus(Status.SUCCESS_NO_CONTENT);
                 }

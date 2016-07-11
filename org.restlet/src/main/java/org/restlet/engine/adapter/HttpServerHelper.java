@@ -24,13 +24,12 @@
 
 package org.restlet.engine.adapter;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Server;
 import org.restlet.engine.Engine;
 import org.restlet.engine.connector.ServerHelper;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Base HTTP server connector. Here is the list of parameters that are
@@ -103,26 +102,19 @@ public class HttpServerHelper extends ServerHelper {
                         .getConstructor(Context.class)
                         .newInstance(getContext());
             } catch (IllegalArgumentException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (SecurityException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (InstantiationException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (IllegalAccessException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (InvocationTargetException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (NoSuchMethodException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             } catch (ClassNotFoundException e) {
-                getLogger().log(Level.SEVERE,
-                        "Unable to create the HTTP server adapter", e);
+                getLogger().error("Unable to create the HTTP server adapter", e);
             }
         }
 
@@ -143,8 +135,7 @@ public class HttpServerHelper extends ServerHelper {
             handle(request, response);
             getAdapter().commit(response);
         } catch (Exception e) {
-            getLogger().log(Level.WARNING,
-                    "Error while handling an HTTP server call", e);
+            getLogger().warn("Error while handling an HTTP server call", e);
         } finally {
             Engine.clearThreadLocalVariables();
         }

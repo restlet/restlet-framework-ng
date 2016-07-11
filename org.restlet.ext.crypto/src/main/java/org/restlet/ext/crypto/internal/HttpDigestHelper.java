@@ -25,7 +25,6 @@
 package org.restlet.ext.crypto.internal;
 
 import java.io.IOException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -104,8 +103,7 @@ public class HttpDigestHelper extends AuthenticatorHelper {
         if (challenge.getRealm() != null) {
             cw.appendQuotedChallengeParameter("realm", challenge.getRealm());
         } else {
-            getLogger()
-                    .warning(
+            getLogger().warn(
                             "The realm directive is required for all authentication schemes that issue a challenge.");
         }
 
@@ -324,15 +322,13 @@ public class HttpDigestHelper extends AuthenticatorHelper {
                         }
                     } catch (Exception e) {
                         Context.getCurrentLogger()
-                                .log(Level.WARNING,
-                                        "Unable to parse the challenge request header parameter",
+                                .warn("Unable to parse the challenge request header parameter",
                                         e);
                     }
                 }
             } catch (Exception e) {
                 Context.getCurrentLogger()
-                        .log(Level.WARNING,
-                                "Unable to parse the challenge request header parameter",
+                        .warn("Unable to parse the challenge request header parameter",
                                 e);
             }
         }
@@ -377,8 +373,7 @@ public class HttpDigestHelper extends AuthenticatorHelper {
                         }
                     } catch (Throwable e) {
                         Context.getCurrentLogger()
-                                .log(Level.WARNING,
-                                        "Unable to parse the challenge request header parameter",
+                                .warn("Unable to parse the challenge request header parameter",
                                         e);
                     }
                     if (hr.skipValueSeparator()) {
@@ -389,8 +384,7 @@ public class HttpDigestHelper extends AuthenticatorHelper {
                 }
             } catch (Exception e) {
                 Context.getCurrentLogger()
-                        .log(Level.WARNING,
-                                "Unable to parse the challenge request header parameter",
+                        .warn("Unable to parse the challenge request header parameter",
                                 e);
             }
         }

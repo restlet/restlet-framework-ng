@@ -27,7 +27,6 @@ package org.restlet.resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Client;
 import org.restlet.Context;
@@ -1161,9 +1160,7 @@ public class ClientResource extends Resource {
                 if (doRedirection) {
                     redirect(request, response, references, retryAttempt, next);
                 } else {
-                    getLogger().fine(
-                            "Unable to redirect the client call after a response"
-                                    + response);
+                    getLogger().debug("Unable to redirect the client call after a response" + response);
                 }
             }
 
@@ -1173,8 +1170,7 @@ public class ClientResource extends Resource {
             }
             // [enddef]
         } else {
-            getLogger().log(Level.WARNING,
-                    "Request ignored as no next Restlet is available");
+            getLogger().warn("Request ignored as no next Restlet is available");
         }
     }
 
@@ -1220,8 +1216,7 @@ public class ClientResource extends Resource {
             // Update the last received response.
             setResponse(response);
         } else {
-            getLogger()
-                    .warning(
+            getLogger().warn(
                             "Unable to process the call for a client resource. No next Restlet has been provided.");
         }
 
@@ -1635,21 +1630,16 @@ public class ClientResource extends Resource {
         Reference newTargetRef = response.getLocationRef();
 
         if ((references != null) && references.contains(newTargetRef)) {
-            getLogger().warning(
-                    "Infinite redirection loop detected with URI: "
-                            + newTargetRef);
+            getLogger().warn("Infinite redirection loop detected with URI: " + newTargetRef);
         } else if (request.getEntity() != null && !request.isEntityAvailable()) {
-            getLogger()
-                    .warning(
-                            "Unable to follow the redirection because the request entity isn't available anymore.");
+            getLogger().warn("Unable to follow the redirection because the request entity isn't available anymore.");
         } else {
             if (references == null) {
                 references = new ArrayList<Reference>();
             }
 
             if (references.size() >= getMaxRedirects()) {
-                getLogger()
-                        .warning(
+                getLogger().warn(
                                 "Unable to follow the redirection because the request the maximum number of redirections for a single call has been reached.");
             } else {
                 // Add to the list of redirection reference
@@ -1679,9 +1669,7 @@ public class ClientResource extends Resource {
      */
     protected void retry(Request request, Response response,
             List<Reference> references, int retryAttempt, Uniform next) {
-        getLogger().log(
-                Level.INFO,
-                "A recoverable error was detected ("
+        getLogger().info("A recoverable error was detected ("
                         + response.getStatus().getCode()
                         + "), attempting again in " + getRetryDelay() + " ms.");
 
@@ -1691,8 +1679,7 @@ public class ClientResource extends Resource {
             try {
                 Thread.sleep(getRetryDelay());
             } catch (InterruptedException e) {
-                getLogger().log(Level.FINE,
-                        "Retry delay sleep was interrupted", e);
+                getLogger().debug("Retry delay sleep was interrupted", e);
                 // MITRE, CWE-391 - Unchecked Error Condition
                 Thread.currentThread().interrupt();
             }

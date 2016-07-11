@@ -27,7 +27,6 @@ package org.restlet.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.data.MediaType;
@@ -220,8 +219,8 @@ public class ConverterService extends Service {
 
             if (ch != null) {
                 if (loggable
-                        && Context.getCurrentLogger().isLoggable(Level.FINE)) {
-                    Context.getCurrentLogger().fine(
+                        && Context.getCurrentLogger().isDebugEnabled()) {
+                    Context.getCurrentLogger().debug(
                             "The following converter was selected for the "
                                     + source + " representation: " + ch);
                 }
@@ -242,7 +241,7 @@ public class ConverterService extends Service {
                 }
             } else {
                 if (loggable) {
-                    Context.getCurrentLogger().warning(
+                    Context.getCurrentLogger().warn(
                             "Unable to find a converter for this representation : "
                                     + source);
                 }
@@ -315,8 +314,8 @@ public class ConverterService extends Service {
                 resource);
 
         if (ch != null) {
-            if (loggable && Context.getCurrentLogger().isLoggable(Level.FINE)) {
-                Context.getCurrentLogger().fine(
+            if (loggable && Context.getCurrentLogger().isDebugEnabled()) {
+                Context.getCurrentLogger().debug(
                         "Converter selected for "
                                 + source.getClass().getSimpleName() + ": "
                                 + ch.getClass().getSimpleName());
@@ -370,7 +369,7 @@ public class ConverterService extends Service {
             }
         } else {
             if (loggable) {
-                Context.getCurrentLogger().warning(
+                Context.getCurrentLogger().warn(
                         "Unable to find a converter for this object : "
                                 + source);
             }

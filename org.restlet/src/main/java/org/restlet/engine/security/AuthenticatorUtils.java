@@ -27,7 +27,6 @@ package org.restlet.engine.security;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -160,14 +159,11 @@ public class AuthenticatorUtils {
         String result = null;
 
         if (challenge == null) {
-            Context.getCurrentLogger().warning(
-                    "No challenge response to format.");
+            Context.getCurrentLogger().warn("No challenge response to format.");
         } else if (challenge.getScheme() == null) {
-            Context.getCurrentLogger().warning(
-                    "A challenge response must have a scheme defined.");
+            Context.getCurrentLogger().warn("A challenge response must have a scheme defined.");
         } else if (challenge.getScheme().getTechnicalName() == null) {
-            Context.getCurrentLogger().warning(
-                    "A challenge scheme must have a technical name defined.");
+            Context.getCurrentLogger().warn("A challenge scheme must have a technical name defined.");
         } else {
             ChallengeWriter cw = new ChallengeWriter();
             cw.append(challenge.getScheme().getTechnicalName()).appendSpace();
@@ -184,14 +180,13 @@ public class AuthenticatorUtils {
                         helper.formatRequest(cw, challenge, response,
                                 httpHeaders);
                     } catch (Exception e) {
-                        Context.getCurrentLogger().log(
-                                Level.WARNING,
+                        Context.getCurrentLogger().warn(
                                 "Unable to format the challenge request: "
                                         + challenge, e);
                     }
                 } else {
                     result = "?";
-                    Context.getCurrentLogger().warning(
+                    Context.getCurrentLogger().warn(
                             "Challenge scheme " + challenge.getScheme()
                                     + " not supported by the Restlet engine.");
                 }
@@ -225,14 +220,11 @@ public class AuthenticatorUtils {
         String result = null;
 
         if (challenge == null) {
-            Context.getCurrentLogger().warning(
-                    "No challenge response to format.");
+            Context.getCurrentLogger().warn("No challenge response to format.");
         } else if (challenge.getScheme() == null) {
-            Context.getCurrentLogger().warning(
-                    "A challenge response must have a scheme defined.");
+            Context.getCurrentLogger().warn("A challenge response must have a scheme defined.");
         } else if (challenge.getScheme().getTechnicalName() == null) {
-            Context.getCurrentLogger().warning(
-                    "A challenge scheme must have a technical name defined.");
+            Context.getCurrentLogger().warn("A challenge scheme must have a technical name defined.");
         } else {
             ChallengeWriter cw = new ChallengeWriter();
             cw.append(challenge.getScheme().getTechnicalName()).appendSpace();
@@ -249,13 +241,11 @@ public class AuthenticatorUtils {
                         helper.formatResponse(cw, challenge, request,
                                 httpHeaders);
                     } catch (Exception e) {
-                        Context.getCurrentLogger().log(
-                                Level.WARNING,
-                                "Unable to format the challenge response: "
+                        Context.getCurrentLogger().warn("Unable to format the challenge response: "
                                         + challenge, e);
                     }
                 } else {
-                    Context.getCurrentLogger().warning(
+                    Context.getCurrentLogger().warn(
                             "Challenge scheme " + challenge.getScheme()
                                     + " not supported by the Restlet engine.");
                 }
@@ -309,8 +299,7 @@ public class AuthenticatorUtils {
                     }
                 } catch (Exception e) {
                     Context.getCurrentLogger()
-                            .log(Level.WARNING,
-                                    "Unable to parse the authentication info header parameter",
+                            .warn("Unable to parse the authentication info header parameter",
                                     e);
                 }
             }
@@ -319,8 +308,7 @@ public class AuthenticatorUtils {
                     responseAuth);
         } catch (IOException e) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "Unable to parse the authentication info header: "
+                    .warn("Unable to parse the authentication info header: "
                                     + header, e);
         }
 
@@ -352,7 +340,7 @@ public class AuthenticatorUtils {
                 if (helper != null) {
                     helper.parseRequest(cr, response, httpHeaders);
                 } else {
-                    Context.getCurrentLogger().warning(
+                    Context.getCurrentLogger().warn(
                             "Couldn't find any helper support the "
                                     + cr.getScheme() + " challenge scheme.");
                 }
@@ -399,7 +387,7 @@ public class AuthenticatorUtils {
             if (helper != null) {
                 helper.parseResponse(result, request, httpHeaders);
             } else {
-                Context.getCurrentLogger().warning(
+                Context.getCurrentLogger().warn(
                         "Couldn't find any helper support the "
                                 + result.getScheme() + " challenge scheme.");
             }
@@ -471,7 +459,7 @@ public class AuthenticatorUtils {
                 resourceRef = helper.updateReference(resourceRef,
                         challengeResponse, request);
             } else {
-                Context.getCurrentLogger().warning(
+                Context.getCurrentLogger().warn(
                         "Challenge scheme " + challengeResponse.getScheme()
                                 + " not supported by the Restlet engine.");
             }

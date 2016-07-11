@@ -24,8 +24,6 @@
 
 package org.restlet.routing;
 
-import java.util.logging.Level;
-
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
@@ -119,12 +117,12 @@ public class TemplateRoute extends Route {
             int matchedLength = getTemplate().parse(remainingPart, request);
 
             if (matchedLength == 0) {
-                if (request.isLoggable() && getLogger().isLoggable(Level.FINER)) {
-                    getLogger().finer("No characters were matched");
+                if (request.isLoggable() && getLogger().isDebugEnabled()) {
+                    getLogger().debug("No characters were matched");
                 }
             } else if (matchedLength > 0) {
-                if (request.isLoggable() && getLogger().isLoggable(Level.FINER)) {
-                    getLogger().finer(
+                if (request.isLoggable() && getLogger().isDebugEnabled()) {
+                    getLogger().debug(
                             "" + matchedLength + " characters were matched");
                 }
 
@@ -142,20 +140,20 @@ public class TemplateRoute extends Route {
                 request.getResourceRef().setBaseRef(baseRef);
 
                 if (request.isLoggable()) {
-                    if (getLogger().isLoggable(Level.FINE)) {
+                    if (getLogger().isDebugEnabled()) {
                         remainingPart = request.getResourceRef()
                                 .getRemainingPart(false, isMatchingQuery());
 
                         if ((remainingPart != null)
                                 && (!"".equals(remainingPart))) {
-                            getLogger().fine(
+                            getLogger().debug(
                                     "New base URI: \""
                                             + request.getResourceRef()
                                                     .getBaseRef()
                                             + "\". New remaining part: \""
                                             + remainingPart + "\"");
                         } else {
-                            getLogger().fine(
+                            getLogger().debug(
                                     "New base URI: \""
                                             + request.getResourceRef()
                                                     .getBaseRef()
@@ -163,14 +161,14 @@ public class TemplateRoute extends Route {
                         }
                     }
 
-                    if (getLogger().isLoggable(Level.FINER)) {
-                        getLogger().finer(
+                    if (getLogger().isDebugEnabled()) {
+                        getLogger().debug(
                                 "Delegating the call to the target Restlet");
                     }
                 }
             } else {
-                if (request.isLoggable() && getLogger().isLoggable(Level.FINE)) {
-                    getLogger().fine(
+                if (request.isLoggable() && getLogger().isDebugEnabled()) {
+                    getLogger().debug(
                             "Unable to match this pattern: "
                                     + getTemplate().getPattern());
                 }
@@ -244,8 +242,8 @@ public class TemplateRoute extends Route {
                 }
             }
 
-            if (request.isLoggable() && getLogger().isLoggable(Level.FINER)) {
-                getLogger().finer(
+            if (request.isLoggable() && getLogger().isDebugEnabled()) {
+                getLogger().debug(
                         "Call score for the \"" + getTemplate().getPattern()
                                 + "\" URI pattern: " + result);
             }

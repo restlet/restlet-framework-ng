@@ -38,7 +38,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
 
 import org.restlet.Application;
 import org.restlet.Context;
@@ -708,8 +707,7 @@ public class TaskService extends Service implements ScheduledExecutorService {
             try {
                 start();
             } catch (Exception e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Unable to start the task service", e);
+                Context.getCurrentLogger().warn("Unable to start the task service", e);
             }
         }
     }

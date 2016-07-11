@@ -24,13 +24,6 @@
 
 package org.restlet.resource;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -55,6 +48,12 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;
 import org.restlet.util.Series;
+import org.slf4j.Logger;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Base resource class exposing the uniform REST interface. Intended conceptual
@@ -199,8 +198,7 @@ public abstract class Resource {
      *            The caught error or exception.
      */
     protected void doCatch(Throwable throwable) {
-        getLogger().log(Level.INFO, "Exception or error caught in resource",
-                throwable);
+        getLogger().info("Exception or error caught in resource", throwable);
     }
 
     /**
@@ -445,8 +443,7 @@ public abstract class Resource {
      * @return The logger.
      */
     public Logger getLogger() {
-        return getContext() != null ? getContext().getLogger() : Context
-                .getCurrentLogger();
+        return getContext() != null ? getContext().getLogger() : Context.getCurrentLogger();
     }
 
     /**
@@ -853,7 +850,7 @@ public abstract class Resource {
         try {
             getReference().setQuery(query.encode());
         } catch (IOException e) {
-            getLogger().fine("Unable to set the query value");
+            getLogger().debug("Unable to set the query value");
         }
     }
 

@@ -24,8 +24,6 @@
 
 package org.restlet.engine;
 
-import java.util.logging.Level;
-
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
@@ -208,8 +206,7 @@ public abstract class CompositeHelper<T extends Restlet> extends
                 response.setStatus(Status.SERVER_ERROR_INTERNAL);
                 getHelped()
                         .getLogger()
-                        .log(Level.SEVERE,
-                                "The "
+                        .error("The "
                                         + getHelped().getClass().getName()
                                         + " class has no Restlet defined to process calls. Maybe it wasn't properly started.");
             }

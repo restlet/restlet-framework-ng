@@ -24,15 +24,13 @@
 
 package org.restlet.ext.jaxb.internal;
 
+import org.restlet.Context;
+import org.restlet.ext.jaxb.JaxbRepresentation;
+
+import javax.xml.bind.JAXBException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.logging.Level;
-
-import javax.xml.bind.JAXBException;
-
-import org.restlet.Context;
-import org.restlet.ext.jaxb.JaxbRepresentation;
 
 /**
  * This is a utility class to assist in marshaling Java content trees into XML.
@@ -92,8 +90,7 @@ public class Marshaller<T> {
                 m.setProperty("jaxb.fragment", getJaxbRepresentation()
                         .isFragment());
             } catch (Exception e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Problem creating Marshaller", e);
+                Context.getCurrentLogger().warn("Problem creating Marshaller", e);
                 return null;
             }
 
@@ -159,7 +156,7 @@ public class Marshaller<T> {
     private javax.xml.bind.Marshaller getMarshaller() throws JAXBException {
         final javax.xml.bind.Marshaller m = this.marshaller.get();
         if (m == null) {
-            Context.getCurrentLogger().warning("Unable to locate marshaller.");
+            Context.getCurrentLogger().warn("Unable to locate marshaller.");
             throw new JAXBException("Unable to locate marshaller.");
         }
         return m;

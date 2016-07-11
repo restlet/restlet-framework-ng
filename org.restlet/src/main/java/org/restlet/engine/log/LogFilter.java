@@ -24,15 +24,13 @@
 
 package org.restlet.engine.log;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.engine.Engine;
 import org.restlet.routing.Filter;
 import org.restlet.service.LogService;
+import org.slf4j.Logger;
 
 /**
  * Filter logging all calls after their handling by the target Restlet. The
@@ -67,15 +65,8 @@ public class LogFilter extends Filter {
         if (logService != null) {
             if (logService.getLoggerName() != null) {
                 this.logLogger = Engine.getLogger(logService.getLoggerName());
-            } else if ((context != null)
-                    && (context.getLogger().getParent() != null)) {
-                this.logLogger = Engine.getLogger(context.getLogger()
-                        .getParent().getName()
-                        + "."
-                        + LogUtils.getBestClassName(logService.getClass()));
             } else {
-                this.logLogger = Engine.getLogger(LogUtils
-                        .getBestClassName(logService.getClass()));
+                this.logLogger = Engine.getLogger(LogUtils.getBestClassName(logService.getClass()));
             }
         }
     }
@@ -91,16 +82,15 @@ public class LogFilter extends Filter {
     @Override
     protected void afterHandle(Request request, Response response) {
         try {
-            if (request.isLoggable() && this.logLogger.isLoggable(Level.INFO)) {
+            if (request.isLoggable() && this.logLogger.isInfoEnabled()) {
                 long startTime = (Long) request.getAttributes().get(
                         "org.restlet.startTime");
                 int duration = (int) (System.currentTimeMillis() - startTime);
-                this.logLogger.log(Level.INFO, this.logService
-                        .getResponseLogMessage(response, duration));
+                this.logLogger.info(this.logService.getResponseLogMessage(response, duration));
             }
         } catch (Throwable e) {
             // Error while logging the call, cf issue #931
-            getLogger().log(Level.SEVERE, "Cannot log call", e);
+            getLogger().error("Cannot log call", e);
         }
     }
 
@@ -122,8 +112,8 @@ public class LogFilter extends Filter {
         // Set the log level for the given request
         request.setLoggable(this.logService.isLoggable(request));
 
-        if (request.isLoggable() && this.logLogger.isLoggable(Level.FINE)) {
-            this.logLogger.fine("Processing request to: \""
+        if (request.isLoggable() && this.logLogger.isDebugEnabled()) {
+            this.logLogger.debug("Processing request to: \""
                     + ((request.getResourceRef() == null) ? "Unknown URI"
                             : request.getResourceRef().getTargetRef()
                                     .toString()) + "\"");

@@ -27,8 +27,6 @@ package org.restlet.engine.component;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,6 +52,7 @@ import org.restlet.routing.Template;
 import org.restlet.routing.TemplateRoute;
 import org.restlet.routing.Variable;
 import org.restlet.routing.VirtualHost;
+import org.slf4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -171,8 +170,7 @@ public class ComponentXmlParser {
                                         .createChildContext());
                     } catch (NoSuchMethodException e) {
                         getLogger()
-                                .log(Level.FINE,
-                                        "Couldn't invoke the constructor of the target class. Please check this class has a constructor with a single parameter of type Context. The empty constructor and the context setter will be used instead: "
+                                .debug("Couldn't invoke the constructor of the target class. Please check this class has a constructor with a single parameter of type Context. The empty constructor and the context setter will be used instead: "
                                                 + targetClassName, e);
 
                         // The constructor with the Context parameter does not
@@ -193,28 +191,23 @@ public class ComponentXmlParser {
                     }
                 }
             } catch (ClassNotFoundException e) {
-                getLogger().log(
-                        Level.WARNING,
+                getLogger().warn(
                         "Couldn't find the target class. Please check that your classpath includes "
                                 + targetClassName, e);
             } catch (InstantiationException e) {
-                getLogger()
-                        .log(Level.WARNING,
+                getLogger().warn(
                                 "Couldn't instantiate the target class. Please check this class has an empty constructor "
                                         + targetClassName, e);
             } catch (IllegalAccessException e) {
-                getLogger()
-                        .log(Level.WARNING,
+                getLogger().warn(
                                 "Couldn't instantiate the target class. Please check that you have to proper access rights to "
                                         + targetClassName, e);
             } catch (NoSuchMethodException e) {
-                getLogger()
-                        .log(Level.WARNING,
+                getLogger().warn(
                                 "Couldn't invoke the constructor of the target class. Please check this class has a constructor with a single parameter of Context "
                                         + targetClassName, e);
             } catch (InvocationTargetException e) {
-                getLogger()
-                        .log(Level.WARNING,
+                getLogger().warn(
                                 "Couldn't instantiate the target class. An exception was thrown while creating "
                                         + targetClassName, e);
             }
@@ -269,33 +262,32 @@ public class ComponentXmlParser {
                 }
             } else {
                 getLogger()
-                        .log(Level.WARNING,
+                        .warn(
                                 "The target descriptor has not been found or is not available, or no client supporting the URI's protocol has been defined on this component. "
                                         + targetDescriptor);
             }
         } catch (ClassNotFoundException e) {
-            getLogger().log(
-                    Level.WARNING,
+            getLogger().warn(
                     "Couldn't find the target class. Please check that your classpath includes "
                             + targetClassName, e);
         } catch (InstantiationException e) {
             getLogger()
-                    .log(Level.WARNING,
+                    .warn(
                             "Couldn't instantiate the target class. Please check this class has an empty constructor "
                                     + targetClassName, e);
         } catch (IllegalAccessException e) {
             getLogger()
-                    .log(Level.WARNING,
+                    .warn(
                             "Couldn't instantiate the target class. Please check that you have to proper access rights to "
                                     + targetClassName, e);
         } catch (NoSuchMethodException e) {
             getLogger()
-                    .log(Level.WARNING,
+                    .warn(
                             "Couldn't invoke the constructor of the target class. Please check this class has a constructor with a single parameter of Context "
                                     + targetClassName, e);
         } catch (InvocationTargetException e) {
             getLogger()
-                    .log(Level.WARNING,
+                    .warn(
                             "Couldn't instantiate the target class. An exception was thrown while creating "
                                     + targetClassName, e);
         }
@@ -306,7 +298,7 @@ public class ComponentXmlParser {
     /**
      * Parses a node and returns its boolean value.
      * 
-     * @param Node
+     * @param node
      *            the node to parse.
      * @param defaultValue
      *            the default value;
@@ -546,9 +538,7 @@ public class ComponentXmlParser {
                                         Protocol.UNKNOWN_PORT);
 
                                 if (port == Protocol.UNKNOWN_PORT) {
-                                    getLogger()
-                                            .warning(
-                                                    "Please specify a port when defining a list of protocols.");
+                                    getLogger().warn("Please specify a port when defining a list of protocols.");
                                 } else {
                                     server = new Server(new Context(),
                                             protocolsList, getInt(portNode,
@@ -681,11 +671,11 @@ public class ComponentXmlParser {
                 }
             } else {
                 getLogger()
-                        .log(Level.WARNING,
+                        .warn(
                                 "Unable to find the root \"component\" node in the XML configuration.");
             }
         } catch (Exception e) {
-            getLogger().log(Level.WARNING,
+            getLogger().warn(
                     "Unable to parse the Component XML configuration.", e);
         }
     }
@@ -867,7 +857,7 @@ public class ComponentXmlParser {
                                 item.getNodeValue(), uriPattern, bDefault);
                     } else {
                         getLogger()
-                                .log(Level.WARNING,
+                                .warn(
                                         "Both targetClass name and targetDescriptor are missing. Couldn't attach a new route.");
                     }
                 }

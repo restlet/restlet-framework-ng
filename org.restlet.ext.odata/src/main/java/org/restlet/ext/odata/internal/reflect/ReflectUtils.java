@@ -33,8 +33,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.ext.atom.Category;
@@ -42,6 +40,7 @@ import org.restlet.ext.atom.Entry;
 import org.restlet.ext.atom.Feed;
 import org.restlet.ext.odata.internal.edm.Property;
 import org.restlet.ext.odata.internal.edm.TypeUtils;
+import org.slf4j.Logger;
 
 /**
  * Handles Java reflection operations.
@@ -127,7 +126,7 @@ public class ReflectUtils {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Can't access to the following property "
+            logger.warn("Can't access to the following property "
                     + normPteName + " on " + entity.getClass() + ".", e);
         }
 

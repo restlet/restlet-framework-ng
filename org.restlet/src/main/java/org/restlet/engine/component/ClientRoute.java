@@ -24,8 +24,6 @@
 
 package org.restlet.engine.component;
 
-import java.util.logging.Level;
-
 import org.restlet.Client;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -81,14 +79,13 @@ public class ClientRoute extends Route {
         final Protocol protocol = request.getProtocol();
 
         if (protocol == null) {
-            getLogger().warning(
-                    "Unable to determine the protocol to use for this call.");
+            getLogger().warn("Unable to determine the protocol to use for this call.");
         } else if (getClient().getProtocols().contains(protocol)) {
             result = 1.0F;
         }
 
-        if (getLogger().isLoggable(Level.FINER)) {
-            getLogger().finer(
+        if (getLogger().isDebugEnabled()) {
+            getLogger().debug(
                     "Call score for the \""
                             + getClient().getProtocols().toString()
                             + "\" client: " + result);

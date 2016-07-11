@@ -26,7 +26,6 @@ package org.restlet.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.restlet.Application;
 import org.restlet.Context;
@@ -241,8 +240,7 @@ public class StatusService extends Service {
 
                         if (cause.getCause() != null) {
                             Context.getCurrentLogger()
-                                    .log(Level.WARNING,
-                                            "The cause of the exception should be null except in debug mode");
+                                    .warn("The cause of the exception should be null except in debug mode");
                         }
                     }
 
@@ -268,8 +266,7 @@ public class StatusService extends Service {
                 result = converterService.toRepresentation(
                         representationObject, variant);
             } catch (Exception e) {
-                Context.getCurrentLogger().log(
-                        Level.WARNING,
+                Context.getCurrentLogger().warn(
                         "Could not serialize throwable class "
                                 + ((cause == null) ? null : cause.getClass()),
                         e);

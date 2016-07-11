@@ -24,8 +24,6 @@
 
 package org.restlet.engine.application;
 
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -67,8 +65,7 @@ public class StatusFilter extends Filter {
      *            Indicates whether an existing representation should be
      *            overwritten.
      */
-    public StatusFilter(Context context, boolean overwriting, String email,
-            Reference homeRef) {
+    public StatusFilter(Context context, boolean overwriting, String email, Reference homeRef) {
         super(context);
         this.overwriting = overwriting;
         this.statusService = null;
@@ -116,8 +113,7 @@ public class StatusFilter extends Filter {
                         response.getStatus(), request, response));
             }
         } catch (Exception e) {
-            getLogger().log(Level.WARNING,
-                    "Unable to get the custom status representation", e);
+            getLogger().warn("Unable to get the custom status representation", e);
         }
     }
 
@@ -142,16 +138,15 @@ public class StatusFilter extends Filter {
             Status status = getStatusService().toStatus(throwable, request,
                     response);
 
-            Level level = Level.INFO;
             if (status.isServerError()) {
-                level = Level.WARNING;
+                getLogger().warn("Exception or error caught by status service", throwable);
             } else if (status.isConnectorError()) {
-                level = Level.INFO;
+                getLogger().info("Exception or error caught by status service", throwable);
             } else if (status.isClientError()) {
-                level = Level.FINE;
+                getLogger().debug("Exception or error caught by status service", throwable);
+            } else {
+                getLogger().info("Exception or error caught by status service", throwable);
             }
-            getLogger().log(level,
-                    "Exception or error caught by status service", throwable);
 
             if (response != null) {
                 response.setStatus(status);

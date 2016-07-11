@@ -24,11 +24,6 @@
 
 package org.restlet.engine.util;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.CharacterSet;
 import org.restlet.data.Form;
@@ -36,6 +31,10 @@ import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
 import org.restlet.data.Reference;
 import org.restlet.representation.Representation;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Representation of a Web form containing submitted parameters.
@@ -265,18 +264,14 @@ public class FormUtils {
                 try {
                     fr = new FormReader(post, decode);
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            "Unable to create a form reader. Parsing aborted.",
-                            ioe);
+                    Context.getCurrentLogger().warn("Unable to create a form reader. Parsing aborted.", ioe);
                 }
 
                 if (fr != null) {
                     fr.addParameters(form);
                 }
             } else {
-                Context.getCurrentLogger()
-                        .log(Level.FINE,
-                                "The form wasn't changed as the given representation isn't available.");
+                Context.getCurrentLogger().debug("The form wasn't changed as the given representation isn't available.");
             }
         }
     }

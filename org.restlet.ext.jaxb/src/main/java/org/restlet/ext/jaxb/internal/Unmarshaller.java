@@ -24,22 +24,20 @@
 
 package org.restlet.ext.jaxb.internal;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.logging.Level;
+import org.restlet.Context;
+import org.restlet.ext.jaxb.JaxbRepresentation;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
-
-import org.restlet.Context;
-import org.restlet.ext.jaxb.JaxbRepresentation;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * This is a utility class to assist in unmarshaling XML into a new Java content
@@ -70,8 +68,7 @@ public class Unmarshaller<T> {
                 m = JaxbRepresentation.getContext(getContextPath(),
                         getClassLoader()).createUnmarshaller();
             } catch (Exception e) {
-                Context.getCurrentLogger().log(Level.WARNING,
-                        "Problem creating Unmarshaller", e);
+                Context.getCurrentLogger().warn("Problem creating Unmarshaller", e);
                 return null;
             }
             return m;
@@ -118,8 +115,7 @@ public class Unmarshaller<T> {
     private javax.xml.bind.Unmarshaller getUnmarshaller() throws JAXBException {
         final javax.xml.bind.Unmarshaller m = this.unmarshaller.get();
         if (m == null) {
-            Context.getCurrentLogger()
-                    .warning("Unable to locate unmarshaller.");
+            Context.getCurrentLogger().warn("Unable to locate unmarshaller.");
             throw new JAXBException("Unable to locate unmarshaller.");
         }
         return m;

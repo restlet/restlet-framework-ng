@@ -27,7 +27,6 @@ package org.restlet.engine.adapter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -189,7 +188,7 @@ public abstract class ClientCall extends Call {
             // Informs that the size has not been specified in the header.
             if (size == Representation.UNKNOWN_SIZE) {
                 getLogger()
-                        .fine("The length of the message body is unknown. The entity must be handled carefully and consumed entirely in order to surely release the connection.");
+                        .debug("The length of the message body is unknown. The entity must be handled carefully and consumed entirely in order to surely release the connection.");
             }
         }
         result = HeaderUtils.extractEntityHeaders(responseHeaders, result);
@@ -246,8 +245,7 @@ public abstract class ClientCall extends Call {
                     // [enddef]
                 }
             } catch (IOException ioe) {
-                getLogger().log(Level.FINER, "End of response entity stream.",
-                        ioe);
+                getLogger().debug("End of response entity stream.", ioe);
             }
 
         }
@@ -314,8 +312,7 @@ public abstract class ClientCall extends Call {
         } catch (IOException ioe) {
             getHelper()
                     .getLogger()
-                    .log(Level.FINE,
-                            "An error occurred during the communication with the remote HTTP server.",
+                    .debug("An error occurred during the communication with the remote HTTP server.",
                             ioe);
             result = new Status(Status.CONNECTOR_ERROR_COMMUNICATION, ioe);
         } finally {
@@ -345,8 +342,7 @@ public abstract class ClientCall extends Call {
      */
     public void sendRequest(Request request, Response response,
             org.restlet.Uniform callback) throws Exception {
-        Context.getCurrentLogger().warning(
-                "Currently callbacks are not available for this connector.");
+        Context.getCurrentLogger().warn("Currently callbacks are not available for this connector.");
     }
 
     /**

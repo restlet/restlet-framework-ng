@@ -24,8 +24,6 @@
 
 package org.restlet.service;
 
-import java.util.logging.Level;
-
 import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Request;
@@ -234,8 +232,7 @@ public class LogService extends Service {
             }
         } catch (Throwable t) {
             // Error while getting the request's entity, cf issue #931
-            Engine.getLogger(LogService.class).log(Level.SEVERE,
-                    "Cannot retrieve size of request's entity", t);
+            Engine.getLogger(LogService.class).error("Cannot retrieve size of request's entity", t);
             sb.append("-");
         }
 

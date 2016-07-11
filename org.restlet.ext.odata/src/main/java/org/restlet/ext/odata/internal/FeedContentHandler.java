@@ -26,7 +26,6 @@ package org.restlet.ext.odata.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.restlet.Context;
 import org.restlet.ext.atom.Content;
@@ -38,6 +37,7 @@ import org.restlet.ext.odata.Service;
 import org.restlet.ext.odata.internal.edm.EntityType;
 import org.restlet.ext.odata.internal.edm.Metadata;
 import org.restlet.ext.odata.internal.reflect.ReflectUtils;
+import org.slf4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -203,7 +203,7 @@ public class FeedContentHandler<T> extends FeedReader {
             if (entity != null) {
                 entities.add(entity);
             } else {
-                getLogger().warning("Can't add a null entity.");
+                getLogger().warn("Can't add a null entity.");
             }
         }
     }

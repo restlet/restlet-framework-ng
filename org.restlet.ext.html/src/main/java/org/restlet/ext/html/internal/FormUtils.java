@@ -24,11 +24,6 @@
 
 package org.restlet.ext.html.internal;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.data.CharacterSet;
 import org.restlet.data.MediaType;
@@ -37,6 +32,10 @@ import org.restlet.ext.html.FormData;
 import org.restlet.representation.Representation;
 import org.restlet.util.NamedValue;
 import org.restlet.util.Series;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Representation of a Web form containing submitted entries.
@@ -253,9 +252,7 @@ public class FormUtils {
                 try {
                     fr = new FormReader(post);
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            "Unable to create a form reader. Parsing aborted.",
-                            ioe);
+                    Context.getCurrentLogger().warn("Unable to create a form reader. Parsing aborted.", ioe);
                 }
 
                 if (fr != null) {

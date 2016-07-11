@@ -43,7 +43,6 @@ import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.WritableByteChannel;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.data.CharacterSet;
@@ -106,13 +105,11 @@ public class IoUtils {
                 inputStream.close();
             } else {
                 Context.getCurrentLogger()
-                        .log(Level.FINE,
-                                "Unable to copy input to output stream. Output stream is null.");
+                        .debug("Unable to copy input to output stream. Output stream is null.");
             }
         } else {
             Context.getCurrentLogger()
-                    .log(Level.FINE,
-                            "Unable to copy input to output stream. Input stream is null.");
+                    .debug("Unable to copy input to output stream. Input stream is null.");
         }
     }
 
@@ -390,8 +387,7 @@ public class IoUtils {
                         wbc = pipe.sink();
                         representation.write(wbc);
                     } catch (IOException ioe) {
-                        Context.getCurrentLogger().log(Level.WARNING,
-                                "Error while writing to the piped channel.",
+                        Context.getCurrentLogger().warn("Error while writing to the piped channel.",
                                 ioe);
                     } finally {
                         if (wbc != null)
@@ -399,8 +395,7 @@ public class IoUtils {
                                 wbc.close();
                             } catch (IOException e) {
                                 Context.getCurrentLogger()
-                                        .log(Level.WARNING,
-                                                "Error while closing to the piped channel.",
+                                        .warn("Error while closing to the piped channel.",
                                                 e);
                             }
                     }
@@ -420,8 +415,7 @@ public class IoUtils {
             // [enddef]
         } else {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "The GAE edition is unable to return a channel for a representation given its write(WritableByteChannel) method.");
+                    .warn("The GAE edition is unable to return a channel for a representation given its write(WritableByteChannel) method.");
         }
         return result;
     }
@@ -486,14 +480,12 @@ public class IoUtils {
                     representation.write(pipedWriter);
                     pipedWriter.flush();
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            "Error while writing to the piped reader.", ioe);
+                    Context.getCurrentLogger().warn("Error while writing to the piped reader.", ioe);
                 } finally {
                     try {
                         pipedWriter.close();
                     } catch (IOException ioe2) {
-                        Context.getCurrentLogger().log(Level.WARNING,
-                                "Error while closing the pipe.", ioe2);
+                        Context.getCurrentLogger().warn("Error while closing the pipe.", ioe2);
                     }
                 }
             }
@@ -565,8 +557,7 @@ public class IoUtils {
         try {
             result = new ReaderInputStream(reader, characterSet);
         } catch (IOException e) {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Unable to create the reader input stream", e);
+            Context.getCurrentLogger().warn("Unable to create the reader input stream", e);
         }
 
         return result;
@@ -600,15 +591,13 @@ public class IoUtils {
                     representation.write(os);
                     os.flush();
                 } catch (IOException ioe) {
-                    Context.getCurrentLogger().log(Level.WARNING,
-                            "Error while writing to the piped input stream.",
+                    Context.getCurrentLogger().warn("Error while writing to the piped input stream.",
                             ioe);
                 } finally {
                     try {
                         os.close();
                     } catch (IOException ioe2) {
-                        Context.getCurrentLogger().log(Level.WARNING,
-                                "Error while closing the pipe.", ioe2);
+                        Context.getCurrentLogger().warn("Error while closing the pipe.", ioe2);
                     }
                 }
             }

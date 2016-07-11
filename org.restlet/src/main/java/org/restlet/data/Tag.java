@@ -24,11 +24,10 @@
 
 package org.restlet.data;
 
-import java.util.Objects;
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.representation.RepresentationInfo;
+
+import java.util.Objects;
 
 /**
  * Validation tag equivalent to an HTTP entity tag (E-Tag). "A strong entity tag
@@ -75,8 +74,7 @@ public final class Tag {
         } else if (httpTagCopy.equals("*")) {
             result = new Tag("*", weak);
         } else {
-            Context.getCurrentLogger().log(Level.WARNING,
-                    "Invalid tag format detected: " + httpTagCopy);
+            Context.getCurrentLogger().warn("Invalid tag format detected: " + httpTagCopy);
         }
 
         return result;

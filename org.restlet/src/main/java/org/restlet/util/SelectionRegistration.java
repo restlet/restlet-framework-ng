@@ -33,7 +33,6 @@ import java.nio.channels.Selector;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.engine.io.IoUtils;
@@ -168,9 +167,8 @@ public class SelectionRegistration {
      */
     public void block() throws IOException {
         try {
-            if (Context.getCurrentLogger().isLoggable(Level.FINEST)) {
-                Context.getCurrentLogger().log(
-                        Level.FINEST,
+            if (Context.getCurrentLogger().isTraceEnabled()) {
+                Context.getCurrentLogger().trace(
                         "Calling thread about to block on the NIO selection registration. Timeout: "
                                 + TimeUnit.MILLISECONDS
                                         .toMillis(IoUtils.TIMEOUT_MS)
@@ -182,15 +180,14 @@ public class SelectionRegistration {
             this.barrier.await(IoUtils.TIMEOUT_MS, TimeUnit.MILLISECONDS);
         } catch (TimeoutException e) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "The thread blocked at the cyclic barrier has timed out",
+                    .warn("The thread blocked at the cyclic barrier has timed out",
                             e);
             IOException ioe = new IOException(
                     "The thread blocked at the cyclic barrier has timed out.");
             ioe.initCause(e);
             throw ioe;
         } catch (Exception e) {
-            Context.getCurrentLogger().log(Level.WARNING,
+            Context.getCurrentLogger().warn(
                     "Unable to block the thread at the cyclic barrier", e);
             IOException ioe = new IOException(
                     "Unable to block the thread at the cyclic barrier.");
@@ -329,8 +326,7 @@ public class SelectionRegistration {
             this.selectionKey = getSelectableChannel().register(selector,
                     getInterestOperations(), this);
         } catch (ClosedChannelException cce) {
-            Context.getCurrentLogger().log(Level.FINE,
-                    "Unable to register again", cce);
+            Context.getCurrentLogger().debug("Unable to register again", cce);
         }
 
         return this.selectionKey;
@@ -341,9 +337,8 @@ public class SelectionRegistration {
      * after a {@link #suspend()} call.
      */
     public void resume() {
-        if (Context.getCurrentLogger().isLoggable(Level.FINER)) {
-            Context.getCurrentLogger().log(Level.FINER,
-                    "Resuming previous NIO interest");
+        if (Context.getCurrentLogger().isDebugEnabled()) {
+            Context.getCurrentLogger().debug("Resuming previous NIO interest");
         }
 
         setInterestOperations(this.previousInterest);
@@ -455,9 +450,8 @@ public class SelectionRegistration {
      * @see #block()
      */
     public void unblock() throws IOException {
-        if (Context.getCurrentLogger().isLoggable(Level.FINEST)) {
-            Context.getCurrentLogger().log(
-                    Level.FINEST,
+        if (Context.getCurrentLogger().isTraceEnabled()) {
+            Context.getCurrentLogger().trace(
                     "Calling thread about to unblock the NIO selection registration. Timeout: "
                             + TimeUnit.MILLISECONDS
                                     .toMillis(IoUtils.TIMEOUT_MS)
@@ -469,8 +463,7 @@ public class SelectionRegistration {
             this.barrier.await(IoUtils.TIMEOUT_MS, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "Unable to unblock the waiting thread at the cyclic barrier",
+                    .warn("Unable to unblock the waiting thread at the cyclic barrier",
                             e);
             IOException ioe = new IOException(
                     "Unable to unblock the waiting thread at the cyclic barrier.");
@@ -490,15 +483,13 @@ public class SelectionRegistration {
     public SelectionKey update() {
         if (this.selectionKey.isValid()) {
             if (isCanceling()) {
-                Context.getCurrentLogger().log(Level.FINER,
-                        "Cancelling of the selection key requested");
+                Context.getCurrentLogger().debug("Cancelling of the selection key requested");
                 this.selectionKey.cancel();
             } else {
                 try {
-                    if (Context.getCurrentLogger().isLoggable(Level.FINEST)) {
+                    if (Context.getCurrentLogger().isTraceEnabled()) {
                         Context.getCurrentLogger()
-                                .log(Level.FINEST,
-                                        "Update key (old | new) : "
+                                .trace("Update key (old | new) : "
                                                 + SelectionRegistration
                                                         .getName(this.selectionKey
                                                                 .interestOps())
@@ -510,15 +501,13 @@ public class SelectionRegistration {
                     this.selectionKey.interestOps(getInterestOperations());
                 } catch (CancelledKeyException cke) {
                     Context.getCurrentLogger()
-                            .log(Level.FINE,
-                                    "Unable to update a cancelled key, registering again",
+                            .debug("Unable to update a cancelled key, registering again",
                                     cke);
                     this.selectionKey = register(this.selectionKey.selector());
                 }
             }
         } else {
-            Context.getCurrentLogger().log(Level.FINE,
-                    "Invalid key detected, registering again");
+            Context.getCurrentLogger().debug("Invalid key detected, registering again");
             this.selectionKey = register(this.selectionKey.selector());
         }
 

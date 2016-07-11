@@ -24,13 +24,12 @@
 
 package org.restlet.data;
 
+import org.restlet.Context;
+import org.restlet.engine.Edition;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-
-import org.restlet.Context;
-import org.restlet.engine.Edition;
 
 /**
  * Reference to a Uniform Resource Identifier (URI). Contrary to the
@@ -156,8 +155,7 @@ public class Reference {
                     .decode(toDecode, characterSet.getName());
         } catch (UnsupportedEncodingException uee) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "Unable to decode the string with the UTF-8 character set.",
+                    .warn("Unable to decode the string with the UTF-8 character set.",
                             uee);
         }
         // [enddef]
@@ -237,8 +235,7 @@ public class Reference {
                     .encode(toEncode, characterSet.getName());
         } catch (UnsupportedEncodingException uee) {
             Context.getCurrentLogger()
-                    .log(Level.WARNING,
-                            "Unable to encode the string with the UTF-8 character set.",
+                    .warn("Unable to encode the string with the UTF-8 character set.",
                             uee);
         }
         // [enddef]
@@ -806,7 +803,7 @@ public class Reference {
             for (int i = 0; valid && (i < uriRef.length()); i++) {
                 if (!isValid(uriRef.charAt(i))) {
                     valid = false;
-                    Context.getCurrentLogger().fine(
+                    Context.getCurrentLogger().debug(
                             "Invalid character detected in URI reference at index '"
                                     + i + "': \"" + uriRef.charAt(i)
                                     + "\". It will be automatically encoded.");
@@ -815,7 +812,7 @@ public class Reference {
                     // A percent encoding character has been detected but
                     // without the necessary two hexadecimal digits following
                     valid = false;
-                    Context.getCurrentLogger().fine(
+                    Context.getCurrentLogger().debug(
                             "Invalid percent encoding detected in URI reference at index '"
                                     + i + "': \"" + uriRef.charAt(i)
                                     + "\". It will be automatically encoded.");
@@ -1153,8 +1150,7 @@ public class Reference {
                 try {
                     result = Integer.parseInt(authority.substring(index + 1));
                 } catch (NumberFormatException nfe) {
-                    Context.getCurrentLogger().log(
-                            Level.WARNING,
+                    Context.getCurrentLogger().warn(
                             "Can't parse hostPort : [hostRef,requestUri]=["
                                     + getBaseRef() + "," + this.internalRef
                                     + "]");

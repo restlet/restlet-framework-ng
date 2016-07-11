@@ -26,8 +26,6 @@ package org.restlet;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Filter;
-import java.util.logging.Level;
 
 import org.restlet.engine.Engine;
 import org.restlet.engine.application.ApplicationHelper;
@@ -192,7 +190,7 @@ public class Application extends Restlet {
     /**
      * Creates a outbound root Restlet that will receive all outgoing calls from
      * ClientResource. In general, instances of {@link Router} and
-     * {@link Filter} classes will be used. The default implementation returns a
+     * {@link org.restlet.routing.Filter} classes will be used. The default implementation returns a
      * Restlet giving access to the the outbound service layer and finally to
      * the {@link Context#getClientDispatcher()}.
      * <p>
@@ -593,13 +591,11 @@ public class Application extends Restlet {
     public synchronized void start() throws Exception {
         if (isStopped()) {
             if (isDebugging()) {
-                getLogger().log(
-                        Level.INFO,
+                getLogger().info(
                         "Starting " + getClass().getName()
                                 + " application in debug mode");
             } else {
-                getLogger().log(Level.INFO,
-                        "Starting " + getClass().getName() + " application");
+                getLogger().info("Starting " + getClass().getName() + " application");
             }
 
             if (getHelper() != null) {

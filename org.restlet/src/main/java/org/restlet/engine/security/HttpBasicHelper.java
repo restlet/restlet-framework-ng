@@ -27,7 +27,6 @@ package org.restlet.engine.security;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
 
 import org.restlet.Context;
 import org.restlet.Request;
@@ -62,8 +61,7 @@ public class HttpBasicHelper extends AuthenticatorHelper {
         if (challenge.getRealm() != null) {
             cw.appendQuotedChallengeParameter("realm", challenge.getRealm());
         } else {
-            getLogger()
-                    .warning(
+            getLogger().warn(
                             "The realm directive is required for all authentication schemes that issue a challenge.");
         }
     }
@@ -117,15 +115,13 @@ public class HttpBasicHelper extends AuthenticatorHelper {
                         }
                     } catch (Exception e) {
                         Context.getCurrentLogger()
-                                .log(Level.WARNING,
-                                        "Unable to parse the challenge request header parameter",
+                                .warn("Unable to parse the challenge request header parameter",
                                         e);
                     }
                 }
             } catch (Exception e) {
                 Context.getCurrentLogger()
-                        .log(Level.WARNING,
-                                "Unable to parse the challenge request header parameter",
+                        .warn("Unable to parse the challenge request header parameter",
                                 e);
             }
         }
@@ -157,11 +153,9 @@ public class HttpBasicHelper extends AuthenticatorHelper {
                 challenge.setSecret(credentials.substring(separator + 1));
             }
         } catch (UnsupportedEncodingException e) {
-            getLogger().log(Level.INFO,
-                    "Unsupported HTTP Basic encoding error", e);
+            getLogger().info("Unsupported HTTP Basic encoding error", e);
         } catch (IllegalArgumentException e) {
-            getLogger().log(Level.INFO,
-                    "Unable to decode the HTTP Basic credential", e);
+            getLogger().info("Unable to decode the HTTP Basic credential", e);
         }
     }
 

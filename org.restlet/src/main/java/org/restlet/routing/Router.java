@@ -24,8 +24,6 @@
 
 package org.restlet.routing;
 
-import java.util.logging.Level;
-
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -651,11 +649,11 @@ public class Router extends Restlet {
      *            The route selected.
      */
     protected void logRoute(Route route) {
-        if (getLogger().isLoggable(Level.FINE)) {
+        if (getLogger().isDebugEnabled()) {
             if (getDefaultRoute() == route) {
-                getLogger().fine("The default route was selected");
+                getLogger().debug("The default route was selected");
             } else {
-                getLogger().fine("Selected route: " + route);
+                getLogger().debug("Selected route: " + route);
             }
         }
     }
