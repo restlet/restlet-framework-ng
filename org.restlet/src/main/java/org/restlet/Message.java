@@ -37,7 +37,6 @@ import org.restlet.data.Header;
 import org.restlet.data.MediaType;
 import org.restlet.data.RecipientInfo;
 import org.restlet.data.Warning;
-import org.restlet.engine.header.HeaderConstants;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
@@ -64,6 +63,9 @@ public abstract class Message {
     // [ifndef gwt] member
     /** The optional cached text. */
     private volatile String entityText;
+
+    /** The series of raw headers. */
+    private volatile Series<Header> headers;
 
     /** Callback invoked when an error occurs when sending the message. */
     private volatile Uniform onError;
@@ -97,6 +99,7 @@ public abstract class Message {
         this.entity = entity;
         // [ifndef gwt] instruction
         this.entityText = null;
+        this.headers = null;
         this.onSent = null;
         this.recipientsInfo = null;
         this.warnings = null;
@@ -119,8 +122,7 @@ public abstract class Message {
         if ((getEntity() != null)
                 && (getEntity().isTransient() || (getEntity().getSize() == Representation.UNKNOWN_SIZE))
                 && getEntity().isAvailable()) {
-            setEntity(new org.restlet.representation.BufferingRepresentation(
-                    getEntity()));
+            setEntity(new org.restlet.representation.BufferingRepresentation(getEntity()));
         }
     }
 
@@ -242,8 +244,7 @@ public abstract class Message {
     public String getEntityAsText() {
         if (this.entityText == null) {
             try {
-                this.entityText = (getEntity() == null) ? null : getEntity()
-                        .getText();
+                this.entityText = (getEntity() == null) ? null : getEntity().getText();
             } catch (java.io.IOException e) {
                 Context.getCurrentLogger().debug("Unable to get the entity text.", e);
             }
@@ -260,18 +261,18 @@ public abstract class Message {
      * 
      * @return The HTTP headers.
      */
-    @SuppressWarnings("unchecked")
     public Series<Header> getHeaders() {
-        Series<Header> headers = (Series<Header>) getAttributes().get(
-                HeaderConstants.ATTRIBUTE_HEADERS);
-        if (headers == null) {
-            // [ifndef gwt] instruction
-            headers = new Series<Header>(Header.class);
-            // [ifdef gwt] instruction uncomment
-            // headers = new org.restlet.engine.util.HeaderSeries();
-            getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS, headers);
+        Series<Header> h = this.headers;
+        if (h == null) {
+            synchronized (this) {
+                h = this.headers;
+                if (h == null) {
+                    this.headers = h = new Series<Header>(Header.class);
+                }
+            }
         }
-        return headers;
+
+        return h;
     }
 
     /**
@@ -440,6 +441,24 @@ public abstract class Message {
      */
     public void setEntity(String value, MediaType mediaType) {
         setEntity(new StringRepresentation(value, mediaType));
+    }
+
+    /**
+     * Sets the series of lower-level HTTP headers.
+     * 
+     * @param headers
+     *            A series of HTTP headers.
+     */
+    public void setHeaders(Series<Header> headers) {
+        synchronized (getHeaders()) {
+            if (headers != getHeaders()) {
+                getHeaders().clear();
+
+                if (headers != null) {
+                    getHeaders().addAll(headers);
+                }
+            }
+        }
     }
 
     /**

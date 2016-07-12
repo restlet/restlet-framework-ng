@@ -45,8 +45,7 @@ public class CacheDirectiveReader extends HeaderReader<CacheDirective> {
      * @param collection
      *            The collection to update.
      */
-    public static void addValues(Header header,
-            Collection<CacheDirective> collection) {
+    public static void addValues(Header header, Collection<CacheDirective> collection) {
         new CacheDirectiveReader(header.getValue()).addValues(collection);
     }
 

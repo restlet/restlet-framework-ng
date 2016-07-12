@@ -55,17 +55,17 @@ public abstract class Call {
         // detect Tomcat and Jetty exceptions
         if (exception instanceof IOException) {
             String exceptionName = exception.getClass().getName();
-            result = (exceptionName.endsWith("ClientAbortException") ||
-                exceptionName.endsWith("jetty.io.EofException"));
+            result = (exceptionName.endsWith("ClientAbortException")
+                    || exceptionName.endsWith("jetty.io.EofException"));
         }
 
         // check for known exception messages
         if (!result) {
             String exceptionMessage = exception.getMessage();
             if (exceptionMessage != null) {
-                result = (exceptionMessage.indexOf("Broken pipe") != -1) ||
-                    (exceptionMessage.equals("An existing connection must have been closed by the remote party.") ||
-                        (exceptionMessage.equals("An open connection has been abandonned by your network stack.")));
+                result = (exceptionMessage.indexOf("Broken pipe") != -1) || (exceptionMessage
+                        .equals("An existing connection must have been closed by the remote party.")
+                        || (exceptionMessage.equals("An open connection has been abandonned by your network stack.")));
             }
         }
 
@@ -250,10 +250,8 @@ public abstract class Call {
      *            The response channel.
      * @return The wrapping representation.
      */
-    protected Representation getRepresentation(
-            java.nio.channels.ReadableByteChannel channel) {
-        return new org.restlet.representation.ReadableRepresentation(channel,
-                null);
+    protected Representation getRepresentation(java.nio.channels.ReadableByteChannel channel) {
+        return new org.restlet.representation.ReadableRepresentation(channel, null);
     }
 
     /**
