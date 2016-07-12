@@ -175,7 +175,8 @@ public class HeaderUtils {
                 addHeader(
                         HeaderConstants.HEADER_CONTENT_MD5,
                         new String(org.restlet.engine.util.Base64.encode(entity
-                                .getDigest().getValue(), false)), headers);
+                                .getDigest().getValue(), false)),
+                        headers);
             }
 
             if (entity.getRange() != null) {
@@ -330,6 +331,19 @@ public class HeaderUtils {
     }
 
     /**
+     * Adds the entity headers for the handled uniform message.
+     * 
+     * @param message
+     *            The request or response sent.
+     * @param headers
+     *            The headers series to update.
+     */
+    public static void addEntityHeaders(Message message, Series<Header> headers) {
+        Representation entity = message.getEntity();
+        addEntityHeaders(entity, headers);
+    }
+
+    /**
      * Adds the headers based on the {@link Request} to the given {@link Series} .
      * 
      * @param request
@@ -353,7 +367,8 @@ public class HeaderUtils {
         if (!clientInfo.getAcceptedCharacterSets().isEmpty()) {
             addHeader(HeaderConstants.HEADER_ACCEPT_CHARSET,
                     PreferenceWriter.write(clientInfo
-                            .getAcceptedCharacterSets()), headers);
+                            .getAcceptedCharacterSets()),
+                    headers);
         }
 
         if (!clientInfo.getAcceptedEncodings().isEmpty()) {
@@ -560,7 +575,8 @@ public class HeaderUtils {
                 addHeader(HeaderConstants.HEADER_PROXY_AUTHENTICATE,
                         org.restlet.engine.security.AuthenticatorUtils
                                 .formatRequest(challengeRequest, response,
-                                        headers), headers);
+                                        headers),
+                        headers);
             }
         }
 
@@ -594,7 +610,8 @@ public class HeaderUtils {
                 addHeader(HeaderConstants.HEADER_WWW_AUTHENTICATE,
                         org.restlet.engine.security.AuthenticatorUtils
                                 .formatRequest(challengeRequest, response,
-                                        headers), headers);
+                                        headers),
+                        headers);
             }
         }
 
@@ -645,7 +662,8 @@ public class HeaderUtils {
             addHeader(HeaderConstants.HEADER_AUTHENTICATION_INFO,
                     org.restlet.engine.security.AuthenticatorUtils
                             .formatAuthenticationInfo(response
-                                    .getAuthenticationInfo()), headers);
+                                    .getAuthenticationInfo()),
+                    headers);
         }
 
         // Cookies settings should be written in a single header, but Web
@@ -723,7 +741,7 @@ public class HeaderUtils {
                         response.setAge(Integer.parseInt(header.getValue()));
                     } catch (NumberFormatException nfe) {
                         Context.getCurrentLogger().warn("Error during Age header parsing. Header: "
-                                        + header.getValue(), nfe);
+                                + header.getValue(), nfe);
                     }
                 } else if (header.getName().equalsIgnoreCase(
                         HeaderConstants.HEADER_DATE)) {
@@ -751,7 +769,8 @@ public class HeaderUtils {
                         } catch (NumberFormatException nfe) {
                             Context.getCurrentLogger().warn(
                                     "Error during Retry-After header parsing. Header: "
-                                            + header.getValue(), nfe);
+                                            + header.getValue(),
+                                    nfe);
                         }
                     }
 
@@ -767,7 +786,8 @@ public class HeaderUtils {
                     } catch (Exception e) {
                         Context.getCurrentLogger().warn(
                                 "Error during cookie setting parsing. Header: "
-                                        + header.getValue(), e);
+                                        + header.getValue(),
+                                e);
                     }
                 } else if (header.getName().equalsIgnoreCase(
                         HeaderConstants.HEADER_WWW_AUTHENTICATE)) {
@@ -902,7 +922,8 @@ public class HeaderUtils {
                     } catch (IOException ioe) {
                         Context.getCurrentLogger().warn(
                                 "Error during Content-Disposition header parsing. Header: "
-                                        + header.getValue(), ioe);
+                                        + header.getValue(),
+                                ioe);
                     }
                 } else if (header.getName().equalsIgnoreCase(
                         HeaderConstants.HEADER_CONTENT_RANGE)) {
@@ -1122,7 +1143,7 @@ public class HeaderUtils {
     public static boolean isLinearWhiteSpace(int character) {
         return (isCarriageReturn(character) || isSpace(character)
                 || isLineFeed(character) || HeaderUtils
-                    .isHorizontalTab(character));
+                        .isHorizontalTab(character));
     }
 
     /**

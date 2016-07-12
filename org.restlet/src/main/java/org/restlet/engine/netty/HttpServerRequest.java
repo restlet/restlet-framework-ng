@@ -210,6 +210,41 @@ public class HttpServerRequest extends Request {
         }
 
         setDate(date);
+
+        // if (httpCall.getVersion() != null) {
+        // result.getAttributes().put(HeaderConstants.ATTRIBUTE_VERSION,
+        // httpCall.getVersion());
+        // }
+        //
+        // if (httpCall.isConfidential()) {
+        // List<Certificate> clientCertificates = httpCall.getCertificates();
+        //
+        // if (clientCertificates != null) {
+        // result.getClientInfo().setCertificates(clientCertificates);
+        // }
+        //
+        // String cipherSuite = httpCall.getCipherSuite();
+        //
+        // if (cipherSuite != null) {
+        // result.getClientInfo().setCipherSuite(cipherSuite);
+        // }
+        //
+        // Integer keySize = httpCall.getSslKeySize();
+        //
+        // if (keySize != null) {
+        // result.getAttributes().put(
+        // HeaderConstants.ATTRIBUTE_HTTPS_KEY_SIZE, keySize);
+        // }
+        //
+        // String sslSessionId = httpCall.getSslSessionId();
+        //
+        // if (sslSessionId != null) {
+        // result.getAttributes().put(
+        // HeaderConstants.ATTRIBUTE_HTTPS_SSL_SESSION_ID,
+        // sslSessionId);
+        // }
+        // }
+
     }
 
     @Override
@@ -294,7 +329,7 @@ public class HttpServerRequest extends Request {
 
     public String getClientAddress() {
         InetSocketAddress isa = (InetSocketAddress) getNettyChannel().remoteAddress();
-        return isa.getHostString();
+        return (isa != null) ? isa.getHostString() : null;
     }
 
     /**
@@ -389,7 +424,7 @@ public class HttpServerRequest extends Request {
 
     public int getClientPort() {
         InetSocketAddress isa = (InetSocketAddress) getNettyChannel().remoteAddress();
-        return isa.getPort();
+        return (isa != null) ? isa.getPort() : 0;
     }
 
     /**
@@ -542,11 +577,15 @@ public class HttpServerRequest extends Request {
 
         if (!this.headersAdded) {
             Entry<CharSequence, CharSequence> header = null;
+
             for (Iterator<Entry<CharSequence, CharSequence>> headers = getNettyRequest().headers()
                     .iteratorCharSequence(); headers.hasNext();) {
                 header = headers.next();
                 result.add(header.getKey().toString(), header.getValue().toString());
             }
+
+            getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS,
+                    result);
             this.headersAdded = true;
         }
 
