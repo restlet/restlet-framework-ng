@@ -54,7 +54,6 @@ public class WrapperRestlet extends Restlet {
         this.wrappedRestlet = wrappedRestlet;
     }
 
-    // [ifndef gwt] method
     @Override
     public org.restlet.Application getApplication() {
         return wrappedRestlet.getApplication();

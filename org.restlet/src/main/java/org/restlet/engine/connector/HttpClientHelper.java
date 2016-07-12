@@ -24,17 +24,15 @@
 
 package org.restlet.engine.connector;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
-import javax.net.ssl.HostnameVerifier;
-
 import org.restlet.Client;
 import org.restlet.Request;
 import org.restlet.data.Protocol;
-import org.restlet.engine.Edition;
 import org.restlet.engine.adapter.ClientCall;
 import org.restlet.engine.util.ReferenceUtils;
+
+import javax.net.ssl.HostnameVerifier;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 
 /**
  * HTTP client connector using the {@link HttpUrlConnectionCall}. Here is the
@@ -129,10 +127,6 @@ public class HttpClientHelper extends
         super(client);
         getProtocols().add(Protocol.HTTP);
         getProtocols().add(Protocol.HTTPS);
-
-        if (Edition.CURRENT == Edition.GAE) {
-            getProtocols().add(Protocol.SDC);
-        }
     }
 
     /**

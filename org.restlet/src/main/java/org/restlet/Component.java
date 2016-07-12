@@ -177,7 +177,6 @@ public class Component extends Restlet {
         this.services = new ServiceList(getContext());
 
         if (Engine.getInstance() != null) {
-            // [ifndef gae] instruction
             // To be done before setting the helper...
             this.services.add(new org.restlet.service.TaskService());
 
@@ -394,7 +393,6 @@ public class Component extends Restlet {
      * 
      * @return A task service.
      */
-    // [ifndef gae] method
     public org.restlet.service.TaskService getTaskService() {
         return getServices().get(org.restlet.service.TaskService.class);
     }
@@ -543,7 +541,6 @@ public class Component extends Restlet {
      * @param taskService
      *            The task service.
      */
-    // [ifndef gae] method
     public void setTaskService(org.restlet.service.TaskService taskService) {
         getServices().set(taskService);
     }

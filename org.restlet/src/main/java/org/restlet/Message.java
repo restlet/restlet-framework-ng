@@ -60,12 +60,8 @@ public abstract class Message {
     /** The payload of the message. */
     private volatile Representation entity;
 
-    // [ifndef gwt] member
     /** The optional cached text. */
     private volatile String entityText;
-
-    /** The series of raw headers. */
-    private volatile Series<Header> headers;
 
     /** Callback invoked when an error occurs when sending the message. */
     private volatile Uniform onError;
@@ -78,6 +74,8 @@ public abstract class Message {
 
     /** The additional warnings information. */
     private volatile List<Warning> warnings;
+
+    private Series<Header> headers;
 
     /**
      * Constructor.
@@ -97,7 +95,6 @@ public abstract class Message {
         this.cacheDirectives = null;
         this.date = null;
         this.entity = entity;
-        // [ifndef gwt] instruction
         this.entityText = null;
         this.headers = null;
         this.onSent = null;
@@ -105,7 +102,6 @@ public abstract class Message {
         this.warnings = null;
     }
 
-    // [ifndef gwt] method
     /**
      * If the entity is transient or its size unknown in advance but available,
      * then the entity is wrapped with a
@@ -122,7 +118,8 @@ public abstract class Message {
         if ((getEntity() != null)
                 && (getEntity().isTransient() || (getEntity().getSize() == Representation.UNKNOWN_SIZE))
                 && getEntity().isAvailable()) {
-            setEntity(new org.restlet.representation.BufferingRepresentation(getEntity()));
+            setEntity(new org.restlet.representation.BufferingRepresentation(
+                    getEntity()));
         }
     }
 
@@ -233,7 +230,6 @@ public abstract class Message {
         return this.entity;
     }
 
-    // [ifndef gwt] method
     /**
      * Returns the entity as text. This method can be called several times and
      * will always return the same text. Note that if the entity is large this
@@ -244,7 +240,8 @@ public abstract class Message {
     public String getEntityAsText() {
         if (this.entityText == null) {
             try {
-                this.entityText = (getEntity() == null) ? null : getEntity().getText();
+                this.entityText = (getEntity() == null) ? null : getEntity()
+                        .getText();
             } catch (java.io.IOException e) {
                 Context.getCurrentLogger().debug("Unable to get the entity text.", e);
             }
@@ -271,7 +268,6 @@ public abstract class Message {
                 }
             }
         }
-
         return h;
     }
 
@@ -355,10 +351,7 @@ public abstract class Message {
      * @return True if a content is available and can be sent.
      */
     public boolean isEntityAvailable() {
-        // The declaration of the "result" variable is a workaround for the GWT
-        // platform. Please keep it!
-        boolean result = (getEntity() != null) && getEntity().isAvailable();
-        return result;
+        return (getEntity() != null) && getEntity().isAvailable();
     }
 
     /**
@@ -441,24 +434,6 @@ public abstract class Message {
      */
     public void setEntity(String value, MediaType mediaType) {
         setEntity(new StringRepresentation(value, mediaType));
-    }
-
-    /**
-     * Sets the series of lower-level HTTP headers.
-     * 
-     * @param headers
-     *            A series of HTTP headers.
-     */
-    public void setHeaders(Series<Header> headers) {
-        synchronized (getHeaders()) {
-            if (headers != getHeaders()) {
-                getHeaders().clear();
-
-                if (headers != null) {
-                    getHeaders().addAll(headers);
-                }
-            }
-        }
     }
 
     /**

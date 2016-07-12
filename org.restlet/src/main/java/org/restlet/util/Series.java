@@ -47,20 +47,13 @@ import java.util.Set;
  * @see java.util.Collections
  * @see java.util.List
  */
-// [ifndef gwt] line
 public class Series<T extends NamedValue<String>> extends WrapperList<T> {
-    // [ifdef gwt] uncomment
-    // public abstract class Series<T extends NamedValue<String>> extends
-    // WrapperList<T>
-    // {
-    // [enddef]
     /**
      * A marker for empty values to differentiate from non existing values
      * (null).
      */
     public static final Object EMPTY_VALUE = new Object();
 
-    // [ifndef gwt] method
     /**
      * Returns an unmodifiable view of the specified series. Attempts to call a
      * modification method will throw an UnsupportedOperationException.
@@ -171,7 +164,6 @@ public class Series<T extends NamedValue<String>> extends WrapperList<T> {
         }
     }
 
-    // [ifndef gwt] method
     /**
      * Creates a new entry.
      * 
@@ -190,30 +182,6 @@ public class Series<T extends NamedValue<String>> extends WrapperList<T> {
             return null;
         }
     }
-
-    // [ifdef gwt] uncomment
-    // /**
-    // * Creates a new entry.
-    // *
-    // * @param name
-    // * The name of the entry.
-    // * @param value
-    // * The value of the entry.
-    // * @return A new entry.
-    // */
-    // public abstract T createEntry(String name, String value);
-    // [enddef]
-
-    // [ifdef gwt] uncomment
-    // /**
-    // * Creates a new series.
-    // *
-    // * @param delegate
-    // * Optional delegate series.
-    // * @return A new series.
-    // */
-    // public abstract Series<T> createSeries(List<T> delegate);
-    // [enddef]
 
     /**
      * Tests the equality of two string, potentially null, which a case
@@ -638,13 +606,8 @@ public class Series<T extends NamedValue<String>> extends WrapperList<T> {
      */
     @Override
     public Series<T> subList(int fromIndex, int toIndex) {
-        // [ifndef gwt] instruction
         return new Series<T>(this.entryClass, getDelegate().subList(fromIndex,
                 toIndex));
-        // [ifdef gwt] instruction uncomment
-        // return
-        // createSeries(org.restlet.engine.util.ListUtils.copySubList(
-        // getDelegate(), fromIndex, toIndex));
     }
 
     /**
@@ -668,10 +631,7 @@ public class Series<T extends NamedValue<String>> extends WrapperList<T> {
      * @return The list of values.
      */
     public Series<T> subList(String name, boolean ignoreCase) {
-        // [ifndef gwt] instruction
         Series<T> result = new Series<T>(this.entryClass);
-        // [ifdef gwt] instruction uncomment
-        // Series<T> result = createSeries(null);
 
         for (T param : this) {
             if (equals(param.getName(), name, ignoreCase)) {

@@ -24,14 +24,12 @@
 
 package org.restlet.engine.connector;
 
+import org.restlet.Connector;
+import org.restlet.data.Protocol;
+import org.restlet.engine.RestletHelper;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.restlet.Connector;
-import org.restlet.Context;
-import org.restlet.data.Protocol;
-import org.restlet.engine.Edition;
-import org.restlet.engine.RestletHelper;
 
 /**
  * Base connector helper.
@@ -41,7 +39,6 @@ import org.restlet.engine.RestletHelper;
 public abstract class ConnectorHelper<T extends Connector> extends
         RestletHelper<T> {
 
-    // [ifndef gwt] method
     /**
      * Returns the connector service associated to a request.
      * 
@@ -70,20 +67,6 @@ public abstract class ConnectorHelper<T extends Connector> extends
     public ConnectorHelper(T connector) {
         super(connector);
         this.protocols = new CopyOnWriteArrayList<Protocol>();
-    }
-
-    /**
-     * Returns the helped Restlet context.
-     * 
-     * @return The helped Restlet context.
-     */
-    @Override
-    public Context getContext() {
-        if (Edition.CURRENT == Edition.GWT) {
-            return null;
-        }
-
-        return super.getContext();
     }
 
     /**
