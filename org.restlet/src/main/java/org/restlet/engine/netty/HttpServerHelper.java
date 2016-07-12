@@ -61,7 +61,7 @@ public class HttpServerHelper extends NettyServerHelper {
 
     private Subscriber<? super HttpResponse> subscriber;
 
-    private volatile NettyServerCall call;
+    private volatile HttpServerRequest request;
 
     /**
      * Constructor.
@@ -94,9 +94,8 @@ public class HttpServerHelper extends NettyServerHelper {
         System.out.println("onNext: " + request);
 
         try {
-
-            call = new NettyServerCall(getHelped(), getChannel(), request);
-            handle(call);
+            this.request = new HttpServerRequest(getContext(), getChannel(), request);
+            getHelped().handle(this.request);
 
             // if (HttpUtil.is100ContinueExpected(request)) {
             // HttpUtil.set100ContinueExpected(request, true);

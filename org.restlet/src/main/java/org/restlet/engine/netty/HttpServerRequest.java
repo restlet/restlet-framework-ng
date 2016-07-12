@@ -43,6 +43,7 @@ import org.restlet.data.Conditions;
 import org.restlet.data.Cookie;
 import org.restlet.data.Header;
 import org.restlet.data.Method;
+import org.restlet.data.Protocol;
 import org.restlet.data.Range;
 import org.restlet.data.RecipientInfo;
 import org.restlet.data.Reference;
@@ -168,6 +169,7 @@ public class HttpServerRequest extends Request {
 
         // Set the properties
         setMethod(Method.valueOf(nettyRequest.method().name()));
+        setProtocol(isConfidential() ? Protocol.HTTPS : Protocol.HTTP);
 
         // Set the host reference
         StringBuilder sb = new StringBuilder();
@@ -539,10 +541,10 @@ public class HttpServerRequest extends Request {
         final Series<Header> result = super.getHeaders();
 
         if (!this.headersAdded) {
-            final Iterator<Entry<CharSequence, CharSequence>> headers = getNettyRequest().headers()
-                    .iteratorCharSequence();
-
-            for (Entry<CharSequence, CharSequence> header = headers.next(); headers.hasNext();) {
+            Entry<CharSequence, CharSequence> header = null;
+            for (Iterator<Entry<CharSequence, CharSequence>> headers = getNettyRequest().headers()
+                    .iteratorCharSequence(); headers.hasNext();) {
+                header = headers.next();
                 result.add(header.getKey().toString(), header.getValue().toString());
             }
             this.headersAdded = true;
