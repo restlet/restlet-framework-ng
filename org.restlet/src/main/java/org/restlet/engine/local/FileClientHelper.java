@@ -26,7 +26,6 @@ package org.restlet.engine.local;
 
 import static java.lang.String.format;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.util.logging.Level.WARNING;
 import static org.restlet.data.Method.DELETE;
 import static org.restlet.data.Method.GET;
 import static org.restlet.data.Method.HEAD;
@@ -48,7 +47,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

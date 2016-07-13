@@ -52,33 +52,6 @@ import org.restlet.engine.util.SystemUtils;
 public class Role implements Principal {
 
     /**
-     * Unmodifiable role that covers all existing roles. Its name is "*" by
-     * convention.
-     * 
-     * @deprecated To be removed as it is ambiguous, roles being specific to a
-     *             given application.
-     */
-    @Deprecated
-    public static final Role ALL = new Role("*",
-            "Role that covers all existing roles.") {
-        @Override
-        public void setApplication(Application application) {
-            throw new IllegalStateException("Unmodifiable role");
-        }
-
-        @Override
-        public void setDescription(String description) {
-            throw new IllegalStateException("Unmodifiable role");
-        }
-
-        @Override
-        public void setName(String name) {
-            throw new IllegalStateException("Unmodifiable role");
-        }
-
-    };
-
-    /**
      * Finds an existing role or creates a new one if needed. Note that a null
      * description will be set if the role has to be created.
      * 
@@ -156,34 +129,6 @@ public class Role implements Principal {
         this.name = name;
         this.description = description;
         this.childRoles = new CopyOnWriteArrayList<Role>();
-    }
-
-    /**
-     * Constructor. Note that the parent application is retrieved using the
-     * {@link Application#getCurrent()} method.
-     * 
-     * @param name
-     *            The name.
-     * @deprecated Use {@link Role#Role(Application, String)} instead.
-     */
-    @Deprecated
-    public Role(String name) {
-        this(Application.getCurrent(), name, null);
-    }
-
-    /**
-     * Constructor. Note that the parent application is retrieved using the
-     * {@link Application#getCurrent()} method.
-     * 
-     * @param name
-     *            The name.
-     * @param description
-     *            The description.
-     * @deprecated Use {@link Role#Role(Application, String, String)} instead.
-     */
-    @Deprecated
-    public Role(String name, String description) {
-        this(Application.getCurrent(), name, description);
     }
 
     @Override

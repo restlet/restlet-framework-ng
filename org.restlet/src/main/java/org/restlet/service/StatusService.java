@@ -185,152 +185,6 @@ public class StatusService extends Service {
     }
 
     /**
-     * Returns a representation for the given status. In order to customize the
-     * default representation, this method can be overridden. It returns null by
-     * default.
-     * 
-     * @param status
-     *            The status to represent.
-     * @param request
-     *            The request handled.
-     * @param response
-     *            The response updated.
-     * @return The representation of the given status.
-     * @deprecated Use {@link #toRepresentation(Status, Request, Response)}
-     *             instead.
-     */
-    @Deprecated
-    public Representation getRepresentation(Status status, Request request,
-            Response response) {
-        Representation result = null;
-
-        // Do content negotiation for status
-        if (converterService != null && connegService != null
-                && metadataService != null) {
-            Object representationObject = null;
-
-            // Serialize exception if any and if {@link
-            // org.restlet.resource.Status} annotation asks for it
-            Throwable cause = status.getThrowable();
-
-            if (cause != null) {
-                org.restlet.engine.resource.ThrowableAnnotationInfo tai = org.restlet.engine.resource.AnnotationUtils
-                        .getInstance().getThrowableAnnotationInfo(
-                                cause.getClass());
-
-                if (tai != null && tai.isSerializable()) {
-                    if (Application.getCurrent() != null
-                            && !Application.getCurrent().isDebugging()) {
-                        // We clear the stack trace to prevent technical
-                        // information leak
-                        cause.setStackTrace(new StackTraceElement[] {});
-
-                        if (cause.getCause() != null) {
-                            Context.getCurrentLogger()
-                                    .warn("The cause of the exception should be null except in debug mode");
-                        }
-                    }
-
-                    representationObject = cause;
-                }
-            }
-
-            try {
-                // Default representation match with the status properties
-                if (representationObject == null) {
-                    representationObject = new StatusInfo(status,
-                            getContactEmail(), getHomeRef().toString());
-                }
-
-                List<org.restlet.engine.resource.VariantInfo> variants = org.restlet.engine.converter.ConverterUtils
-                        .getVariants(representationObject.getClass(), null);
-                if (variants == null) {
-                    variants = new ArrayList<>();
-                }
-
-                Variant variant = connegService.getPreferredVariant(variants,
-                        request, metadataService);
-                result = converterService.toRepresentation(
-                        representationObject, variant);
-            } catch (Exception e) {
-                Context.getCurrentLogger().warn(
-                        "Could not serialize throwable class "
-                                + ((cause == null) ? null : cause.getClass()),
-                        e);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Returns a status for a given exception or error. By default it unwraps
-     * the status of {@link ResourceException}. For other exceptions or errors,
-     * it returns an {@link Status#SERVER_ERROR_INTERNAL} status.<br>
-     * <br>
-     * In order to customize the default behavior, this method can be
-     * overridden.
-     * 
-     * @param throwable
-     *            The exception or error caught.
-     * @param request
-     *            The request handled.
-     * @param response
-     *            The response updated.
-     * @return The representation of the given status.
-     * @deprecated Use {@link #toStatus(Throwable, Request, Response)} instead.
-     */
-    @Deprecated
-    public Status getStatus(Throwable throwable, Request request,
-            Response response) {
-        Status result;
-
-        Status defaultStatus = Status.SERVER_ERROR_INTERNAL;
-        Throwable t = throwable;
-
-        // If throwable is a ResourceException, use its status and the cause.
-        if (throwable instanceof ResourceException) {
-            defaultStatus = ((ResourceException) throwable).getStatus();
-
-            if (throwable.getCause() != null
-                    && throwable.getCause() != throwable) {
-                t = throwable.getCause();
-            }
-        }
-
-        // look for Status annotation
-        org.restlet.engine.resource.ThrowableAnnotationInfo tai = org.restlet.engine.resource.AnnotationUtils
-                .getInstance().getThrowableAnnotationInfo(t.getClass());
-
-        if (tai != null) {
-            result = new Status(tai.getStatus(), t);
-        } else {
-            result = new Status(defaultStatus, t);
-        }
-
-        return result;
-    }
-
-    /**
-     * Returns a status for a given exception or error. By default it returns an
-     * {@link Status#SERVER_ERROR_INTERNAL} status and logs a severe message.<br>
-     * In order to customize the default behavior, this method can be
-     * overridden.
-     * 
-     * @param throwable
-     *            The exception or error caught.
-     * @param resource
-     *            The parent resource.
-     * @return The representation of the given status.
-     * @deprecated Use {@link #toStatus(Throwable, Resource)} instead.
-     */
-    @Deprecated
-    public Status getStatus(Throwable throwable, Resource resource) {
-        return toStatus(throwable,
-                (resource == null) ? null : resource.getRequest(),
-                (resource == null) ? null : resource.getResponse());
-    }
-
-    /**
      * Indicates if an existing entity should be overwritten. False by default.
      * 
      * @return True if an existing entity should be overwritten.
@@ -419,7 +273,64 @@ public class StatusService extends Service {
      */
     public Representation toRepresentation(Status status, Request request,
             Response response) {
-        return getRepresentation(status, request, response);
+        Representation result = null;
+
+        // Do content negotiation for status
+        if (converterService != null && connegService != null
+                && metadataService != null) {
+            Object representationObject = null;
+
+            // Serialize exception if any and if {@link
+            // org.restlet.resource.Status} annotation asks for it
+            Throwable cause = status.getThrowable();
+
+            if (cause != null) {
+                org.restlet.engine.resource.ThrowableAnnotationInfo tai = org.restlet.engine.resource.AnnotationUtils
+                        .getInstance().getThrowableAnnotationInfo(
+                                cause.getClass());
+
+                if (tai != null && tai.isSerializable()) {
+                    if (Application.getCurrent() != null
+                            && !Application.getCurrent().isDebugging()) {
+                        // We clear the stack trace to prevent technical
+                        // information leak
+                        cause.setStackTrace(new StackTraceElement[] {});
+
+                        if (cause.getCause() != null) {
+                            Context.getCurrentLogger()
+                                    .warn("The cause of the exception should be null except in debug mode");
+                        }
+                    }
+
+                    representationObject = cause;
+                }
+            }
+
+            try {
+                // Default representation match with the status properties
+                if (representationObject == null) {
+                    representationObject = new StatusInfo(status,
+                            getContactEmail(), getHomeRef().toString());
+                }
+
+                List<org.restlet.engine.resource.VariantInfo> variants = org.restlet.engine.converter.ConverterUtils
+                        .getVariants(representationObject.getClass(), null);
+                if (variants == null) {
+                    variants = new ArrayList<>();
+                }
+
+                Variant variant = connegService.getPreferredVariant(variants,
+                        request, metadataService);
+                result = converterService.toRepresentation(
+                        representationObject, variant);
+            } catch (Exception e) {
+                Context.getCurrentLogger().warn(
+                        "Could not serialize throwable class "
+                                + ((cause == null) ? null : cause.getClass()),
+                        e);
+            }
+        }
+        return result;
     }
 
     /**
@@ -457,7 +368,32 @@ public class StatusService extends Service {
      */
     public Status toStatus(Throwable throwable, Request request,
             Response response) {
-        return getStatus(throwable, request, response);
+        Status result;
+
+        Status defaultStatus = Status.SERVER_ERROR_INTERNAL;
+        Throwable t = throwable;
+
+        // If throwable is a ResourceException, use its status and the cause.
+        if (throwable instanceof ResourceException) {
+            defaultStatus = ((ResourceException) throwable).getStatus();
+
+            if (throwable.getCause() != null
+                    && throwable.getCause() != throwable) {
+                t = throwable.getCause();
+            }
+        }
+
+        // look for Status annotation
+        org.restlet.engine.resource.ThrowableAnnotationInfo tai = org.restlet.engine.resource.AnnotationUtils
+                .getInstance().getThrowableAnnotationInfo(t.getClass());
+
+        if (tai != null) {
+            result = new Status(tai.getStatus(), t);
+        } else {
+            result = new Status(defaultStatus, t);
+        }
+
+        return result;
     }
 
     /**
@@ -473,6 +409,8 @@ public class StatusService extends Service {
      * @return The representation of the given status.
      */
     public Status toStatus(Throwable throwable, Resource resource) {
-        return getStatus(throwable, resource);
+        return toStatus(throwable,
+                (resource == null) ? null : resource.getRequest(),
+                (resource == null) ? null : resource.getResponse());
     }
 }

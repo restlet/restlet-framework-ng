@@ -354,18 +354,6 @@ public class Application extends Restlet {
     }
 
     /**
-     * Returns a task service to run concurrent tasks. The service is enabled by
-     * default.
-     * 
-     * @return A task service.
-     * @deprecated
-     */
-    @Deprecated
-    public org.restlet.service.TaskService getTaskService() {
-        return getServices().get(org.restlet.service.TaskService.class);
-    }
-
-    /**
      * Returns the tunnel service. The service is enabled by default.
      * 
      * @return The tunnel service.

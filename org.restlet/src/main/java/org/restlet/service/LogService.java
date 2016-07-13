@@ -24,7 +24,6 @@
 
 package org.restlet.service;
 
-import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Request;
 import org.restlet.Response;
@@ -79,9 +78,6 @@ import org.restlet.routing.Template;
  * @author Jerome Louvel
  */
 public class LogService extends Service {
-
-    /** Indicates if the debugging mode is enabled. */
-    private volatile boolean debugging;
 
     /** Indicates if the identity check (as specified by RFC1413) is enabled. */
     private volatile boolean identityCheck;
@@ -325,17 +321,6 @@ public class LogService extends Service {
     }
 
     /**
-     * Indicates if the debugging mode is enabled. False by default.
-     * 
-     * @return True if the debugging mode is enabled.
-     * @deprecated Rely on {@link Application#isDebugging()} instead.
-     */
-    @Deprecated
-    protected boolean isDebugging() {
-        return debugging;
-    }
-
-    /**
      * Indicates if the identity check (as specified by RFC1413) is enabled.
      * Default value is false.
      * 
@@ -357,18 +342,6 @@ public class LogService extends Service {
     public boolean isLoggable(Request request) {
         return (getLoggableTemplate() == null) ? true : getLoggableTemplate()
                 .match(request.getResourceRef().getTargetRef().toString()) > 0;
-    }
-
-    /**
-     * Indicates if the debugging mode is enabled.
-     * 
-     * @param debugging
-     *            True if the debugging mode is enabled.
-     * @deprecated Rely on {@link Application#setDebugging(boolean)} instead.
-     */
-    @Deprecated
-    protected void setDebugging(boolean debugging) {
-        this.debugging = debugging;
     }
 
     /**

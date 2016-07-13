@@ -26,7 +26,6 @@ package org.restlet.engine.util;
 
 import org.restlet.Request;
 import org.restlet.data.Header;
-import org.restlet.data.Protocol;
 import org.restlet.data.Reference;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.security.AuthenticatorUtils;

@@ -320,14 +320,6 @@ public final class MediaType extends Metadata {
             "application/trix",
             "Simple XML serialized Resource Description Framework document");
 
-    /**
-     * @deprecated Replaced by the official {@link #TEXT_TURTLE} media type.
-     */
-    @Deprecated
-    public static final MediaType APPLICATION_RDF_TURTLE = register(
-            "application/x-turtle",
-            "Plain text serialized Resource Description Framework document");
-
     public static final MediaType APPLICATION_RDF_XML = register(
             "application/rdf+xml",
             "Normalized XML serialized Resource Description Framework document");

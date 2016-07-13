@@ -24,8 +24,13 @@
 
 package org.restlet.engine.adapter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 import org.restlet.Context;
-import org.restlet.Message;
 import org.restlet.Request;
 import org.restlet.data.CacheDirective;
 import org.restlet.data.ChallengeResponse;
@@ -55,34 +60,12 @@ import org.restlet.engine.util.ReferenceUtils;
 import org.restlet.representation.Representation;
 import org.restlet.util.Series;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Request wrapper for server HTTP calls.
  * 
  * @author Jerome Louvel
  */
 public class HttpRequest extends Request {
-    /**
-     * Adds a new header to the given request.
-     * 
-     * @param request
-     *            The request to update.
-     * @param headerName
-     *            The header name to add.
-     * @param headerValue
-     *            The header value to add.
-     * @deprecated Use {@link Message#getHeaders()} directly instead.
-     */
-    @Deprecated
-    public static void addHeader(Request request, String headerName, String headerValue) {
-        request.getHeaders().add(new Header(headerName, headerValue));
-    }
-
     /**
      * Indicates if the access control data for request headers was parsed and
      * added
