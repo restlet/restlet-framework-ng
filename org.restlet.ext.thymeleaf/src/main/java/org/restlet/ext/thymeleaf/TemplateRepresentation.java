@@ -24,6 +24,14 @@
 
 package org.restlet.ext.thymeleaf;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Form;
@@ -37,18 +45,6 @@ import org.thymeleaf.context.IContext;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.util.Validate;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
 /**
  * Thymeleaf template representation. Useful for dynamic string-based
@@ -182,7 +178,8 @@ public class TemplateRepresentation extends WriterRepresentation {
      * @param mediaType
      *            The representation's media type.
      */
-    public TemplateRepresentation(String templateName, Locale locale, Map<String, Object> dataModel, MediaType mediaType) {
+    public TemplateRepresentation(String templateName, Locale locale, Map<String, Object> dataModel,
+            MediaType mediaType) {
         this(templateName, createTemplateEngine(), locale, dataModel, mediaType);
     }
 
@@ -216,7 +213,8 @@ public class TemplateRepresentation extends WriterRepresentation {
      * @param mediaType
      *            The representation's media type.
      */
-    public TemplateRepresentation(String templateName, TemplateEngine engine, Locale locale, Map<String, Object> dataModel, MediaType mediaType) {
+    public TemplateRepresentation(String templateName, TemplateEngine engine, Locale locale,
+            Map<String, Object> dataModel, MediaType mediaType) {
         super(mediaType);
         this.locale = locale;
         this.engine = engine;
@@ -250,7 +248,8 @@ public class TemplateRepresentation extends WriterRepresentation {
      *            The representation's media type.
      * @throws IOException
      */
-    public TemplateRepresentation(TemplateRepresentation templateRepresentation, Locale locale, MediaType mediaType) throws IOException {
+    public TemplateRepresentation(TemplateRepresentation templateRepresentation, Locale locale, MediaType mediaType)
+            throws IOException {
         this(templateRepresentation, createTemplateEngine(), locale, mediaType);
     }
 
@@ -268,9 +267,9 @@ public class TemplateRepresentation extends WriterRepresentation {
      * @throws IOException
      */
     public TemplateRepresentation(TemplateRepresentation templateRepresentation,
-                                  TemplateEngine engine,
-                                  Locale locale,
-                                  MediaType mediaType) throws IOException {
+            TemplateEngine engine,
+            Locale locale,
+            MediaType mediaType) throws IOException {
         super(mediaType);
         this.locale = locale;
         this.engine = engine;

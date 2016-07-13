@@ -252,9 +252,9 @@ public class JacksonRepresentation<T> extends OutputRepresentation {
         if (MediaType.TEXT_CSV.isCompatible(getMediaType())) {
             CsvMapper csvMapper = (CsvMapper) getObjectMapper();
             CsvSchema csvSchema = createCsvSchema(csvMapper);
-            result = csvMapper.reader(getObjectClass()).with(csvSchema);
+            result = csvMapper.readerFor(getObjectClass()).with(csvSchema);
         } else {
-            result = getObjectMapper().reader(getObjectClass());
+            result = getObjectMapper().readerFor(getObjectClass());
         }
 
         return result;
@@ -274,7 +274,7 @@ public class JacksonRepresentation<T> extends OutputRepresentation {
             CsvSchema csvSchema = createCsvSchema(csvMapper);
             result = csvMapper.writer(csvSchema);
         } else {
-            result = getObjectMapper().writerWithType(getObjectClass());
+            result = getObjectMapper().writerFor(getObjectClass());
         }
 
         return result;
