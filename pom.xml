@@ -8,15 +8,15 @@
 	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Restlet project</name>
-	<description>Lightweight REST framework</description>
-	<url>http://www.restlet.org</url>
+	<name>Restlet Framework</name>
+	<description>Leading reactive REST framework for Java</description>
+	<url>http://restlet.org</url>
 	<inceptionYear>2005</inceptionYear>
 
     <scm>
-        <url>https://github.com/restlet/restlet-framework-java</url>
-        <connection>scm:git:git@github.com:restlet/restlet-framework-java.git</connection>
-        <developerConnection>scm:git:git@github.com:restlet/restlet-framework-java.git</developerConnection>
+        <url>https://github.com/restlet/restlet-framework</url>
+        <connection>scm:git:git@github.com:restlet/restlet-framework.git</connection>
+        <developerConnection>scm:git:git@github.com:restlet/restlet-framework.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -81,15 +81,12 @@
 
 	<modules>
 		<module>org.restlet</module>
-		<module>org.restlet.ext.atom</module>
-		<module>org.restlet.ext.crypto</module>
 		<module>org.restlet.ext.freemarker</module>
 		<module>org.restlet.ext.gson</module>
 		<module>org.restlet.ext.guice</module>
 		<module>org.restlet.ext.html</module>
 		<module>org.restlet.ext.jackson</module>
 		<module>org.restlet.ext.jaxb</module>
-		<module>org.restlet.ext.odata</module>
 		<module>org.restlet.ext.thymeleaf</module>
 		<module>org.restlet.ext.xml</module>
 	</modules>
@@ -98,10 +95,6 @@
 		<license>
 			<name>Apache 2.0 license</name>
 			<url>http://www.opensource.org/licenses/apache-2.0</url>
-		</license>
-		<license>
-			<name>EPL 1.0 license</name>
-			<url>http://www.opensource.org/licenses/eclipse-1.0</url>
 		</license>
 	</licenses>
 
@@ -117,4 +110,8 @@
             </plugin>
 		</plugins>
 	</build>
+    <organization>
+    	<name>Restlet</name>
+    	<url>https://restlet.com</url>
+    </organization>
 </project>
