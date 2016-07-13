@@ -70,7 +70,9 @@ public class HttpServerHelper extends NettyServerHelper {
         server.start();
     }
 
-    private HandlerSubscriber<? super HttpResponse> subscriber;
+    private volatile HandlerSubscriber<? super HttpResponse> subscriber;
+
+    private volatile Subscription subscription;
 
     /**
      * Constructor.
@@ -81,6 +83,8 @@ public class HttpServerHelper extends NettyServerHelper {
     public HttpServerHelper(Server server) {
         super(server);
         getProtocols().add(Protocol.HTTP);
+        this.subscriber = null;
+        this.subscription = null;
     }
 
     public Subscriber<? super HttpResponse> getSubscriber() {
@@ -258,6 +262,7 @@ public class HttpServerHelper extends NettyServerHelper {
     @Override
     public void onSubscribe(Subscription s) {
         System.out.println("onSubscribe: " + s);
+        this.subscription = s;
         s.request(Long.MAX_VALUE);
     }
 

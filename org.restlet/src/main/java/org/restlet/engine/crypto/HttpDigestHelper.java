@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto.internal;
+package org.restlet.engine.crypto;
 
 import java.io.IOException;
 
@@ -42,7 +42,6 @@ import org.restlet.engine.header.HeaderUtils;
 import org.restlet.engine.security.AuthenticatorHelper;
 import org.restlet.engine.security.AuthenticatorUtils;
 import org.restlet.engine.util.Base64;
-import org.restlet.ext.crypto.DigestUtils;
 import org.restlet.util.Series;
 
 /**

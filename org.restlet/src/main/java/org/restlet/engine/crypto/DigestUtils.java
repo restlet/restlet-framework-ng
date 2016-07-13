@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto;
+package org.restlet.engine.crypto;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

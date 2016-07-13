@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto.internal;
+package org.restlet.engine.crypto;
 
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
@@ -31,7 +31,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.restlet.engine.util.Base64;
-import org.restlet.ext.crypto.DigestUtils;
 
 /**
  * Simple usage of standard cipher features from JRE.

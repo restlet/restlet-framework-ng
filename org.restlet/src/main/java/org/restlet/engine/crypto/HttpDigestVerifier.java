@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto.internal;
+package org.restlet.engine.crypto;
 
 import org.restlet.Request;
 import org.restlet.Response;
@@ -30,8 +30,7 @@ import org.restlet.data.ChallengeResponse;
 import org.restlet.data.Digest;
 import org.restlet.data.Reference;
 import org.restlet.engine.security.AuthenticatorUtils;
-import org.restlet.ext.crypto.DigestAuthenticator;
-import org.restlet.ext.crypto.DigestUtils;
+import org.restlet.security.DigestAuthenticator;
 import org.restlet.security.LocalVerifier;
 import org.restlet.security.User;
 
@@ -43,7 +42,7 @@ import org.restlet.security.User;
  * @author Jerome Louvel
  */
 public class HttpDigestVerifier extends
-        org.restlet.ext.crypto.DigestVerifier<LocalVerifier> {
+        org.restlet.security.DigestVerifier<LocalVerifier> {
 
     /** The associated digest authenticator. */
     private DigestAuthenticator digestAuthenticator;

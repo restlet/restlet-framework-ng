@@ -22,14 +22,11 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto;
+package org.restlet.security;
 
 import org.restlet.Context;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.ext.crypto.internal.AwsVerifier;
-import org.restlet.security.ChallengeAuthenticator;
-import org.restlet.security.LocalVerifier;
-import org.restlet.security.Verifier;
+import org.restlet.engine.crypto.AwsVerifier;
 
 /**
  * Authenticator supporting the {@link ChallengeScheme#HTTP_AWS_S3} scheme.

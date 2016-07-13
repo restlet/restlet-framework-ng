@@ -22,12 +22,11 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto;
+package org.restlet.security;
 
 import org.restlet.Context;
 import org.restlet.data.Digest;
-import org.restlet.security.LocalVerifier;
-import org.restlet.security.SecretVerifier;
+import org.restlet.engine.crypto.DigestUtils;
 
 /**
  * Wrapper verifier that can verify digested secrets. If the provided secret is

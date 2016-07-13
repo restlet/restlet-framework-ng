@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto;
+package org.restlet.security;
 
 import java.security.GeneralSecurityException;
 
@@ -37,9 +37,8 @@ import org.restlet.data.Form;
 import org.restlet.data.Method;
 import org.restlet.data.Parameter;
 import org.restlet.data.Reference;
+import org.restlet.engine.crypto.CryptoUtils;
 import org.restlet.engine.util.Base64;
-import org.restlet.ext.crypto.internal.CryptoUtils;
-import org.restlet.security.ChallengeAuthenticator;
 
 /**
  * Challenge authenticator based on browser cookies. This is useful when the web

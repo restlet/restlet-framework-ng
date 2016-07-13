@@ -166,8 +166,8 @@ public abstract class NettyServerHelper extends ServerHelper
                         pipeline.addLast("serverSubscriber", subscriber);
                         pipeline.addLast("serverPublisher", publisher);
 
-                        subscribe(subscriber);
                         publisher.subscribe(NettyServerHelper.this);
+                        NettyServerHelper.this.subscribe(subscriber);
                     }
                 });
 

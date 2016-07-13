@@ -22,7 +22,7 @@
  * Restlet is a registered trademark of Restlet S.A.S.
  */
 
-package org.restlet.ext.crypto;
+package org.restlet.security;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -32,10 +32,8 @@ import org.restlet.data.ChallengeRequest;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.data.Digest;
 import org.restlet.data.Reference;
-import org.restlet.ext.crypto.internal.CryptoUtils;
-import org.restlet.security.ChallengeAuthenticator;
-import org.restlet.security.LocalVerifier;
-import org.restlet.security.Verifier;
+import org.restlet.engine.crypto.CryptoUtils;
+import org.restlet.engine.crypto.DigestUtils;
 
 /**
  * Authenticator supporting the digest challenge authentication schemes. By
@@ -81,7 +79,7 @@ public class DigestAuthenticator extends ChallengeAuthenticator {
         this.domainRefs = domainRefs;
         this.maxServerNonceAge = DEFAULT_MAX_SERVER_NONCE_AGE;
         this.serverKey = serverKey;
-        setVerifier(new org.restlet.ext.crypto.internal.HttpDigestVerifier(
+        setVerifier(new org.restlet.engine.crypto.HttpDigestVerifier(
                 this, null, null));
     }
 
