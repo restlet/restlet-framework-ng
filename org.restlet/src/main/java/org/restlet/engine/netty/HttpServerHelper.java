@@ -42,7 +42,9 @@ import org.restlet.util.Series;
 
 import com.typesafe.netty.HandlerSubscriber;
 
+import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
@@ -124,7 +126,8 @@ public class HttpServerHelper extends NettyServerHelper {
             }
 
             if (response.isCommitted()) {
-                HttpResponse nettyResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                FullHttpResponse nettyResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
+                        HttpResponseStatus.OK);
                 Series<Header> headers = new Series<>(Header.class);
 
                 try {
@@ -216,6 +219,12 @@ public class HttpServerHelper extends NettyServerHelper {
                         nettyResponse.headers().add(header.getName(), header.getValue());
                     }
 
+                    // Copy the content (NON OPTIMAL)
+                    if (response.getEntity() != null) {
+                        nettyResponse = nettyResponse
+                                .replace(Unpooled.wrappedBuffer(response.getEntity().getText().getBytes()));
+                    }
+
                     // Send the response to the client
                     subscriber.onNext(nettyResponse);
                 } catch (Exception e) {
@@ -235,32 +244,6 @@ public class HttpServerHelper extends NettyServerHelper {
         } finally {
             Engine.clearThreadLocalVariables();
         }
-
-        // if (HttpUtil.is100ContinueExpected(request)) {
-        // HttpUtil.set100ContinueExpected(request, true);
-        // }
-        //
-        // appendDecoderResult(t);
-        //
-        // } else if (msg instanceof HttpContent) {
-        // HttpContent httpContent = (HttpContent) msg;
-        // ctx.channel().config().setAutoRead(false);
-        //
-        // if (call != null) {
-        // call.onContent(httpContent);
-        // } else {
-        // throw new IOException(
-        // "Unexpected error, content arrived before call created");
-        // }
-        //
-        // if (msg instanceof LastHttpContent) {
-        // LastHttpContent trailer = (LastHttpContent) msg;
-        //
-        // if (!trailer.trailingHeaders().isEmpty()) {
-        // // TODO
-        // }
-        // }
-        // }
     }
 
     @Override
@@ -281,7 +264,7 @@ public class HttpServerHelper extends NettyServerHelper {
     @Override
     public void subscribe(Subscriber<? super HttpResponse> s) {
         System.out.println("subscribe: " + s);
-        Subscription subscriberSubscription = new Subscription(){
+        Subscription subscriberSubscription = new Subscription() {
 
             @Override
             public void cancel() {
@@ -292,9 +275,9 @@ public class HttpServerHelper extends NettyServerHelper {
             public void request(long n) {
                 System.out.println("request: " + this);
             }
-            
+
         };
-        
+
         this.subscriber = (HandlerSubscriber<? super HttpResponse>) s;
         this.subscriber.onSubscribe(subscriberSubscription);
     }
