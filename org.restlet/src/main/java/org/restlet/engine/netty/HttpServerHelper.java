@@ -72,7 +72,7 @@ public class HttpServerHelper extends NettyServerHelper {
 
     private volatile HandlerSubscriber<? super HttpResponse> subscriber;
 
-    private volatile Subscription subscription;
+    private volatile Subscription publisherSubscription;
 
     /**
      * Constructor.
@@ -84,7 +84,11 @@ public class HttpServerHelper extends NettyServerHelper {
         super(server);
         getProtocols().add(Protocol.HTTP);
         this.subscriber = null;
-        this.subscription = null;
+        this.publisherSubscription = null;
+    }
+
+    public Subscription getPublisherSubscription() {
+        return publisherSubscription;
     }
 
     public Subscriber<? super HttpResponse> getSubscriber() {
@@ -262,8 +266,12 @@ public class HttpServerHelper extends NettyServerHelper {
     @Override
     public void onSubscribe(Subscription s) {
         System.out.println("onSubscribe: " + s);
-        this.subscription = s;
+        this.publisherSubscription = s;
         s.request(Long.MAX_VALUE);
+    }
+
+    public void setPublisherSubscription(Subscription publisherSubscription) {
+        this.publisherSubscription = publisherSubscription;
     }
 
     public void setSubscriber(Subscriber<? super HttpResponse> subscriber) {
@@ -273,7 +281,22 @@ public class HttpServerHelper extends NettyServerHelper {
     @Override
     public void subscribe(Subscriber<? super HttpResponse> s) {
         System.out.println("subscribe: " + s);
+        Subscription subscriberSubscription = new Subscription(){
+
+            @Override
+            public void cancel() {
+                System.out.println("cancel: " + this);
+            }
+
+            @Override
+            public void request(long n) {
+                System.out.println("request: " + this);
+            }
+            
+        };
+        
         this.subscriber = (HandlerSubscriber<? super HttpResponse>) s;
+        this.subscriber.onSubscribe(subscriberSubscription);
     }
 
 }

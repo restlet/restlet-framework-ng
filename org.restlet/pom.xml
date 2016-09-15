@@ -44,12 +44,12 @@
 		<dependency>
 			<groupId>com.typesafe.netty</groupId>
 			<artifactId>netty-reactive-streams</artifactId>
-			<version>${reactive-streams.version}</version>
+			<version>${netty-reactive-streams.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.typesafe.netty</groupId>
 			<artifactId>netty-reactive-streams-http</artifactId>
-			<version>${reactive-streams.version}</version>
+			<version>${netty-reactive-streams.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
