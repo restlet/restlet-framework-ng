@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.restlet.data.MediaType;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.service.MetadataService;
 

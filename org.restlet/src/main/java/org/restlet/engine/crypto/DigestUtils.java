@@ -32,8 +32,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.restlet.data.Digest;
 import org.restlet.engine.util.Base64;
+import org.restlet.util.Digest;
 
 /**
  * Security data manipulation utilities.

@@ -35,8 +35,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.restlet.Context;
-import org.restlet.data.Digest;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.util.Digest;
 import org.restlet.util.WrapperRepresentation;
 
 /**
@@ -121,7 +121,7 @@ public class DigesterRepresentation extends WrapperRepresentation {
      * 
      * @param algorithm
      *            The algorithm used to compute the digest to compare with. See
-     *            constant values in {@link org.restlet.data.Digest}.
+     *            constant values in {@link org.restlet.util.Digest}.
      * @return True if both digests are not null and equals.
      */
     public boolean checkDigest(String algorithm) {
@@ -163,7 +163,7 @@ public class DigesterRepresentation extends WrapperRepresentation {
      * 
      * @param algorithm
      *            The algorithm used to compute the digest. See constant values
-     *            in {@link org.restlet.data.Digest}.
+     *            in {@link org.restlet.util.Digest}.
      * @return The computed digest or null if the digest cannot be computed.
      */
     public Digest computeDigest(String algorithm) {
@@ -178,7 +178,7 @@ public class DigesterRepresentation extends WrapperRepresentation {
                 java.security.DigestInputStream dis = new java.security.DigestInputStream(
                         getStream(), md);
                 org.restlet.engine.io.IoUtils.exhaust(dis);
-                result = new org.restlet.data.Digest(algorithm, md.digest());
+                result = new org.restlet.util.Digest(algorithm, md.digest());
             } catch (java.security.NoSuchAlgorithmException e) {
                 Context.getCurrentLogger().warn("Unable to check the digest of the representation.", e);
             } catch (IOException e) {

@@ -25,8 +25,8 @@
 package org.restlet.security;
 
 import org.restlet.Context;
-import org.restlet.data.Digest;
 import org.restlet.engine.crypto.DigestUtils;
+import org.restlet.util.Digest;
 
 /**
  * Wrapper verifier that can verify digested secrets. If the provided secret is

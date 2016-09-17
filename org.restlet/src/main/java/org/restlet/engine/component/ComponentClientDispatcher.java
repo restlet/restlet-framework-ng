@@ -27,12 +27,12 @@ package org.restlet.engine.component;
 import java.util.Iterator;
 
 import org.restlet.Component;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.LocalReference;
-import org.restlet.data.Protocol;
 import org.restlet.engine.util.TemplateDispatcher;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.VirtualHost;
+import org.restlet.util.LocalReference;
+import org.restlet.util.Protocol;
 
 /**
  * Component client dispatcher.

@@ -24,7 +24,7 @@
 
 package org.restlet.engine.header;
 
-import static org.restlet.data.Range.isBytesRange;
+import static org.restlet.util.Range.isBytesRange;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -35,31 +35,31 @@ import java.util.List;
 import java.util.Set;
 
 import org.restlet.Context;
-import org.restlet.Message;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.AuthenticationInfo;
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Conditions;
-import org.restlet.data.CookieSetting;
-import org.restlet.data.Digest;
-import org.restlet.data.Disposition;
-import org.restlet.data.Header;
-import org.restlet.data.MediaType;
-import org.restlet.data.Method;
-import org.restlet.data.Range;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
-import org.restlet.data.Tag;
 import org.restlet.engine.Engine;
 import org.restlet.engine.util.CaseInsensitiveHashSet;
 import org.restlet.engine.util.DateUtils;
 import org.restlet.engine.util.StringUtils;
+import org.restlet.message.AuthenticationInfo;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Conditions;
+import org.restlet.message.CookieSetting;
+import org.restlet.message.Message;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.Disposition;
 import org.restlet.representation.EmptyRepresentation;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
+import org.restlet.util.Digest;
+import org.restlet.util.Header;
+import org.restlet.util.Range;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
+import org.restlet.util.Tag;
 
 /**
  * HTTP-style header utilities.
@@ -942,8 +942,8 @@ public class HeaderUtils {
                     if (base64hash.length() == 22) {
                         base64hash += "==";
                     }
-                    result.setDigest(new org.restlet.data.Digest(
-                            org.restlet.data.Digest.ALGORITHM_MD5,
+                    result.setDigest(new org.restlet.util.Digest(
+                            org.restlet.util.Digest.ALGORITHM_MD5,
                             org.restlet.engine.util.Base64.decode(base64hash)));
                     entityHeaderFound = true;
                 }

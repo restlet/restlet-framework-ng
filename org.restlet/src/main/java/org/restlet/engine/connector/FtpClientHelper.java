@@ -29,16 +29,16 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Method;
-import org.restlet.data.Protocol;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
 import org.restlet.engine.local.Entity;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.InputRepresentation;
+import org.restlet.util.Protocol;
+import org.restlet.util.Reference;
 
 /**
  * FTP client connector using the {@link URLConnection}. Here is the list of

@@ -26,10 +26,10 @@ package org.restlet.engine.adapter;
 
 import org.restlet.Client;
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Status;
 import org.restlet.engine.connector.ClientHelper;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 
 /**
  * Base HTTP client connector. Here is the list of parameters that are

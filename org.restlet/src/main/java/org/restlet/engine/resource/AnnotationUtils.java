@@ -31,12 +31,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.restlet.data.Form;
-import org.restlet.data.Method;
+import org.restlet.message.Method;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
 import org.restlet.resource.Status;
 import org.restlet.service.MetadataService;
+import org.restlet.util.Form;
 
 /**
  * Utilities to manipulate Restlet annotations.

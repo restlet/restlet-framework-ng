@@ -26,9 +26,9 @@ package org.restlet.ext.jaxb;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import org.restlet.Context;
-import org.restlet.data.MediaType;
 import org.restlet.ext.jaxb.internal.Marshaller;
 import org.restlet.ext.jaxb.internal.Unmarshaller;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.WriterRepresentation;
 

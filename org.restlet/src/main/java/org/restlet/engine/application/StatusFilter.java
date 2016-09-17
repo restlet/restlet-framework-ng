@@ -25,12 +25,12 @@
 package org.restlet.engine.application;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.routing.Filter;
 import org.restlet.service.StatusService;
+import org.restlet.util.Reference;
 
 /**
  * Filter associating a response entity based on the status. In order to
@@ -86,7 +86,7 @@ public class StatusFilter extends Filter {
 
     /**
      * Allows filtering after its handling by the target Restlet. If the status
-     * is not set, set {@link org.restlet.data.Status#SUCCESS_OK} by default.
+     * is not set, set {@link org.restlet.message.Status#SUCCESS_OK} by default.
      * 
      * If this is an error status, try to get a representation of it with
      * {@link org.restlet.service.StatusService#toRepresentation(Status, Request, Response)}

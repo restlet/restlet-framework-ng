@@ -26,8 +26,8 @@ package org.restlet.engine.resource;
 
 import java.util.Objects;
 
-import org.restlet.data.Status;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.Status;
 
 /**
  * Descriptor for status annotations.

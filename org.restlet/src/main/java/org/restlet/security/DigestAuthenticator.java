@@ -28,12 +28,12 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Context;
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Digest;
-import org.restlet.data.Reference;
 import org.restlet.engine.crypto.CryptoUtils;
 import org.restlet.engine.crypto.DigestUtils;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.util.Digest;
+import org.restlet.util.Reference;
 
 /**
  * Authenticator supporting the digest challenge authentication schemes. By

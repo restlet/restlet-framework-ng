@@ -25,8 +25,8 @@
 package org.restlet.ext.html.internal;
 
 import org.restlet.Context;
-import org.restlet.data.CharacterSet;
 import org.restlet.ext.html.FormData;
+import org.restlet.representation.CharacterSet;
 import org.restlet.representation.Representation;
 import org.restlet.util.Series;
 

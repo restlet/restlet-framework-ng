@@ -27,16 +27,16 @@ package org.restlet.ext.html;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.MediaType;
-import org.restlet.data.Parameter;
 import org.restlet.engine.header.ContentType;
 import org.restlet.engine.header.HeaderUtils;
 import org.restlet.engine.util.StringUtils;
 import org.restlet.ext.html.internal.FormUtils;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.OutputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 /**

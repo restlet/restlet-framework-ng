@@ -25,11 +25,11 @@
 package org.restlet.engine.local;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.LocalReference;
-import org.restlet.data.Protocol;
 import org.restlet.engine.connector.ClientHelper;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.LocalReference;
+import org.restlet.util.Protocol;
 
 /**
  * Client connector for RIAP calls. Only the "component" authority is supported.

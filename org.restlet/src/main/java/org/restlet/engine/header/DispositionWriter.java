@@ -24,8 +24,8 @@
 
 package org.restlet.engine.header;
 
-import org.restlet.data.Disposition;
-import org.restlet.data.Parameter;
+import org.restlet.representation.Disposition;
+import org.restlet.util.Parameter;
 
 /**
  * Disposition header writer.

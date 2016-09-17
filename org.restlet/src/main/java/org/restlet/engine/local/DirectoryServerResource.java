@@ -32,20 +32,20 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.MediaType;
-import org.restlet.data.Method;
-import org.restlet.data.Reference;
-import org.restlet.data.ReferenceList;
-import org.restlet.data.Status;
 import org.restlet.engine.util.StringUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Directory;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
+import org.restlet.util.Reference;
+import org.restlet.util.ReferenceList;
 
 /**
  * Resource supported by a set of context representations (from file system,

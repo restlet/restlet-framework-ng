@@ -33,16 +33,16 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.restlet.Request;
-import org.restlet.data.Header;
-import org.restlet.data.Method;
-import org.restlet.data.Parameter;
-import org.restlet.data.Reference;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.io.IoUtils;
 import org.restlet.engine.util.Base64;
 import org.restlet.engine.util.DateUtils;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.util.Header;
+import org.restlet.util.Parameter;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
 
 /**

@@ -30,14 +30,12 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.util.Date;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Disposition;
-import org.restlet.data.MediaType;
-import org.restlet.data.Range;
-import org.restlet.data.Tag;
 import org.restlet.engine.io.IoUtils;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Range;
+import org.restlet.util.Tag;
 
 /**
  * Current or intended state of a resource. The content of a representation can
@@ -75,7 +73,7 @@ public abstract class Representation extends RepresentationInfo {
     /**
      * The representation digest if any.
      */
-    private volatile org.restlet.data.Digest digest;
+    private volatile org.restlet.util.Digest digest;
 
     /** The disposition characteristics of the representation. */
     private volatile Disposition disposition;
@@ -259,7 +257,7 @@ public abstract class Representation extends RepresentationInfo {
      * 
      * @return The representation digest or null.
      */
-    public org.restlet.data.Digest getDigest() {
+    public org.restlet.util.Digest getDigest() {
         return this.digest;
     }
 
@@ -456,7 +454,7 @@ public abstract class Representation extends RepresentationInfo {
      * @param digest
      *            The representation digest.
      */
-    public void setDigest(org.restlet.data.Digest digest) {
+    public void setDigest(org.restlet.util.Digest digest) {
         this.digest = digest;
     }
 

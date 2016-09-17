@@ -25,11 +25,11 @@
 package org.restlet.engine.component;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Protocol;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Route;
 import org.restlet.routing.Router;
+import org.restlet.util.Protocol;
 
 /**
  * Router scorer based on a target client connector.

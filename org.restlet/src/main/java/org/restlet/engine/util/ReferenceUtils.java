@@ -24,11 +24,11 @@
 
 package org.restlet.engine.util;
 
-import org.restlet.Request;
-import org.restlet.data.Header;
-import org.restlet.data.Reference;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.security.AuthenticatorUtils;
+import org.restlet.message.Request;
+import org.restlet.util.Header;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
 
 /**

@@ -26,8 +26,8 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.Warning;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.message.Warning;
 
 /**
  * Warning header writer.

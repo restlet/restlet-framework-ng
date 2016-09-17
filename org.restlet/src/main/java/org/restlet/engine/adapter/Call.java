@@ -28,11 +28,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.restlet.Context;
-import org.restlet.data.Header;
-import org.restlet.data.Protocol;
 import org.restlet.engine.header.HeaderUtils;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
+import org.restlet.util.Header;
+import org.restlet.util.Protocol;
 import org.restlet.util.Series;
 import org.slf4j.Logger;
 

@@ -26,12 +26,12 @@ package org.restlet.engine;
 
 import org.restlet.Client;
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Method;
-import org.restlet.data.Protocol;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Protocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

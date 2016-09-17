@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.io.IOException;
 
-import org.restlet.data.Language;
+import org.restlet.representation.Language;
 
 /**
  * Language header reader.

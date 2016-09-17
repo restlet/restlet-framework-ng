@@ -31,10 +31,10 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Application;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ClientInfo;
 import org.restlet.engine.security.RoleMapping;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Security realm based on a memory model. The model is composed of root groups,

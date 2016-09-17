@@ -31,19 +31,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.data.CacheDirective;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Conditions;
-import org.restlet.data.Cookie;
-import org.restlet.data.Header;
-import org.restlet.data.Method;
-import org.restlet.data.Range;
-import org.restlet.data.RecipientInfo;
-import org.restlet.data.Reference;
-import org.restlet.data.Tag;
-import org.restlet.data.Warning;
 import org.restlet.engine.header.CacheDirectiveReader;
 import org.restlet.engine.header.CookieReader;
 import org.restlet.engine.header.ExpectationReader;
@@ -57,8 +44,21 @@ import org.restlet.engine.header.WarningReader;
 import org.restlet.engine.security.AuthenticatorUtils;
 import org.restlet.engine.util.DateUtils;
 import org.restlet.engine.util.ReferenceUtils;
+import org.restlet.message.CacheDirective;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Conditions;
+import org.restlet.message.Cookie;
+import org.restlet.message.Method;
+import org.restlet.message.RecipientInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Warning;
 import org.restlet.representation.Representation;
+import org.restlet.util.Header;
+import org.restlet.util.Range;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
+import org.restlet.util.Tag;
 
 /**
  * Request wrapper for server HTTP calls.

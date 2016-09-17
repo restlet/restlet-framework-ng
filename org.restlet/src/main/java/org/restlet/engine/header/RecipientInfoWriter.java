@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.RecipientInfo;
+import org.restlet.message.RecipientInfo;
 
 /**
  * Recipient info header writer.

@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Application;
-import org.restlet.data.Protocol;
 import org.restlet.representation.Representation;
+import org.restlet.util.Protocol;
 
 /**
  * Application service declaring client and server connectors. This is useful at

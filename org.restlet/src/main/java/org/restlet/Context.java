@@ -30,8 +30,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 
-import org.restlet.data.Parameter;
 import org.restlet.engine.Engine;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 import org.slf4j.Logger;
 

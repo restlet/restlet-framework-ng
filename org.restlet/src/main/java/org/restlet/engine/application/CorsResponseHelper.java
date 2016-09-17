@@ -28,11 +28,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Method;
-import org.restlet.data.Status;
 import org.restlet.engine.util.SetUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.slf4j.Logger;
 
 /**

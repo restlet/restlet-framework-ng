@@ -28,9 +28,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.MediaType;
 import org.restlet.engine.Edition;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;

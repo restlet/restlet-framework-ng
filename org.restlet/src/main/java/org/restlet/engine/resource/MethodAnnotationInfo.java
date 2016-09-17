@@ -32,18 +32,18 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Form;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
-import org.restlet.data.Method;
-import org.restlet.data.Parameter;
 import org.restlet.engine.util.StringUtils;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.Method;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;
+import org.restlet.util.Form;
+import org.restlet.util.Parameter;
 
 /**
  * Descriptor for method annotations.

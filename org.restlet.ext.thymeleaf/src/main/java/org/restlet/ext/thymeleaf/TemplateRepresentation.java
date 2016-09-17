@@ -32,11 +32,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Form;
-import org.restlet.data.MediaType;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.WriterRepresentation;
+import org.restlet.util.Form;
 import org.restlet.util.NamedValue;
 import org.restlet.util.Resolver;
 import org.thymeleaf.TemplateEngine;

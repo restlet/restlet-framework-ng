@@ -28,13 +28,13 @@ import static org.restlet.engine.util.DateUtils.FORMAT_RFC_1123;
 
 import java.util.Date;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.Reference;
-import org.restlet.data.ServerInfo;
-import org.restlet.data.Status;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.ServerInfo;
+import org.restlet.message.Status;
 import org.restlet.representation.Representation;
+import org.restlet.util.Reference;
 import org.restlet.util.Resolver;
 
 /**

@@ -29,10 +29,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 
-import org.restlet.data.Range;
 import org.restlet.engine.io.IoUtils;
 import org.restlet.engine.io.RangeInputStream;
 import org.restlet.representation.Representation;
+import org.restlet.util.Range;
 import org.restlet.util.WrapperRepresentation;
 
 /**

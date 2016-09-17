@@ -26,10 +26,10 @@ package org.restlet.service;
 
 import java.util.List;
 
-import org.restlet.Request;
 import org.restlet.engine.application.Conneg;
 import org.restlet.engine.application.FlexibleConneg;
 import org.restlet.engine.application.StrictConneg;
+import org.restlet.message.Request;
 import org.restlet.representation.Variant;
 
 /**

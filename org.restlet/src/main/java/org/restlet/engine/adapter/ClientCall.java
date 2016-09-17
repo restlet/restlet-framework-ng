@@ -29,16 +29,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Encoding;
-import org.restlet.data.Header;
-import org.restlet.data.Method;
-import org.restlet.data.Status;
 import org.restlet.engine.connector.ConnectorHelper;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.header.HeaderUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.Encoding;
 import org.restlet.representation.Representation;
+import org.restlet.util.Header;
 import org.restlet.util.Series;
 
 /**

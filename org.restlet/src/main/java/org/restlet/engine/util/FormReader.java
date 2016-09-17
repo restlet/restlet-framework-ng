@@ -25,10 +25,10 @@
 package org.restlet.engine.util;
 
 import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Form;
-import org.restlet.data.Parameter;
+import org.restlet.representation.CharacterSet;
 import org.restlet.representation.Representation;
+import org.restlet.util.Form;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 import java.io.ByteArrayInputStream;

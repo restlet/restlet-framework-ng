@@ -31,16 +31,16 @@ import java.net.URL;
 import java.util.Date;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.LocalReference;
-import org.restlet.data.Method;
-import org.restlet.data.Protocol;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.service.MetadataService;
+import org.restlet.util.LocalReference;
+import org.restlet.util.Protocol;
+import org.restlet.util.Reference;
 
 /**
  * Connector to the resources accessed via class loaders. Note that if you use

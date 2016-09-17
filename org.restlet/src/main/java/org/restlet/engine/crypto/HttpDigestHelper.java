@@ -27,21 +27,21 @@ package org.restlet.engine.crypto;
 import java.io.IOException;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Digest;
-import org.restlet.data.Header;
-import org.restlet.data.Parameter;
-import org.restlet.data.Reference;
 import org.restlet.engine.header.ChallengeWriter;
 import org.restlet.engine.header.HeaderReader;
 import org.restlet.engine.header.HeaderUtils;
 import org.restlet.engine.security.AuthenticatorHelper;
 import org.restlet.engine.security.AuthenticatorUtils;
 import org.restlet.engine.util.Base64;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Digest;
+import org.restlet.util.Header;
+import org.restlet.util.Parameter;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
 
 /**

@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.Language;
+import org.restlet.representation.Language;
 
 /**
  * Language header writer.

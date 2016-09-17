@@ -28,11 +28,11 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.MediaType;
 import org.restlet.ext.freemarker.internal.ResolverHashModel;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.WriterRepresentation;
 import org.restlet.util.Resolver;

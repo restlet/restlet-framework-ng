@@ -24,11 +24,11 @@
 
 package org.restlet.engine.util;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Protocol;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Filter;
 import org.restlet.routing.Template;
+import org.restlet.util.Protocol;
 
 /**
  * Filter that resolves URI templates in the target resource URI reference using

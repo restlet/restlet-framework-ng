@@ -28,12 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
 import org.restlet.engine.application.MetadataExtension;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 
 /**
  * Application service providing access to metadata and their associated

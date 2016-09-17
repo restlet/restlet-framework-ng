@@ -25,8 +25,8 @@
 package org.restlet.engine.connector;
 
 import org.restlet.Connector;
-import org.restlet.data.Protocol;
 import org.restlet.engine.RestletHelper;
+import org.restlet.util.Protocol;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

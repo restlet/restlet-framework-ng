@@ -24,7 +24,7 @@
 
 package org.restlet.engine.header;
 
-import org.restlet.data.Metadata;
+import org.restlet.representation.Metadata;
 
 /**
  * Metadata header writer.

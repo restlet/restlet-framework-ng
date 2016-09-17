@@ -29,11 +29,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Method;
 import org.restlet.engine.util.SetUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Filter;
 
 /**

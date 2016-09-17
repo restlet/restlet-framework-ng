@@ -29,7 +29,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.Server;
-import org.restlet.data.Protocol;
 
 /**
  * Modifiable list of server connectors.

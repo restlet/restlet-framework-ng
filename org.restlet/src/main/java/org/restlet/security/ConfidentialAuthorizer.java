@@ -24,8 +24,8 @@
 
 package org.restlet.security;
 
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Authorizer allowing only confidential calls. Confidential calls typically

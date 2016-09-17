@@ -25,8 +25,8 @@
 package org.restlet.engine.local;
 
 import org.restlet.Server;
-import org.restlet.data.Protocol;
 import org.restlet.engine.connector.ServerHelper;
+import org.restlet.util.Protocol;
 
 /**
  * Server connector handling RIAP calls. By design, there is only one instance

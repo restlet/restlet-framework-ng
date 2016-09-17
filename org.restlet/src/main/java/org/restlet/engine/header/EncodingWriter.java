@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.Encoding;
+import org.restlet.representation.Encoding;
 
 /**
  * Encoding header writer.

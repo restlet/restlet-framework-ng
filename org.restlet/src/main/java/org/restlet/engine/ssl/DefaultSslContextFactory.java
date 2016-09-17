@@ -35,7 +35,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.restlet.data.Parameter;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 /**

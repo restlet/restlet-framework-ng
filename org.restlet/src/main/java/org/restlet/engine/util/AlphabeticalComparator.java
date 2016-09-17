@@ -27,7 +27,7 @@ package org.restlet.engine.util;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import org.restlet.data.Reference;
+import org.restlet.util.Reference;
 
 /**
  * Allows to sort the list of references set by the resource.

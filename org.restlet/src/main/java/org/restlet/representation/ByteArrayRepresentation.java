@@ -26,8 +26,6 @@ package org.restlet.representation;
 
 import java.io.ByteArrayInputStream;
 
-import org.restlet.data.MediaType;
-
 /**
  * Representation wrapping a byte array.
  * 

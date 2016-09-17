@@ -26,13 +26,13 @@ package org.restlet.engine.crypto;
 
 import java.util.Date;
 
-import org.restlet.Request;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Form;
-import org.restlet.data.Reference;
 import org.restlet.engine.security.AuthenticatorHelper;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.message.Request;
+import org.restlet.util.Form;
+import org.restlet.util.Reference;
 
 /**
  * Implements the HTTP authentication for the Amazon Web Services.

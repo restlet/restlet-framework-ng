@@ -26,10 +26,10 @@ package org.restlet.util;
 
 import java.util.Map;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.engine.util.CallResolver;
 import org.restlet.engine.util.MapResolver;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Resolves a name into a value. By default, the {@link #createResolver(Map)}

@@ -25,19 +25,19 @@
 package org.restlet.engine.application;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Form;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
-import org.restlet.data.Parameter;
-import org.restlet.data.Preference;
 import org.restlet.engine.resource.MethodAnnotationInfo;
 import org.restlet.engine.resource.VariantInfo;
+import org.restlet.message.Preference;
+import org.restlet.message.Request;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;
+import org.restlet.util.Form;
+import org.restlet.util.Parameter;
 
 import java.util.HashSet;
 import java.util.List;

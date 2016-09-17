@@ -24,8 +24,8 @@
 
 package org.restlet.engine.header;
 
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.Parameter;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.util.Parameter;
 
 /**
  * Authentication challenge header writer.

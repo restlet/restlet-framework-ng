@@ -28,8 +28,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.restlet.data.MediaType;
 import org.restlet.representation.FileRepresentation;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.service.MetadataService;
 

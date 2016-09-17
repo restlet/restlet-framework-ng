@@ -27,12 +27,12 @@ package org.restlet.ext.xml;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.routing.Filter;
 

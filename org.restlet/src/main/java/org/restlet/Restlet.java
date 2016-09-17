@@ -24,8 +24,10 @@
 
 package org.restlet;
 
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.slf4j.Logger;
 
 /**

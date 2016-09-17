@@ -34,10 +34,8 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Date;
 
-import org.restlet.data.Disposition;
-import org.restlet.data.LocalReference;
-import org.restlet.data.MediaType;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.util.LocalReference;
 
 /**
  * Representation based on a static file. Note that in order for Web clients to

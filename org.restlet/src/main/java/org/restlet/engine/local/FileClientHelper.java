@@ -26,20 +26,20 @@ package org.restlet.engine.local;
 
 import static java.lang.String.format;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static org.restlet.data.Method.DELETE;
-import static org.restlet.data.Method.GET;
-import static org.restlet.data.Method.HEAD;
-import static org.restlet.data.Method.PUT;
-import static org.restlet.data.Protocol.FILE;
-import static org.restlet.data.Range.isBytesRange;
-import static org.restlet.data.Status.CLIENT_ERROR_BAD_REQUEST;
-import static org.restlet.data.Status.CLIENT_ERROR_FORBIDDEN;
-import static org.restlet.data.Status.CLIENT_ERROR_METHOD_NOT_ALLOWED;
-import static org.restlet.data.Status.CLIENT_ERROR_NOT_ACCEPTABLE;
-import static org.restlet.data.Status.SERVER_ERROR_INTERNAL;
-import static org.restlet.data.Status.SUCCESS_CREATED;
-import static org.restlet.data.Status.SUCCESS_NO_CONTENT;
-import static org.restlet.data.Status.SUCCESS_OK;
+import static org.restlet.message.Method.DELETE;
+import static org.restlet.message.Method.GET;
+import static org.restlet.message.Method.HEAD;
+import static org.restlet.message.Method.PUT;
+import static org.restlet.message.Status.CLIENT_ERROR_BAD_REQUEST;
+import static org.restlet.message.Status.CLIENT_ERROR_FORBIDDEN;
+import static org.restlet.message.Status.CLIENT_ERROR_METHOD_NOT_ALLOWED;
+import static org.restlet.message.Status.CLIENT_ERROR_NOT_ACCEPTABLE;
+import static org.restlet.message.Status.SERVER_ERROR_INTERNAL;
+import static org.restlet.message.Status.SUCCESS_CREATED;
+import static org.restlet.message.Status.SUCCESS_NO_CONTENT;
+import static org.restlet.message.Status.SUCCESS_OK;
+import static org.restlet.util.Protocol.FILE;
+import static org.restlet.util.Range.isBytesRange;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -53,19 +53,19 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.LocalReference;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
-import org.restlet.data.Range;
-import org.restlet.data.Status;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
+import org.restlet.util.LocalReference;
+import org.restlet.util.Range;
 
 /**
  * Connector to the file resources accessible. Here is the list of parameters

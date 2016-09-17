@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.Set;
 
-import org.restlet.data.Method;
+import org.restlet.message.Method;
 
 /**
  * Method header writer.

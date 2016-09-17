@@ -31,19 +31,19 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Uniform;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Form;
-import org.restlet.data.Status;
 import org.restlet.engine.application.StatusInfo;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.ClientProxy;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.Result;
+import org.restlet.util.Form;
 
 /**
  * Reflection proxy invocation handler created for the {@link ClientResource#wrap(Class)} and related methods.

@@ -30,11 +30,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;

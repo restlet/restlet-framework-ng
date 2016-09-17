@@ -25,10 +25,10 @@
 package org.restlet.engine.local;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Reference;
 import org.restlet.engine.connector.ClientHelper;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Reference;
 
 /**
  * Connector to the local resources accessible via file system, class loaders
@@ -58,7 +58,7 @@ import org.restlet.engine.connector.ClientHelper;
  * </tr>
  * </table>
  * 
- * @see org.restlet.data.LocalReference
+ * @see org.restlet.util.LocalReference
  * @author Jerome Louvel
  * @author Thierry Boileau
  */

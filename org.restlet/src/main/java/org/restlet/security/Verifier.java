@@ -24,8 +24,8 @@
 
 package org.restlet.security;
 
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Verifies the credentials provided by a client user sending a request.

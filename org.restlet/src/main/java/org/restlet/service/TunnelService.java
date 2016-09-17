@@ -25,10 +25,10 @@
 package org.restlet.service;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.data.ClientInfo;
 import org.restlet.engine.application.TunnelFilter;
 import org.restlet.engine.header.HeaderConstants;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Request;
 import org.restlet.routing.Filter;
 
 /**
@@ -49,7 +49,7 @@ import org.restlet.routing.Filter;
  * <tr>
  * <td>methodParameter</td>
  * <td>method</td>
- * <td>See values in {@link org.restlet.data.Method}</td>
+ * <td>See values in {@link org.restlet.message.Method}</td>
  * <td>For POST requests, let you specify the actual method to use (DELETE, PUT,
  * MOVE, etc.). For GET requests, let you specify OPTIONS as the actual method
  * to use.</td>

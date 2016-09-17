@@ -30,6 +30,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.restlet.engine.Engine;
 import org.restlet.engine.component.ComponentHelper;
 import org.restlet.engine.component.InternalRouter;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Router;
 import org.restlet.routing.VirtualHost;
 import org.restlet.security.Realm;
@@ -199,7 +201,7 @@ public class Component extends Restlet {
     /**
      * Returns the private internal router where Restlets like Applications can
      * be attached. Those Restlets can be addressed via the
-     * {@link org.restlet.data.Protocol#RIAP} (Restlet Internal Access Protocol)
+     * {@link org.restlet.util.Protocol#RIAP} (Restlet Internal Access Protocol)
      * client connector. This is used to manage private, internal and optimized
      * access to local applications.<br>
      * <br>

@@ -25,10 +25,10 @@
 package org.restlet.ext.xml.internal;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Method;
-import org.restlet.data.Reference;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Reference;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;

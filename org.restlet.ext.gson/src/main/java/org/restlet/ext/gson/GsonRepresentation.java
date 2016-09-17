@@ -31,7 +31,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import org.joda.time.DateTime;
-import org.restlet.data.MediaType;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.WriterRepresentation;
 

@@ -24,15 +24,15 @@
 
 package org.restlet.engine.crypto;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.Digest;
-import org.restlet.data.Reference;
 import org.restlet.engine.security.AuthenticatorUtils;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.security.DigestAuthenticator;
 import org.restlet.security.LocalVerifier;
 import org.restlet.security.User;
+import org.restlet.util.Digest;
+import org.restlet.util.Reference;
 
 /**
  * Verifier for the HTTP DIGEST authentication scheme. Note that the "A1" hash

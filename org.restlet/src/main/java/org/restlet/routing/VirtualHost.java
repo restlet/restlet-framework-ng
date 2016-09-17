@@ -28,9 +28,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.resource.Finder;
 import org.restlet.resource.ServerResource;
 

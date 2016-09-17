@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 
-import org.restlet.data.MediaType;
 import org.restlet.engine.io.IoUtils;
 
 /**

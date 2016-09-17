@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.CacheDirective;
+import org.restlet.message.CacheDirective;
 
 /**
  * Cache directive header writer.

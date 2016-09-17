@@ -27,10 +27,10 @@ package org.restlet.engine.header;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.restlet.data.Header;
-import org.restlet.data.Status;
-import org.restlet.data.Warning;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.message.Status;
+import org.restlet.message.Warning;
+import org.restlet.util.Header;
 
 /**
  * Warning header reader.

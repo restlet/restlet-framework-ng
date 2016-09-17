@@ -28,8 +28,8 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.restlet.data.Range;
 import org.restlet.representation.Representation;
+import org.restlet.util.Range;
 
 /**
  * Filters an input stream to expose only a given range.

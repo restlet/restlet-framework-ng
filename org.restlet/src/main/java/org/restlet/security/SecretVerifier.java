@@ -24,10 +24,10 @@
 
 package org.restlet.security;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ClientInfo;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Verifier of identifier/secret couples. By default, it extracts the identifier

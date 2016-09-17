@@ -24,9 +24,9 @@
 
 package org.restlet.routing;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Filter scoring the affinity of calls with the attached Restlet. The score is

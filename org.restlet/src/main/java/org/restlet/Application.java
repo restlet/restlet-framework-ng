@@ -30,6 +30,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.restlet.engine.Engine;
 import org.restlet.engine.application.ApplicationHelper;
 import org.restlet.engine.resource.AnnotationUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.resource.ServerResource;
 import org.restlet.routing.Router;
 import org.restlet.routing.VirtualHost;

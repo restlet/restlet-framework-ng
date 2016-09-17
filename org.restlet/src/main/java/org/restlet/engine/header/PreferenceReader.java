@@ -33,14 +33,14 @@ import static org.restlet.engine.header.HeaderUtils.isTokenChar;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
-import org.restlet.data.Parameter;
-import org.restlet.data.Preference;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Preference;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 /**

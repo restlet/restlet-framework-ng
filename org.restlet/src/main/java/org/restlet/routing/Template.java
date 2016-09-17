@@ -33,9 +33,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Reference;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Reference;
 import org.restlet.util.Resolver;
 import org.slf4j.Logger;
 

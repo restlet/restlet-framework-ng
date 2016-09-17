@@ -31,9 +31,9 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.restlet.data.Disposition;
-import org.restlet.data.MediaType;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.representation.Disposition;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.StreamRepresentation;
 
 /**

@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.List;
 
-import org.restlet.data.Tag;
+import org.restlet.util.Tag;
 
 /**
  * Tag header writer.

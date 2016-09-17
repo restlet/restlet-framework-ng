@@ -25,10 +25,10 @@
 package org.restlet.engine.connector;
 
 import org.restlet.Client;
-import org.restlet.Request;
-import org.restlet.data.Protocol;
 import org.restlet.engine.adapter.ClientCall;
 import org.restlet.engine.util.ReferenceUtils;
+import org.restlet.message.Request;
+import org.restlet.util.Protocol;
 
 import javax.net.ssl.HostnameVerifier;
 import java.io.IOException;

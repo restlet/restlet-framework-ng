@@ -32,10 +32,10 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.restlet.Context;
-import org.restlet.data.CookieSetting;
-import org.restlet.data.Parameter;
 import org.restlet.engine.util.DateUtils;
 import org.restlet.engine.util.StringUtils;
+import org.restlet.message.CookieSetting;
+import org.restlet.util.Parameter;
 
 /**
  * Cookie setting header reader.

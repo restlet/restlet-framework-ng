@@ -29,16 +29,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
-import org.restlet.data.ReferenceList;
 import org.restlet.engine.local.DirectoryServerResource;
 import org.restlet.engine.util.AlphaNumericComparator;
 import org.restlet.engine.util.AlphabeticalComparator;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
+import org.restlet.util.Reference;
+import org.restlet.util.ReferenceList;
 
 /**
  * Finder mapping a directory of local resources. Those resources have

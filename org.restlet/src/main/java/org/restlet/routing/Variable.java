@@ -24,7 +24,7 @@
 
 package org.restlet.routing;
 
-import org.restlet.data.Reference;
+import org.restlet.util.Reference;
 
 /**
  * Variable descriptor for reference templates.

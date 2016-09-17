@@ -24,9 +24,9 @@
 
 package org.restlet.engine.connector;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Server;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 
 /**
  * Server connector helper.

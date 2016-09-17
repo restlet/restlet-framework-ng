@@ -29,15 +29,15 @@ import java.util.List;
 
 import org.restlet.Application;
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
 import org.restlet.engine.application.StatusInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
 import org.restlet.resource.ResourceException;
+import org.restlet.util.Reference;
 
 /**
  * Service to handle error statuses. If an exception is thrown within your
@@ -259,7 +259,7 @@ public class StatusService extends Service {
     /**
      * Returns a representation for the given status. In order to customize the
      * default representation, this method can be overridden. It returns a
-     * {@link org.restlet.data.Status} representation by default or a
+     * {@link org.restlet.message.Status} representation by default or a
      * {@link java.lang.Throwable} representation if the throwable is annotated
      * with {@link org.restlet.resource.Status}.
      * 

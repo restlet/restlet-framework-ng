@@ -26,7 +26,7 @@ package org.restlet.engine.ssl;
 
 import javax.net.ssl.SSLContext;
 
-import org.restlet.data.Parameter;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 /**

@@ -24,11 +24,11 @@
 
 package org.restlet.security;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Status;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.resource.ServerResource;
 import org.restlet.routing.Filter;
 

@@ -27,8 +27,8 @@ package org.restlet.engine.header;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.restlet.data.CacheDirective;
-import org.restlet.data.Header;
+import org.restlet.message.CacheDirective;
+import org.restlet.util.Header;
 
 /**
  * Cache directive header reader.

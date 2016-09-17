@@ -28,12 +28,12 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Cookie;
-import org.restlet.data.Form;
+import org.restlet.message.Cookie;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.representation.Representation;
+import org.restlet.util.Form;
 import org.restlet.util.Series;
 
 /**

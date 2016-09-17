@@ -27,7 +27,6 @@ package org.restlet.representation;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.restlet.data.MediaType;
 import org.restlet.engine.io.IoUtils;
 
 /**

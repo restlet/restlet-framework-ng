@@ -43,7 +43,7 @@ import java.util.Set;
  * @author Jerome Louvel
  * @param <T>
  *            The contained type
- * @see org.restlet.data.Parameter
+ * @see org.restlet.util.Parameter
  * @see java.util.Collections
  * @see java.util.List
  */

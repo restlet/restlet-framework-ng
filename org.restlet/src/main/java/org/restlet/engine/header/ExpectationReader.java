@@ -26,8 +26,8 @@ package org.restlet.engine.header;
 
 import java.io.IOException;
 
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Expectation;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Expectation;
 
 /**
  * Expectation header reader.

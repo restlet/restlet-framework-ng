@@ -44,11 +44,11 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Context;
-import org.restlet.data.Encoding;
-import org.restlet.data.Header;
-import org.restlet.data.Parameter;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.representation.Encoding;
+import org.restlet.util.Header;
 import org.restlet.util.NamedValue;
+import org.restlet.util.Parameter;
 
 /**
  * HTTP-style header reader.

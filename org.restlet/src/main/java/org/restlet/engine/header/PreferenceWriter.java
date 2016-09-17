@@ -28,8 +28,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.restlet.data.Parameter;
-import org.restlet.data.Preference;
+import org.restlet.message.Preference;
+import org.restlet.util.Parameter;
 
 /**
  * Preference header writer.

@@ -25,10 +25,10 @@
 package org.restlet.routing;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.resource.Finder;
 import org.restlet.resource.ServerResource;
 

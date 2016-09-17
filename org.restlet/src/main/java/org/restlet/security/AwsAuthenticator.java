@@ -25,8 +25,8 @@
 package org.restlet.security;
 
 import org.restlet.Context;
-import org.restlet.data.ChallengeScheme;
 import org.restlet.engine.crypto.AwsVerifier;
+import org.restlet.message.ChallengeScheme;
 
 /**
  * Authenticator supporting the {@link ChallengeScheme#HTTP_AWS_S3} scheme.

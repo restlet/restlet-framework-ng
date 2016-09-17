@@ -30,13 +30,11 @@ import java.io.Reader;
 import java.util.Date;
 import java.util.List;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Disposition;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
-import org.restlet.data.Tag;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Disposition;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 
 /**
@@ -77,7 +75,7 @@ public class WrapperRepresentation extends Representation {
     }
 
     @Override
-    public org.restlet.data.Digest getDigest() {
+    public org.restlet.util.Digest getDigest() {
         return getWrappedRepresentation().getDigest();
     }
 
@@ -117,7 +115,7 @@ public class WrapperRepresentation extends Representation {
     }
 
     @Override
-    public org.restlet.data.Range getRange() {
+    public org.restlet.util.Range getRange() {
         return getWrappedRepresentation().getRange();
     }
 
@@ -181,7 +179,7 @@ public class WrapperRepresentation extends Representation {
     }
 
     @Override
-    public void setDigest(org.restlet.data.Digest digest) {
+    public void setDigest(org.restlet.util.Digest digest) {
         getWrappedRepresentation().setDigest(digest);
     }
 
@@ -226,7 +224,7 @@ public class WrapperRepresentation extends Representation {
     }
 
     @Override
-    public void setRange(org.restlet.data.Range range) {
+    public void setRange(org.restlet.util.Range range) {
         getWrappedRepresentation().setRange(range);
     }
 

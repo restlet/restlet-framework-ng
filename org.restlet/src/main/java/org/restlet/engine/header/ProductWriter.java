@@ -27,7 +27,7 @@ package org.restlet.engine.header;
 import java.util.Iterator;
 import java.util.List;
 
-import org.restlet.data.Product;
+import org.restlet.message.Product;
 
 /**
  * User agent header writer.

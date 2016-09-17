@@ -24,15 +24,15 @@
 
 package org.restlet.engine.application;
 
-import static org.restlet.data.Range.isBytesRange;
+import static org.restlet.util.Range.isBytesRange;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Range;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.routing.Filter;
 import org.restlet.service.RangeService;
+import org.restlet.util.Range;
 
 /**
  * Filter that is in charge to check the responses to requests for partial

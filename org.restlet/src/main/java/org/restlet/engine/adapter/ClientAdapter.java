@@ -25,14 +25,14 @@
 package org.restlet.engine.adapter;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Uniform;
-import org.restlet.data.Header;
-import org.restlet.data.Method;
-import org.restlet.data.Status;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.header.HeaderUtils;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.util.Header;
 import org.restlet.util.Series;
 
 import java.io.IOException;

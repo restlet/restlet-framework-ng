@@ -30,10 +30,10 @@ import java.io.Reader;
 import java.util.Date;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.data.Method;
-import org.restlet.data.Reference;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
 import org.restlet.representation.Representation;
+import org.restlet.util.Reference;
 
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;

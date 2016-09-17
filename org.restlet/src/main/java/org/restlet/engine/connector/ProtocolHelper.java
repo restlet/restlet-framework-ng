@@ -44,7 +44,7 @@ public abstract class ProtocolHelper extends Helper {
 
     /**
      * Register all supported methods. The implementation relies on the
-     * {@link org.restlet.data.Method#register(org.restlet.data.Method)} method.
+     * {@link org.restlet.message.Method#register(org.restlet.message.Method)} method.
      */
     public abstract void registerMethods();
 

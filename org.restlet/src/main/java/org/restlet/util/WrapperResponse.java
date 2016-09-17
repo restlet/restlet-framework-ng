@@ -29,17 +29,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.AuthenticationInfo;
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.CookieSetting;
-import org.restlet.data.Dimension;
-import org.restlet.data.MediaType;
-import org.restlet.data.Method;
-import org.restlet.data.Reference;
-import org.restlet.data.ServerInfo;
-import org.restlet.data.Status;
+import org.restlet.message.AuthenticationInfo;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.message.CookieSetting;
+import org.restlet.message.Dimension;
+import org.restlet.message.Method;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.ServerInfo;
+import org.restlet.message.Status;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 
 /**

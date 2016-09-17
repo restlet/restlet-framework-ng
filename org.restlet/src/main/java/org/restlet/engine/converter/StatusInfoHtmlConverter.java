@@ -27,13 +27,13 @@ package org.restlet.engine.converter;
 import java.io.IOException;
 import java.util.List;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.MediaType;
-import org.restlet.data.Status;
 import org.restlet.engine.application.StatusInfo;
 import org.restlet.engine.resource.VariantInfo;
 import org.restlet.engine.util.StringUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;

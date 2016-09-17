@@ -38,7 +38,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.sax.SAXSource;
 
-import org.restlet.data.MediaType;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.w3c.dom.Document;
 import org.xml.sax.ContentHandler;

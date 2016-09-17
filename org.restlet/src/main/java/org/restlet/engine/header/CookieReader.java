@@ -26,8 +26,8 @@ package org.restlet.engine.header;
 
 import java.io.IOException;
 
-import org.restlet.data.Cookie;
-import org.restlet.data.Parameter;
+import org.restlet.message.Cookie;
+import org.restlet.util.Parameter;
 
 /**
  * Cookie header reader.

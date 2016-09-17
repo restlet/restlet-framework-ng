@@ -29,11 +29,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.representation.Encoding;
 import org.restlet.routing.Filter;
 import org.restlet.util.Resolver;
 

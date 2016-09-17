@@ -24,11 +24,11 @@
 
 package org.restlet.routing;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
+import org.restlet.util.Reference;
 
 /**
  * Filter scoring the affinity of calls with the attached Restlet. The score is

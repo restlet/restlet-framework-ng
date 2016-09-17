@@ -27,7 +27,7 @@ package org.restlet.engine.header;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.restlet.data.Product;
+import org.restlet.message.Product;
 
 /**
  * User agent header reader.

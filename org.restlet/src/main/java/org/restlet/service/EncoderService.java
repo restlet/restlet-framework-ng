@@ -30,9 +30,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.restlet.Context;
-import org.restlet.data.Encoding;
-import org.restlet.data.MediaType;
 import org.restlet.engine.application.Encoder;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.routing.Filter;
 

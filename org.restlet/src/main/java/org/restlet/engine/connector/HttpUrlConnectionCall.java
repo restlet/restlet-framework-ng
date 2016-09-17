@@ -33,14 +33,14 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Uniform;
-import org.restlet.data.Header;
-import org.restlet.data.Status;
 import org.restlet.engine.adapter.ClientCall;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.Representation;
+import org.restlet.util.Header;
 import org.restlet.util.Series;
 
 /**

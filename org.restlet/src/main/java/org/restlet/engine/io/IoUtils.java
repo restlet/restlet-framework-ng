@@ -24,7 +24,7 @@
 
 package org.restlet.engine.io;
 
-import static org.restlet.data.Range.isBytesRange;
+import static org.restlet.util.Range.isBytesRange;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,10 +37,10 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Range;
 import org.restlet.engine.Engine;
+import org.restlet.representation.CharacterSet;
 import org.restlet.representation.Representation;
+import org.restlet.util.Range;
 
 /**
  * IO manipulation utilities.

@@ -38,9 +38,9 @@ import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.restlet.data.Disposition;
-import org.restlet.data.Encoding;
 import org.restlet.engine.io.IoUtils;
+import org.restlet.representation.Disposition;
+import org.restlet.representation.Encoding;
 import org.restlet.representation.Representation;
 import org.restlet.util.WrapperList;
 import org.restlet.util.WrapperRepresentation;

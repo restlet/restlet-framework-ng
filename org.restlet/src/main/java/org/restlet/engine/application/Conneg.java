@@ -26,7 +26,7 @@ package org.restlet.engine.application;
 
 import java.util.List;
 
-import org.restlet.Request;
+import org.restlet.message.Request;
 import org.restlet.representation.Variant;
 import org.restlet.service.MetadataService;
 

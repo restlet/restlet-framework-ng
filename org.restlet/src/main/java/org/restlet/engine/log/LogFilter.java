@@ -25,9 +25,9 @@
 package org.restlet.engine.log;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.engine.Engine;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Filter;
 import org.restlet.service.LogService;
 import org.slf4j.Logger;

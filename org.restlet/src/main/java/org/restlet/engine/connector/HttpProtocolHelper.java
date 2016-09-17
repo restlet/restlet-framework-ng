@@ -24,7 +24,7 @@
 
 package org.restlet.engine.connector;
 
-import org.restlet.data.Method;
+import org.restlet.message.Method;
 
 /**
  * Protocol helper for the HTTP protocol.

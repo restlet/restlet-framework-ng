@@ -27,7 +27,7 @@ package org.restlet;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.restlet.data.Protocol;
+import org.restlet.util.Protocol;
 
 /**
  * Restlet enabling communication between Components. "A connector is an

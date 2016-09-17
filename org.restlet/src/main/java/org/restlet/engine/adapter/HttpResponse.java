@@ -24,12 +24,12 @@
 
 package org.restlet.engine.adapter;
 
-import org.restlet.Message;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ServerInfo;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
+import org.restlet.message.Message;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.ServerInfo;
+import org.restlet.message.Status;
 
 /**
  * Response wrapper for server HTTP calls.

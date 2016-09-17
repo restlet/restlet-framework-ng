@@ -26,8 +26,8 @@ package org.restlet.engine.header;
 
 import java.io.IOException;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.MediaType;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 
 /**

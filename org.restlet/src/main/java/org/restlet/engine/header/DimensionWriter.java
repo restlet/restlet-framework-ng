@@ -26,7 +26,7 @@ package org.restlet.engine.header;
 
 import java.util.Collection;
 
-import org.restlet.data.Dimension;
+import org.restlet.message.Dimension;
 
 /**
  * Dimension header writer.

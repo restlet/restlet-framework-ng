@@ -31,8 +31,8 @@ import java.lang.reflect.Type;
 
 import org.restlet.Application;
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.resource.Finder;
 import org.restlet.resource.ServerResource;
 

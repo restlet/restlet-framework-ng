@@ -25,7 +25,7 @@
 package org.restlet.ext.thymeleaf;
 
 import org.junit.Test;
-import org.restlet.data.MediaType;
+import org.restlet.representation.MediaType;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Locale;

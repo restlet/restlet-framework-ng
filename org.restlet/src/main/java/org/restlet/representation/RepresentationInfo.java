@@ -26,9 +26,8 @@ package org.restlet.representation;
 
 import java.util.Date;
 
-import org.restlet.data.MediaType;
-import org.restlet.data.Tag;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.util.Tag;
 
 /**
  * Information about a representation. Those metadata don't belong to the parent

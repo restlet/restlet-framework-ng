@@ -32,11 +32,11 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Map;
 
-import org.restlet.Response;
 import org.restlet.Server;
-import org.restlet.data.Header;
 import org.restlet.engine.adapter.ServerCall;
+import org.restlet.message.Response;
 import org.restlet.representation.Representation;
+import org.restlet.util.Header;
 import org.restlet.util.Series;
 
 import io.netty.buffer.ByteBuf;

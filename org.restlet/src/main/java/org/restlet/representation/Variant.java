@@ -29,14 +29,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Preference;
-import org.restlet.data.Reference;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Preference;
+import org.restlet.util.Reference;
 import org.restlet.util.WrapperList;
 
 /**

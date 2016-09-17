@@ -25,11 +25,11 @@
 package org.restlet.ext.freemarker;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Encoding;
 import org.restlet.ext.freemarker.internal.ResolverHashModel;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.Encoding;
 import org.restlet.routing.Filter;
 import org.restlet.util.Resolver;
 

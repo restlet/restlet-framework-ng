@@ -27,14 +27,14 @@ package org.restlet.engine.application;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.restlet.Request;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Encoding;
-import org.restlet.data.Language;
-import org.restlet.data.MediaType;
-import org.restlet.data.Metadata;
-import org.restlet.data.Preference;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Preference;
+import org.restlet.message.Request;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
+import org.restlet.representation.Language;
+import org.restlet.representation.MediaType;
+import org.restlet.representation.Metadata;
 import org.restlet.service.MetadataService;
 
 /**

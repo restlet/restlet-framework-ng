@@ -29,9 +29,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.restlet.Context;
-import org.restlet.data.Method;
 import org.restlet.engine.application.CorsFilter;
 import org.restlet.engine.util.SetUtils;
+import org.restlet.message.Method;
 import org.restlet.routing.Filter;
 
 /**

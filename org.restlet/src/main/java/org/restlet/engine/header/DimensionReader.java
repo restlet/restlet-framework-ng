@@ -27,8 +27,8 @@ package org.restlet.engine.header;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.restlet.data.Dimension;
-import org.restlet.data.Header;
+import org.restlet.message.Dimension;
+import org.restlet.util.Header;
 
 /**
  * Dimension header reader.

@@ -24,8 +24,8 @@
 
 package org.restlet.engine.component;
 
-import org.restlet.Request;
-import org.restlet.Response;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Route;
 import org.restlet.routing.Router;
 import org.restlet.routing.VirtualHost;

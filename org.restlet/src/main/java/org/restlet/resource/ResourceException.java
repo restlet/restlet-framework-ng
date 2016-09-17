@@ -24,9 +24,9 @@
 
 package org.restlet.resource;
 
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 
 /**
  * Encapsulates a response status and the optional cause as a checked exception.
@@ -252,7 +252,7 @@ public class ResourceException extends RuntimeException {
     }
 
     /**
-     * Constructor that set the status to {@link org.restlet.data.Status#SERVER_ERROR_INTERNAL} including the
+     * Constructor that set the status to {@link org.restlet.message.Status#SERVER_ERROR_INTERNAL} including the
      * related error or exception.
      * 
      * @param cause

@@ -26,9 +26,9 @@ package org.restlet.engine.component;
 
 import org.restlet.Client;
 import org.restlet.Component;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
 import org.restlet.routing.Router;
 
 /**

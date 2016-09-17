@@ -29,20 +29,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.AuthenticationInfo;
-import org.restlet.data.ChallengeRequest;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Header;
-import org.restlet.data.Parameter;
-import org.restlet.data.Reference;
 import org.restlet.engine.Engine;
 import org.restlet.engine.header.ChallengeRequestReader;
 import org.restlet.engine.header.ChallengeWriter;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.header.HeaderReader;
+import org.restlet.message.AuthenticationInfo;
+import org.restlet.message.ChallengeRequest;
+import org.restlet.message.ChallengeResponse;
+import org.restlet.message.ChallengeScheme;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.util.Header;
+import org.restlet.util.Parameter;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
 
 /**

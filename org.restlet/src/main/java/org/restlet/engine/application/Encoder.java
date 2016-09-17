@@ -28,11 +28,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.ClientInfo;
-import org.restlet.data.Encoding;
-import org.restlet.data.Preference;
+import org.restlet.message.ClientInfo;
+import org.restlet.message.Preference;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.representation.Encoding;
 import org.restlet.representation.Representation;
 import org.restlet.routing.Filter;
 import org.restlet.service.EncoderService;

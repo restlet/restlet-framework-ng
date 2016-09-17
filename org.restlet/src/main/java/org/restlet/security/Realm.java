@@ -26,7 +26,7 @@ package org.restlet.security;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.restlet.data.Parameter;
+import org.restlet.util.Parameter;
 import org.restlet.util.Series;
 
 /**

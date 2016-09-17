@@ -25,10 +25,7 @@
 package org.restlet.engine.adapter;
 
 import org.restlet.Context;
-import org.restlet.Response;
 import org.restlet.Server;
-import org.restlet.data.Digest;
-import org.restlet.data.Header;
 import org.restlet.engine.connector.ConnectorHelper;
 import org.restlet.engine.header.ContentType;
 import org.restlet.engine.header.DispositionReader;
@@ -41,10 +38,13 @@ import org.restlet.engine.header.RangeReader;
 import org.restlet.engine.io.IoUtils;
 import org.restlet.engine.util.Base64;
 import org.restlet.engine.util.StringUtils;
+import org.restlet.message.Response;
 import org.restlet.representation.EmptyRepresentation;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.service.ConnectorService;
+import org.restlet.util.Digest;
+import org.restlet.util.Header;
 
 import java.io.IOException;
 import java.io.InputStream;

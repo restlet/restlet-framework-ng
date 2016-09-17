@@ -27,8 +27,8 @@ package org.restlet.engine.header;
 import java.util.Date;
 import java.util.List;
 
-import org.restlet.data.CookieSetting;
 import org.restlet.engine.util.DateUtils;
+import org.restlet.message.CookieSetting;
 
 /**
  * Cookie setting header writer.

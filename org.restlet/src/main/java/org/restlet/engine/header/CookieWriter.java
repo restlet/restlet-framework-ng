@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.restlet.data.Cookie;
+import org.restlet.message.Cookie;
 
 /**
  * Cookie header writer.

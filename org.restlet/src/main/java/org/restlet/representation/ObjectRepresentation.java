@@ -31,8 +31,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-import org.restlet.data.MediaType;
-
 /**
  * Representation based on a serializable Java object.<br>
  * It supports binary representations of JavaBeans using the

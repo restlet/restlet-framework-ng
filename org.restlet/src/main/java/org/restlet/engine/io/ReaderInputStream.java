@@ -32,7 +32,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharsetEncoder;
 
-import org.restlet.data.CharacterSet;
+import org.restlet.representation.CharacterSet;
 
 /**
  * Input stream based on a reader. The implementation relies on the NIO

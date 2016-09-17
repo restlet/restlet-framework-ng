@@ -33,9 +33,9 @@ import java.util.List;
 import javax.security.auth.x500.X500Principal;
 
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Status;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 
 /**
  * Authenticator based on the SSL client certificate. If a client certificate is

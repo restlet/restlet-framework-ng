@@ -27,14 +27,14 @@ package org.restlet.routing;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Context;
-import org.restlet.Request;
-import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.Reference;
-import org.restlet.data.Status;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.engine.header.HeaderUtils;
+import org.restlet.message.Request;
+import org.restlet.message.Response;
+import org.restlet.message.Status;
 import org.restlet.representation.Representation;
+import org.restlet.util.Reference;
 import org.restlet.util.Resolver;
 
 /**

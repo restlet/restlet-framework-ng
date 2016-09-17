@@ -27,10 +27,10 @@ package org.restlet.engine.header;
 import java.io.StringWriter;
 import java.util.Collection;
 
-import org.restlet.data.CharacterSet;
-import org.restlet.data.Encoding;
-import org.restlet.data.Reference;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.Encoding;
 import org.restlet.util.NamedValue;
+import org.restlet.util.Reference;
 
 /**
  * HTTP-style header writer.

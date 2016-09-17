@@ -25,12 +25,12 @@
 package org.restlet.ext.html.internal;
 
 import org.restlet.Context;
-import org.restlet.data.CharacterSet;
-import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
 import org.restlet.ext.html.FormData;
+import org.restlet.representation.CharacterSet;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.util.NamedValue;
+import org.restlet.util.Reference;
 import org.restlet.util.Series;
 
 import java.io.IOException;

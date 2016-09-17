@@ -26,8 +26,8 @@ package org.restlet.engine.resource;
 
 import java.util.Objects;
 
-import org.restlet.data.MediaType;
 import org.restlet.engine.util.SystemUtils;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Variant;
 
 /**

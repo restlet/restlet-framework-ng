@@ -31,7 +31,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
-import org.restlet.data.CharacterSet;
+import org.restlet.representation.CharacterSet;
 
 /**
  * Output stream wrapping a character writer.

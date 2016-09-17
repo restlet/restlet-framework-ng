@@ -27,10 +27,10 @@ package org.restlet.ext.xml;
 import java.io.IOException;
 import java.util.List;
 
-import org.restlet.data.MediaType;
-import org.restlet.data.Preference;
 import org.restlet.engine.converter.ConverterHelper;
 import org.restlet.engine.resource.VariantInfo;
+import org.restlet.message.Preference;
+import org.restlet.representation.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
