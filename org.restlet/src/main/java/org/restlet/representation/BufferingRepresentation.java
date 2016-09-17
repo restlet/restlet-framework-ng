@@ -24,10 +24,6 @@
 
 package org.restlet.representation;
 
-import org.restlet.Context;
-import org.restlet.engine.io.IoUtils;
-import org.restlet.util.WrapperRepresentation;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,8 +31,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.nio.ByteBuffer;
-import java.nio.channels.WritableByteChannel;
+
+import org.restlet.Context;
+import org.restlet.engine.io.IoUtils;
+import org.restlet.util.WrapperRepresentation;
 
 /**
  * Representation capable of buffering the wrapped representation. This is
@@ -97,12 +95,6 @@ public class BufferingRepresentation extends WrapperRepresentation {
      */
     protected byte[] getBuffer() {
         return buffer;
-    }
-
-    @Override
-    public java.nio.channels.ReadableByteChannel getChannel()
-            throws IOException {
-        return IoUtils.getChannel(getStream());
     }
 
     @Override
@@ -188,15 +180,6 @@ public class BufferingRepresentation extends WrapperRepresentation {
 
         if (getBuffer() != null) {
             outputStream.write(getBuffer());
-        }
-    }
-
-    @Override
-    public void write(WritableByteChannel writableChannel) throws IOException {
-        buffer();
-
-        if (getBuffer() != null) {
-            writableChannel.write(ByteBuffer.wrap(getBuffer()));
         }
     }
 

@@ -101,13 +101,6 @@ public abstract class ClientCall extends Call {
     }
 
     /**
-     * Returns the request entity channel if it exists.
-     * 
-     * @return The request entity channel if it exists.
-     */
-    public abstract java.nio.channels.WritableByteChannel getRequestEntityChannel();
-
-    /**
      * Returns the request entity stream if it exists.
      * 
      * @return The request entity stream if it exists.
@@ -155,12 +148,9 @@ public abstract class ClientCall extends Call {
             // Make sure that an InputRepresentation will not be instantiated
             // while the stream is closed.
             InputStream stream = getUnClosedResponseEntityStream(getResponseEntityStream(size));
-            java.nio.channels.ReadableByteChannel channel = getResponseEntityChannel(size);
 
             if (stream != null) {
                 result = getRepresentation(stream);
-            } else if (channel != null) {
-                result = getRepresentation(channel);
             }
         }
 
@@ -177,16 +167,6 @@ public abstract class ClientCall extends Call {
 
         return result;
     }
-
-    /**
-     * Returns the response channel if it exists.
-     * 
-     * @param size
-     *            The expected entity size or -1 if unknown.
-     * @return The response channel if it exists.
-     */
-    public abstract java.nio.channels.ReadableByteChannel getResponseEntityChannel(
-            long size);
 
     /**
      * Returns the response entity stream if it exists.
@@ -272,12 +252,8 @@ public abstract class ClientCall extends Call {
                 // "insufficient data sent" exceptions will occur in
                 // "fixedLengthMode"
                 OutputStream requestStream = getRequestEntityStream();
-                java.nio.channels.WritableByteChannel requestChannel = getRequestEntityChannel();
 
-                if (requestChannel != null) {
-                    entity.write(requestChannel);
-                    requestChannel.close();
-                } else if (requestStream != null) {
+                if (requestStream != null) {
                     entity.write(requestStream);
                     requestStream.flush();
                     requestStream.close();

@@ -49,22 +49,8 @@ public abstract class StreamRepresentation extends Representation {
     }
 
     @Override
-    public java.nio.channels.ReadableByteChannel getChannel()
-            throws IOException {
-        return IoUtils.getChannel(getStream());
-    }
-
-    @Override
     public Reader getReader() throws IOException {
         return IoUtils.getReader(getStream(), getCharacterSet());
-    }
-
-    @Override
-    public void write(java.nio.channels.WritableByteChannel writableChannel)
-            throws IOException {
-        OutputStream os = IoUtils.getStream(writableChannel);
-        write(os);
-        os.flush();
     }
 
     @Override

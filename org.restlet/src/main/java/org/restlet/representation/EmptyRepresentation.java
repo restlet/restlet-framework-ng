@@ -48,12 +48,6 @@ public class EmptyRepresentation extends Representation {
     }
 
     @Override
-    public java.nio.channels.ReadableByteChannel getChannel()
-            throws IOException {
-        return null;
-    }
-
-    @Override
     public Reader getReader() throws IOException {
         return null;
     }
@@ -70,12 +64,6 @@ public class EmptyRepresentation extends Representation {
 
     @Override
     public void write(java.io.Writer writer) throws IOException {
-        // Do nothing
-    }
-
-    @Override
-    public void write(java.nio.channels.WritableByteChannel writableChannel)
-            throws IOException {
         // Do nothing
     }
 
