@@ -43,6 +43,7 @@ public class WarningWriter extends HeaderWriter<Warning> {
      *            The list of warnings to format.
      * @return The formatted warning.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Warning> warnings) {
         return new WarningWriter().append(warnings).toString();
     }

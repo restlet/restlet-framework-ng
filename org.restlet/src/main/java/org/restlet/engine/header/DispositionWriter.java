@@ -41,6 +41,7 @@ public class DispositionWriter extends HeaderWriter<Disposition> {
      *            The disposition to format.
      * @return The formatted disposition.
      */
+    @SuppressWarnings("resource")
     public static String write(Disposition disposition) {
         return new DispositionWriter().append(disposition).toString();
     }

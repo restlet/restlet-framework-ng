@@ -42,6 +42,7 @@ public class EncodingWriter extends MetadataWriter<Encoding> {
      *            The encodings to write.
      * @return This writer.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Encoding> encodings) {
         return new EncodingWriter().append(encodings).toString();
     }

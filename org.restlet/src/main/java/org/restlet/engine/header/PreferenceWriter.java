@@ -56,7 +56,7 @@ public class PreferenceWriter extends HeaderWriter<Preference<?>> {
      * @return The formatted list of preferences.
      * @throws IOException
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes", "resource" })
     public static String write(List prefs) {
         return new PreferenceWriter().append(prefs).toString();
     }

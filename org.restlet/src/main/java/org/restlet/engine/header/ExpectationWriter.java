@@ -43,6 +43,7 @@ public class ExpectationWriter extends HeaderWriter<Expectation> {
      *            The list of expectations.
      * @return The formatted list of expectations.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Expectation> expectations) {
         return new ExpectationWriter().append(expectations).toString();
     }

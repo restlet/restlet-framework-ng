@@ -42,6 +42,7 @@ public class MethodWriter extends HeaderWriter<Method> {
      *            The set of methods.
      * @return The formatted set of methods.
      */
+    @SuppressWarnings("resource")
     public static String write(Set<Method> methods) {
         return new MethodWriter().append(methods).toString();
     }

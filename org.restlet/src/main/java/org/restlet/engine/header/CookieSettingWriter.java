@@ -44,7 +44,8 @@ public class CookieSettingWriter extends HeaderWriter<CookieSetting> {
      *            The cookie setting to format.
      * @return The formatted cookie setting.
      */
-    public static String write(CookieSetting cookieSetting) {
+    @SuppressWarnings("resource")
+	public static String write(CookieSetting cookieSetting) {
         return new CookieSettingWriter().append(cookieSetting).toString();
     }
 
@@ -55,7 +56,8 @@ public class CookieSettingWriter extends HeaderWriter<CookieSetting> {
      *            The cookie settings to write.
      * @return The formatted cookie setting.
      */
-    public static String write(List<CookieSetting> cookieSettings) {
+    @SuppressWarnings("resource")
+	public static String write(List<CookieSetting> cookieSettings) {
         return new CookieSettingWriter().append(cookieSettings).toString();
     }
 

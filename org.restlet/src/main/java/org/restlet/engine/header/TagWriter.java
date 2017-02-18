@@ -42,6 +42,7 @@ public class TagWriter extends HeaderWriter<Tag> {
      *            The tags to write.
      * @return This writer.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Tag> tags) {
         return new TagWriter().append(tags).toString();
     }

@@ -42,6 +42,7 @@ public class DimensionWriter extends HeaderWriter<Dimension> {
      *            The dimensions to copy to the response.
      * @return Returns the Vary header or null, if dimensions is null or empty.
      */
+    @SuppressWarnings("resource")
     public static String write(Collection<Dimension> dimensions) {
         return new DimensionWriter().append(dimensions).toString();
     }

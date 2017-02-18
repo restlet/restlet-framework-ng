@@ -40,6 +40,7 @@ public class StringWriter extends HeaderWriter<String> {
      *            The set of values.
      * @return The formatted set of values.
      */
+    @SuppressWarnings("resource")
     public static String write(Set<String> values) {
         return new StringWriter().append(values).toString();
     }

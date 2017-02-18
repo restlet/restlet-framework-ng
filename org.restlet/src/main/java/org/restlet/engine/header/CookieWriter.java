@@ -68,7 +68,8 @@ public class CookieWriter extends HeaderWriter<Cookie> {
      * @throws IllegalArgumentException
      *             If the Cookie contains illegal values.
      */
-    public static String write(Cookie cookie) throws IllegalArgumentException {
+    @SuppressWarnings("resource")
+	public static String write(Cookie cookie) throws IllegalArgumentException {
         return new CookieWriter().append(cookie).toString();
     }
 
@@ -79,6 +80,7 @@ public class CookieWriter extends HeaderWriter<Cookie> {
      *            The cookies to format.
      * @return The formatted cookie.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Cookie> cookies) {
         return new CookieWriter().append(cookies).toString();
     }

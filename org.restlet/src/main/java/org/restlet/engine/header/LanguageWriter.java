@@ -42,6 +42,7 @@ public class LanguageWriter extends MetadataWriter<Language> {
      *            The languages to write.
      * @return This writer.
      */
+    @SuppressWarnings("resource")
     public static String write(List<Language> languages) {
         return new LanguageWriter().append(languages).toString();
     }

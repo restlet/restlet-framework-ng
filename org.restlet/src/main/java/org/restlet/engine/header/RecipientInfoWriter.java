@@ -42,6 +42,7 @@ public class RecipientInfoWriter extends HeaderWriter<RecipientInfo> {
      *            The recipients info.
      * @return Returns the Via header.
      */
+    @SuppressWarnings("resource")
     public static String write(List<RecipientInfo> recipientsInfo) {
         return new RecipientInfoWriter().append(recipientsInfo).toString();
     }

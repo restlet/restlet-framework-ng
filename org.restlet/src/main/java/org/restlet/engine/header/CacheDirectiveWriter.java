@@ -42,7 +42,8 @@ public class CacheDirectiveWriter extends HeaderWriter<CacheDirective> {
      *            The list of cache directives.
      * @return The formatted list of cache directives.
      */
-    public static String write(List<CacheDirective> directives) {
+    @SuppressWarnings("resource")
+	public static String write(List<CacheDirective> directives) {
         return new CacheDirectiveWriter().append(directives).toString();
     }
 

@@ -43,7 +43,8 @@ public class RangeWriter extends HeaderWriter<Range> {
      *            List of ranges to format
      * @return {@code ranges} formatted or null if the list is null or empty.
      */
-    public static String write(List<Range> ranges) {
+    @SuppressWarnings("resource")
+	public static String write(List<Range> ranges) {
         return new RangeWriter().append(ranges).toString();
     }
 

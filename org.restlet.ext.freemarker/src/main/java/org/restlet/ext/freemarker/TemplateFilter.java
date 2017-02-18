@@ -61,8 +61,7 @@ public class TemplateFilter extends Filter {
      * Constructor.
      */
     public TemplateFilter() {
-        super();
-        this.configuration = new Configuration();
+        this(null);
     }
 
     /**
@@ -72,8 +71,7 @@ public class TemplateFilter extends Filter {
      *            The context.
      */
     public TemplateFilter(Context context) {
-        super(context);
-        this.configuration = new Configuration();
+        this(context, null);
     }
 
     /**
@@ -86,7 +84,7 @@ public class TemplateFilter extends Filter {
      */
     public TemplateFilter(Context context, Restlet next) {
         super(context, next);
-        this.configuration = new Configuration();
+        this.configuration = new Configuration(Configuration.VERSION_2_3_23);
     }
 
     /**

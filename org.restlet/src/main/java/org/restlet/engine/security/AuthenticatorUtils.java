@@ -79,7 +79,8 @@ public class AuthenticatorUtils {
      *         value.
      */
     public static String formatAuthenticationInfo(AuthenticationInfo info) {
-        ChallengeWriter cw = new ChallengeWriter();
+        @SuppressWarnings("resource")
+		ChallengeWriter cw = new ChallengeWriter();
         boolean firstParameter = true;
 
         if (info != null) {
